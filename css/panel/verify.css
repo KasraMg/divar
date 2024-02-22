@@ -98,3 +98,22 @@
     color: var(--white-color);
     font-size: 1.6rem;
 }
+
+
+/* باید به verify__nationality-dropdown-item اد بشه */
+.verify__nationality-dropdown-item--active {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: var(--primary-color);
+}
+
+/* باید به verify__nationality-dropdown اد بشه */
+.verify__nationality-dropdown--active {
+    visibility: visible;
+    opacity: 1;
+    top: 4.5rem;
+}
+
+/* باید به verify__nationality-select-icon اد بشه */
+.verify__nationality-select-icon--active {
+    transform: rotate(180deg);
+}

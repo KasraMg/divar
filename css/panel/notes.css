@@ -1,0 +1,49 @@
+@import url(/css/panel/panel.css);
+
+
+.cards{
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+}
+.card div{
+    display: flex;
+    gap: 20px;
+}
+.card div div{
+    flex-direction: column;
+    gap: 0px;
+}
+.card img{
+    width: 80px;
+    border-radius: 4px;
+    height: 80px;
+}
+.card p:nth-child(3){
+    margin-top: 2rem;
+    font-size: 1.2rem;
+}
+.card{
+    font-size: 1.5rem;
+    padding: 1.6rem;
+    border: 1px solid rgba(0, 0, 0, 0.316);
+    border-radius: 4px;
+    width: 640px;
+    padding-bottom: 6rem;
+    position: relative;
+}
+.title{
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    color: black;
+    font-size: 1.8rem;
+}
+.card i:hover{
+    color: black;
+}
+.card i{
+    position: absolute;
+    bottom: 15px;
+    cursor: pointer;
+    left: 15px;
+}

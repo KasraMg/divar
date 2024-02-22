@@ -1,25 +1,5 @@
 @import url(/css/panel/panel.css);
 
-.empty p{
-font-size: 1.5rem;
-}
-.empty{
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.empty img{
-    width: 200px;
-    height: 200px;
-    margin-bottom: 5px;
-}
-
-.empty p{
-    display: flex;
-    gap: 5px;
-}
-
 
 .cards{
     display: grid;
