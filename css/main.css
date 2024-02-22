@@ -349,6 +349,7 @@ button {
     border-radius: 0.3rem;
     padding: 0.8rem 1.3rem;
 }
+
 /* !=======================================End Header Style!======================================= */
 
 /* !=======================================Main Style!======================================= */
@@ -356,19 +357,7 @@ button {
     margin-top: 10rem;
 }
 /* ==========Sidebar Category========== */
-.sidebar {
-    position: fixed;
-    right: 0;
-    top: 6.9rem;
-    bottom: 0;
-    width: 25%;
-    overflow: auto;
-    padding: 0 1rem;
-    background-color: var(--white-color);
-    padding-top: 4rem;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+
 .sidebar::-webkit-scrollbar {
     display: none;
 }
