@@ -76,14 +76,14 @@
     margin-top:3rem;
     margin-right: auto;
     display: block;
-    border: 1px solid #a62626;
+    border: 1px solid var(--primary-color);
     border-radius: 4px;
     width: max-content;
     text-align: center;
     padding: .8rem 1.3rem;  
     position: relative;
     transition: color .36s ease,background-color .36s ease,box-shadow .36s ease,border-color .36s ease,transform .36s ease;
-    color: #a62626;
+    color: var(--primary-color);
  }
  .controll:hover {
     background-color: rgba(166,38,38,.04);

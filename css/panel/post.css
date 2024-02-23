@@ -1,0 +1,179 @@
+@import url(/css/panel/panel.css);
+
+.post {
+    font-size: 1.5rem;
+
+}
+
+.publish {
+    color: green;
+    font-weight: 800;
+}
+
+.reject {
+    color: red;
+    font-weight: 800;
+}
+
+.status {
+    margin-top: 30px;
+}
+
+.delete-btn {
+    cursor: pointer;
+    line-height: 20px;
+    margin-top: 3rem;
+    margin-right: auto;
+    display: block;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    font-weight: 800;
+    width: max-content;
+    text-align: center;
+    padding: .8rem 1.3rem;
+    position: relative;
+    transition: color .36s ease, background-color .36s ease, box-shadow .36s ease, border-color .36s ease, transform .36s ease;
+    color: var(--primary-color);
+}
+
+.delete-btn:hover {
+    background-color: rgba(166, 38, 38, .04);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    background: white !important;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    border-radius: 0;
+    padding-bottom: 15px;
+}
+
+.nav-link {
+    font-size: 1.8rem;
+    color: unset;
+}
+
+.nav-pills {
+    justify-content: center;
+    border-bottom: 1px solid rgb(0 0 0 / 11%);
+    gap: 50px;
+}
+
+.nav-link.active:hover {
+    background-color: rgba(166, 38, 38, .04);
+}
+
+.nav-link:focus,
+.nav-link:hover {
+    color: unset;
+}
+
+#pills-details {
+    display: flex;
+}
+
+.details {
+    padding-left: 120px;
+    width: 50%;
+}
+
+.map-container {
+    width: 50%;
+}
+
+.date {
+    font-size: 1.7rem;
+}
+
+.title {
+    font-weight: 800;
+    color: black;
+    margin: 20px 0;
+    font-size: 2.2rem;
+}
+
+.link {
+    display: flex;
+    padding: 20px 0;
+    margin-top: 2rem;
+    border-bottom: 1px solid rgb(0 0 0 / 11%);
+    border-top: 1px solid rgb(0 0 0 / 11%);
+    justify-content: space-between;
+}
+
+.link div {
+    display: flex;
+    gap: 30px;
+}
+
+.link i:hover {
+    color: black;
+}
+
+.link i {
+    cursor: pointer;
+}
+
+.link a {
+    color: var(--primary-color);
+}
+
+.details section {
+    display: flex;
+    margin: 20px 0;
+
+}
+
+.details section div p:nth-child(2) {
+    color: black;
+    font-size: 1.6rem;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.details section div {
+    width: 100%;
+    text-align: center;
+}
+
+.details section div {
+    border-left: 1px solid rgb(0 0 0 / 11%);
+}
+
+.details section div:last-child {
+    border: 0;
+}
+
+.group {
+    display: flex;
+    padding: 17px 0;
+    border-top: 1px solid rgb(0 0 0 / 11%);
+    justify-content: space-between;
+}
+
+.group p:nth-child(2) {
+    color: black;
+}
+
+.group:nth-child(5) p:nth-child(2) {
+    font-weight: 600;
+    color: var(--primary-color) !important;
+}
+
+.description p:nth-child(1) {
+    font-weight: 600;
+    color: black;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 1.8rem;
+}
+
+.description {
+    margin-bottom: 4rem;
+}
+
+#map {
+    height: 85%;
+    margin-top: 20px;
+}
