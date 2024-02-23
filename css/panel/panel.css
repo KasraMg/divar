@@ -304,6 +304,7 @@ button {
 .sidebar__link {
     padding: 0 1rem;
     line-height: 3rem;
+white-space: nowrap;
 }
 
 .sidebar__social {

@@ -3,8 +3,10 @@
 
 .cards{
     display: grid;
-    gap: 20px;
-    justify-content: center;
+    gap: 5px;
+    row-gap: 20px;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
 }
 .card div{
     display: flex;
@@ -28,15 +30,15 @@
     padding: 1.6rem;
     border: 1px solid rgb(0 0 0 / 11%);
     border-radius: 4px;
-    width: 640px;
-    padding-bottom: 6rem;
+    width: 100%;
+    padding-bottom: 2rem;
     position: relative;
 }
 .title{
     margin-bottom: 1.2rem;
     font-weight: 700;
     color: black;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
 }
 .card i:hover{
     color: black;
