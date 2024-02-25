@@ -15,8 +15,7 @@
         let editIcon;
         let iconStatus=true
   
-
-
+ 
         var editMap = L.map('edit-map').setView([35.551066,51.197588], 13); 
         
         var exitIcon1 = L.icon({

@@ -218,7 +218,7 @@
                         </ul>
 
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade"
+                            <div class="tab-pane fade show active"
                                 id="pills-details" role="tabpanel"
                                 aria-labelledby="pills-details-tab">
 
@@ -270,7 +270,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade  show active"
+                            <div class="tab-pane fade"
                                 id="pills-edit"
                                 role="tabpanel"
                                 aria-labelledby="pills-edit-tab">
@@ -320,6 +320,54 @@
                                         <input type="text" value="12232443">
                                         <p>122,342,443 تومان</p>
                                     </div>
+                                    <div class="group">
+                                        <p class="edit-title">تعداد اتاق</p>
+                                        <label class="select" for="slct">
+                                            <select id="slct"
+                                                required="required">
+                                                <option value
+                                                    disabled="disabled"
+                                                    selected="selected">دو</option>
+                                                <option value="#">سه</option>
+                                                <option value="#">چهار</option>
+                                                <option value="#">پنج</option>
+                                            </select>
+                                            <svg>
+                                                <use
+                                                    xlink:href="#select-arrow-down"></use>
+                                            </svg>
+                                        </label>
+                                        <svg class="sprites">
+                                            <symbol id="select-arrow-down"
+                                                viewbox="0 0 10 6">
+                                                <polyline points="1 1 5 5 9 1"></polyline>
+                                            </symbol>
+                                        </svg>
+                                    </div>
+                                    <div class="group">
+                                        <p class="edit-title">سال ساخت</p>
+                                        <label class="select" for="slct">
+                                            <select id="slct"
+                                                required="required">
+                                                <option value
+                                                    disabled="disabled"
+                                                    selected="selected">1402</option>
+                                                <option value="#">1401</option>
+                                                <option value="#">1400</option>
+                                                <option value="#">1399</option>
+                                            </select>
+                                            <svg>
+                                                <use
+                                                    xlink:href="#select-arrow-down"></use>
+                                            </svg>
+                                        </label>
+                                       <svg class="sprites">
+                                            <symbol id="select-arrow-down"
+                                                viewbox="0 0 10 6">
+                                                <polyline points="1 1 5 5 9 1"></polyline>
+                                            </symbol>
+                                        </svg>
+                                    </div>
                                 </div>
 
                                 <div class="groups">
@@ -329,16 +377,17 @@
                                             نوع ملک و متراژ اشاره کنید. </span>
                                         <input type="text" value="فروش مغازه">
                                     </div>
-                                </div>
-                                <div class="groups">
+
                                     <div class="group edit-post-title">
                                         <p class="edit-title">توضیحات آگهی</p>
                                         <span>در توضیحات آگهی به مواردی مانند
                                             شرایط فروش، جزئیات و ویژگی‌های قابل
                                             توجه، دسترسی‌های محلی و موقعیت
                                             قرارگیری ملک اشاره کنید.</span>
-                                        <textarea id cols="30" rows="8" placeholder="فروش مغازه"> </textarea>
-                                            <button>ثبت تغییرات</button>
+                                        <textarea id cols="30" rows="8"
+                                            placeholder="فروش مغازه">
+                                        </textarea>
+                                        <button>ثبت تغییرات</button>
                                     </div>
                                 </div>
                             </div>
