@@ -1,5 +1,4 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
-
 :root {
     --primary-color: #a62626;
     --text-color: rgba(0, 0, 0, 0.56);
@@ -14,47 +13,39 @@
 }
 
 /* !=======================================Default Style!======================================= */
-html {
-    font-size: 62.5%; 
-}
 
+html {
+    font-size: 62.5%;
+}
 * {
     outline: none;
     color: var(--text-color);
 }
-
 body {
     font-family: "iransans-regular";
 }
-
 button {
     background-color: transparent;
     border: none;
 }
-
 a {
     color: var(--text-color);
     text-decoration: none;
     transition: var(--transition);
 }
-
 i {
     transition: var(--transition);
 }
-
 a:hover {
     color: var(--black-color);
 }
-
 input {
     border: none;
 }
-
 button {
     padding: 0;
     margin: 0;
 }
-
 .bi {
     display: flex;
     align-items: center;
@@ -64,34 +55,29 @@ button {
 
 /* !=======================================Header Style!======================================= */
 .header {
-    padding: 0.8rem 0;
+    padding: 0.8rem 3rem;
     background-color: var(--white-color);
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px 0px;
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
-    margin: 0 auto; 
-    z-index: 9999; 
+    margin: 0 auto;
+    z-index: 1;
 }
-
 .header__wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 70px;
 }
-
 .header__right {
     display: flex;
     align-items: center;
 }
-
 .header__logo-img {
     width: 4.8rem;
     height: 4.8rem;
 }
-
 .header__country {
     display: flex;
     align-items: center;
@@ -102,66 +88,44 @@ button {
     padding: 1rem 1.3rem;
     border-radius: 0.3rem;
 }
-
-.header__country * {
+.header__country *,
+.header__category-btn * {
     transition: var(--transition);
 }
-
-.header__country:hover {
+.header__country:hover,
+.header__category-btn:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
-
-.header__country:hover * {
+.header__country:hover *,
+.header__category-btn:hover * {
     color: var(--black-color);
 }
-
 .header__country-icon {
     font-size: 1.6rem;
 }
-
 .header__country-title {
     margin-right: 0.8rem;
 }
-
-.header__form {
-    height: 3.8rem;
-    width: 40rem;
-}
-
-.header__form-input {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.04);
-    border-radius: 0.3rem;
-    color: var(--text-color);
-    padding: 0.5rem 3.5rem 0.5rem 1rem;
-    font-size: var(--font-size-sm);
-}
-
 .header__left {
     display: flex;
     align-items: center;
     position: relative;
 }
-
 .header__left-link {
     display: flex;
     align-items: center;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     margin: 0 1.5rem;
     font-family: "iransans-medium";
     padding: 1rem 1.3rem;
     border-radius: 0.3rem;
 }
-
 .header__left-link:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
-
 .header__left-link:hover .header__left-icon {
     color: var(--black-color);
 }
-
 /* Drop Down */
 .header__left-dropdown {
     position: absolute;
@@ -184,146 +148,187 @@ button {
     font-size: var(--font-size-sm);
     color: var(--black-color);
 }
-
 .header__left-dropdown-link:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
-
 .header__left-dropdown-icon {
     color: var(--black-color);
     margin-left: 1rem;
     font-size: var(--font-size-md);
 }
-
 /* End Drop Down */
 .header__left-icon.bi-person {
     font-size: var(--font-size-lg);
     margin-left: 0.7rem;
 }
-
 .header__left-icon.bi-chat {
     font-size: var(--font-size-md);
     margin-left: 0.7rem;
 }
-
 .header__left-btn {
     font-size: var(--font-size-md);
     font-family: "iransans-bold";
     background-color: var(--primary-color);
     color: var(--white-color);
     border-radius: 0.3rem;
-    padding: 1.3rem 1.3rem;
+    padding: 0.8rem 1.3rem;
 }
-
 /* !=======================================End Header Style!======================================= */
 
 /* !=======================================Main Style!======================================= */
-.main {
-    margin-top: 10rem;
-    padding: 0 80px;
+.container{
+  width: 510px;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  display: block;
+}.main {
+    margin-top: 12rem;
+}
+.new_title{
+  font-size: 1.8rem;
+color: black;
+}
+ .select_category_title{
+  margin-top: 1rem;
+ }
+ .result p:hover,.result a:hover{
+  background: rgb(235, 235, 235);
+ }
+ .result p,.result a{
+  padding: 1.5rem;
+  cursor: pointer;
+ }
+ .search_box .active{
+  visibility: visible !important;
+ }
+ .result{
+  width: 100%;
+  background-color: white;
+  z-index: 10; 
+  position: absolute;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.151);
+  top: 41px;
+  visibility: hidden;
+  height: 300px;
+  overflow-y: scroll;
+ }
+.search_box{
+  position: relative;
+  margin-top: 2rem;
+}
+.search_box input:focus{
+  border-color: #a62626;
+}
+.search_box input{
+  color: black;
+  transition: color .15s ease, border-color .15s ease, box-shadow .15s ease, padding .15s ease;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.134);
+  padding: .7rem 4rem .7rem 2rem;
+}
+ .search_box .bi{
+  position: absolute;
+  top: 9px;
+  right: 14px;
+  font-size: 1.8rem;
 }
 
-/* *====================Sidebar====================* */
-.sidebar {
-    position: fixed;
-    right: 55px;
-    top: 6rem;
-    bottom: 0;
-    overflow: auto;
-    width: 18%;
-    scrollbar-width: none;
-    padding: 4rem 2rem 1rem 2rem;
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 53px;
+  height: 25px;
 }
 
-.sidebar__user {
-    display: flex;
-    margin-top: 30px;
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.sidebar__user-right {
-    margin-left: 1rem;
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
-.sidebar__user-icon {
-    font-size: 1.8rem;
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 21px;
+  left: 2px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
-.sidebar__user-text {
-    font-size: var(--font-size-md);
-    color: var(--black-color);
-    font-family: "iransans-bold";
+input:checked+.slider {
+  background-color: var(--primary-color);
 }
 
-.sidebar__user-phone {
-    font-size: var(--font-size-sm);
-    margin-top: 1rem;
+input:focus+.slider {
+  box-shadow: 0 0 1px var(--primary-color);
 }
 
-.sidebar__menu-list {
-    padding: 1.5rem 0;
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
-.sidebar__menu-link {
-    display: flex;
-    align-items: center;
-    padding: 1.8rem 0;
-    font-size: 16px;
-    color: var(--black-color);
+.slider.round {
+  border-radius: 34px;
 }
 
-.sidebar__menu-icon {
-    margin-left: 1rem;
+.slider.round:before {
+  border-radius: 50%;
 }
-
-.sidebar__link-item {
-    display: flex;
-    align-items: center;
-    border-bottom: var(--border);
-    border-top: var(--border);
-    font-size: 16px;
-    color: var(--black-color);
-    padding: 2.5rem 0;
+.guide p{ 
+  color: black;
 }
-
-.sidebar__logout {
-    border-top: none;
+.guide{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
 }
-
-.sidebar__link-icon {
-    margin-left: 1rem;
+.box p{
+color: black;
 }
-
-.sidebar__links {
-    margin: 1rem 0;
-    width: 100%;
-    display: grid;
-    font-size: var(--font-size-sm);
-    grid-template-columns: auto auto auto;
+.box span{ 
+  line-height: 2rem;
+  margin-top: 1rem;
+  padding-right: 3rem;
 }
-
-.sidebar__link {
-    padding: 0 1rem;
-    line-height: 3rem;
-white-space: nowrap;
+.box i:nth-child(1){
+  font-size: 2rem;
 }
-
-.sidebar__social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem 0;
+.box{
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.197);
+  margin-top: 2rem;
+  display: flex;
+  cursor: pointer;
+  flex-wrap: wrap;
 }
-
-.sidebar__social-link {
-    font-size: 1.6rem;
-    margin: 0 2rem;
+.box div{
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
-
-/* *====================End Sidebar====================* */
-
-
 /* !=======================================End Main Style!======================================= */
-
+ 
 /* !=======================================Country Modal Style!======================================= */
 .country-modal {
     position: fixed;
@@ -344,58 +349,46 @@ white-space: nowrap;
     opacity: 0;
     transition: var(--transition);
 }
-
 .country-modal__header-wrapper {
     padding: 2.5rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
 }
-
 .country-modal__title-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 .country-modal__title {
     font-size: var(--font-size-lg);
     color: var(--black-color);
     font-family: "iransans-bold";
 }
-
 .country-modal__btn {
     font-size: var(--font-size-sm);
     color: var(--primary-color);
     border-radius: 2rem;
     padding: 0.2rem 1rem;
 }
-
 .country-modal__btn:hover {
     background-color: rgba(166, 38, 38, 0.1);
 }
-
 .country-modal__selected {
     display: flex;
     margin: 2rem 0;
     padding: 0.5rem 0;
     overflow-x: scroll;
-    scrollbar-color: rgba(0, 0, 0, 0.12) var(--white-color);
-    scrollbar-width: thin;
 }
-
 .country-modal__selected::-webkit-scrollbar {
     height: 0.5rem;
     background-color: var(--white-color);
 }
-
 .country-modal__selected::-webkit-scrollbar-button {
     display: none;
 }
-
 .country-modal__selected::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.12);
     border-radius: 2rem;
 }
-
 .country-modal__selected-item {
     display: flex;
     align-items: center;
@@ -406,31 +399,25 @@ white-space: nowrap;
     padding: 0.4rem 1rem;
     margin-left: 1.5rem;
 }
-
 .country-modal__selected-text {
     color: var(--primary-color);
     font-size: var(--font-size-md);
 }
-
 .country-modal__selected-btn {
     margin-right: 1rem;
     padding: 0rem;
 }
-
 .country-modal__selected-btn:hover {
     background-color: rgba(166, 38, 38, 0.1);
     border-radius: 50%;
 }
-
 .country-modal__selected-icon {
     color: var(--primary-color);
     font-size: 1.7rem;
 }
-
 .country-modal__searchbar {
     position: relative;
 }
-
 .country-modal__input {
     width: 100%;
     border: var(--border);
@@ -439,11 +426,9 @@ white-space: nowrap;
     padding: 0.8rem 4rem 0.8rem 1rem;
     transition: all 0.4s ease;
 }
-
 .country-modal__input:focus {
     border: 1px solid var(--primary-color);
 }
-
 .country-modal__icon {
     font-size: 1.6rem;
     position: absolute;
@@ -451,22 +436,15 @@ white-space: nowrap;
     bottom: 0;
     right: 1.3rem;
 }
-
 .country-modal__cities {
     padding: 0 3.5rem;
     overflow-y: scroll;
-    height: 31rem;
-    scrollbar-width: none;
+    height: 58%;
+    scrollbar-width: 0;
 }
-
-.country-modal__cities-list {
-    margin-bottom: 3rem;
-}
-
 .country-modal__cities::-webkit-scrollbar {
     width: 0;
 }
-
 .country-modal__cities-item {
     display: flex;
     justify-content: space-between;
@@ -477,35 +455,25 @@ white-space: nowrap;
     padding: 1.7rem 0;
     cursor: pointer;
 }
-
 .country-modal__cities-checkbox {
     width: 1.8rem;
     height: 1.8rem;
-    border-radius: 0.3rem;
+    border-radius: .3rem;
     accent-color: var(--primary-color);
     cursor: pointer;
 }
-
 .country-modal__cities-arrow-icon {
     font-size: var(--font-size-lg);
 }
-
 .country-modal__footer {
     box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
-    background-color: var(--white-color);
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
 }
-
 .country-modal__footer-wrapper {
     display: flex;
     align-items: center;
-    padding: 2rem 2.5rem;
-    /* height: 7rem; */
+    padding: 0 2.5rem;
+    height: 7rem;
 }
-
 .country-modal__btn-footer {
     width: 50%;
     padding: 1.3rem 0;
@@ -513,44 +481,24 @@ white-space: nowrap;
     border-radius: 0.3rem;
     font-size: 1.6rem;
 }
-
 .country-modal__close {
     border: 1px solid rgba(0, 0, 0, 0.5);
     transition: var(--transition);
 }
-
 .country-modal__close:hover {
     background-color: rgba(0, 0, 0, 0.06);
     color: var(--black-color);
 }
-
 .country-modal__accept {
     background-color: #f5f5f5;
 }
-
 .country-modal__accept--active {
     background-color: var(--primary-color);
     color: var(--white-color);
     font-family: "iransans-bold";
 }
-
 /* !=======================================End Country Modal Style!======================================= */
-
-/* !=======================================Overlay Modal Style!======================================= */
-.overlay {
-    position: fixed;
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition);
-}
-
-/* !=======================================End Overlay Modal Style!======================================= */
-
+ 
 /* !=======================================Active Class Style!======================================= */
 /* به country-modal اد بشه */
 .country-modal--active {
@@ -558,50 +506,22 @@ white-space: nowrap;
     visibility: visible;
     bottom: 0;
 }
-
 /* به header__left-dropdown اد بشه */
 .header__left-dropdown--active {
     visibility: visible;
     opacity: 1;
 }
-
+/* به login-modal اد بشه */
+.login-modal--active {
+    opacity: 1;
+    visibility: visible;
+}
 .overlay--active {
     opacity: 1;
     visibility: visible;
 }
-
-/* باید به sidebar__menu-link اد بشه */
-.sidebar__menu-link--active,
-.sidebar__menu-link--active * {
-    color: var(--primary-color);
+.overlay-header--active {
+    opacity: 1;
+    visibility: visible;
 }
-
-.sidebar__menu-link--active:hover,
-.sidebar__menu-link--active *:hover {
-    color: var(--primary-color);
-}
-
 /* !=======================================End Active Class Style!======================================= */
-
-
-.empty p {
-    font-size: 1.5rem;
-}
-
-.empty {
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.empty img {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 5px;
-}
-
-.empty p {
-    display: flex;
-    gap: 5px;
-}
