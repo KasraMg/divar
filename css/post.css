@@ -366,22 +366,22 @@ button {
 .main__breadcrumb-icon {
     padding: 0 0.6rem;
 }
-/* ===================Product Style=================== */
-.product {
+/* ===================post Style=================== */
+.post {
     margin-top: 4rem;
     margin-left: 7rem;
 }
-.product__name {
+.post__name {
     font-size: 2.4rem;
     color: var(--black-color);
     font-family: "iransans-bold";
 }
-.product__location {
+.post__location {
     display: block;
     margin-top: 2rem;
     font-size: 1.6rem;
 }
-.product__verify {
+.post__verify {
     margin-top: 1.5rem;
     display: flex;
     align-items: center;
@@ -390,20 +390,20 @@ button {
     padding: 0.5rem;
     border-radius: 0.3rem;
 }
-.product__verify-img {
+.post__verify-img {
     width: 1.6rem;
     height: 1.6rem;
 }
-.product__verify-text {
+.post__verify-text {
     font-size: var(--font-size-md);
 }
-.product__btns {
+.post__btns {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
 }
-.product__btn-tel {
+.post__btn-tel {
     font-size: 1.6rem;
     background-color: var(--primary-color);
     color: var(--white-color);
@@ -411,7 +411,7 @@ button {
     border-radius: 0.3rem;
     width: 12rem;
 }
-.product__btn-chat {
+.post__btn-chat {
     border: var(--border);
     padding: 1rem 0rem;
     width: 10rem;
@@ -419,28 +419,28 @@ button {
     font-size: 1.6rem;
     transition: var(--transition);
 }
-.product__btn-chat:hover {
+.post__btn-chat:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
-.product__btn-save {
+.post__btn-save {
     margin-left: 2rem;
 }
-.product__btn-icon {
+.post__btn-icon {
     font-size: var(--font-size-md);
     color: var(--black-color);
 }
-.product__btn {
+.post__btn {
     padding: 1rem;
     border-radius: 50%;
     transition: var(--transition);
 }
-.product__btn:hover {
+.post__btn:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
-.product__info-list {
+.post__info-list {
     margin-top: 2rem;
 }
-.product__info-item {
+.post__info-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -448,24 +448,24 @@ button {
     border-bottom: var(--border);
     padding: 1.5rem 0;
 }
-.product__info-value {
+.post__info-value {
     color: var(--black-color);
 }
-.product__intro {
+.post__intro {
     margin-top: 2.5rem;
 }
-.product__intro-title {
+.post__intro-title {
     font-size: 1.7rem;
     font-family: "iransans-bold";
     color: var(--black-color);
 }
-.product__intro-desc {
+.post__intro-desc {
     font-size: 1.5rem;
     margin: 1rem 0;
     line-height: 2.5rem;
     color: var(--black-color);
 }
-.product__feedback {
+.post__feedback {
     display: flex;
     justify-content: space-between;
     font-size: 1.6rem;
@@ -473,17 +473,17 @@ button {
     border-bottom: var(--border);
     padding: 1.5rem 0;
 }
-.product__feedback-right {
+.post__feedback-right {
     display: flex;
 }
-.product__feedback-text {
+.post__feedback-text {
     margin-right: 1rem;
     color: var(--black-color);
 }
-.product__tags {
+.post__tags {
     margin-top: 1rem;
 }
-.product__tag {
+.post__tag {
     margin: 1rem 0;
     display: block;
     padding: 1rem 1.5rem;
@@ -492,18 +492,18 @@ button {
     font-size: var(--font-size-md);
     background-color: rgba(0, 0, 0, 0.04);
 }
-.product__tag:hover {
+.post__tag:hover {
     background-color: rgba(0, 0, 0, 0.08);
 }
-/* ===================End Product Style=================== */
+/* ===================End post Style=================== */
 
-/* ===================Product Style=================== */
-.product-preview__slider-img {
+/* ===================post Style=================== */
+.post-preview__slider-img {
     border-radius: 0.3rem;
     height: 36.6rem;
     width: 100%;
 }
-.product-preview__input {
+.post-preview__input {
     width: 100%;
     height: 12rem;
     border-radius: 0.3rem;
@@ -513,18 +513,18 @@ button {
     transition: var(--transition);
     padding: 1rem;
 }
-.product-preview__input:focus {
+.post-preview__input:focus {
     border: 1px solid var(--primary-color);
 }
-.product-preview__input-notics {
+.post-preview__input-notics {
     font-size: var(--font-size-sm);
     margin: 0.5rem 0;
 }
-.product-preview__map-img {
+.post-preview__map-img {
     width: 100%;
     margin-top: 3rem;
 }
-.product-preview__shop {
+.post-preview__shop {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -533,84 +533,84 @@ button {
     border-radius: 0.3rem;
     padding: 1rem 2rem 1rem 3rem;
 }
-.product-preview__shop-right {
+.post-preview__shop-right {
     display: flex;
 }
-.product-preview__shop-right-right {
+.post-preview__shop-right-right {
 }
-.product-preview__shop-img {
+.post-preview__shop-img {
     width: 6.4rem;
     height: 6.4rem;
     border-radius: 0.3rem;
 }
-.product-preview__shop-right-left {
+.post-preview__shop-right-left {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-right: 1rem;
 }
-.product-preview__shop-title {
+.post-preview__shop-title {
     font-size: 1.6rem;
     font-family: "iransans-bold";
     display: block;
     color: var(--black-color);
 }
-.product-preview__shop-text {
+.post-preview__shop-text {
     display: block;
     margin-top: 1rem;
     font-size: var(--font-size-sm);
 }
-.product-preview__shop-icon {
+.post-preview__shop-icon {
     font-size: var(--font-size-lg);
 }
-.product-preview__send{
+.post-preview__send{
     margin-top: 2rem;
 }
-.product-preview__send-title{
+.post-preview__send-title{
     font-size: 1.5rem;
     font-family: "iransans-bold";
     color: var(--black-color);
     margin-bottom: 1rem;
     display: block;
 }
-.product-preview__send-item{
+.post-preview__send-item{
     display: flex;
     align-items: center;
     font-size: 1.5rem;
     border-bottom: var(--border);
     padding: 1.5rem 0;
 }
-.product-preview__send-icon{
+.post-preview__send-icon{
     font-size: 1.8rem;
     color: var(--black-color);
 
 }
-.product-preview__send-text{
+.post-preview__send-text{
     margin-right: 1rem;
     color: var(--black-color);
 }
-.product-preview__location{
+.post-preview__location{
     font-size: 1.5rem;
     color: var(--black-color);
     margin-top: 1rem;
     line-height: 2.3rem;
 }
-.product-preview__help{
+.post-preview__help{
     margin-top: 2.5rem;
 }
-.product-preview__help-item{
+.post-preview__help-item{
     font-size: var(--font-size-md);
     display: flex;
     align-items: center;
     border-bottom: var(--border);
     padding: 1.5rem 0;
 }
-.product-preview__help-icon{
+.post-preview__help-icon{
     margin-left: 1rem;
     font-size: 1.6rem;
     font-family: "iransans-medium";
 }
-/* ===================End Product Style=================== */
+/* ===================End post Style=================== */
 .main__slider {
     margin-top: 4rem;
 }
