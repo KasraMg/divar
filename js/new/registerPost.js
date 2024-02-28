@@ -9,7 +9,7 @@ var marker = L.marker([35.551066, 51.197588], { icon: icon }).addTo(map);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">33</a>'
 }).addTo(map);
 
 map.on('move', () => {
