@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="/vendor/bootstrap_icon/bootstraicon.css">
     <link rel="stylesheet" href="/css/share.css">
-    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/about.css"> 
+    <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin />
 </head>
 
 <body>
@@ -159,10 +163,9 @@
                             </p>
                         </div>
                         <p class="contact__notic">تیم‌های فنی ما در این آدرس اقامت دارند، ولی متأسفانه توان میزبانی
-                            مراجعان حضوری را نداریم.</p>
-                        <a class="contact__map" href="#">
-                            <img class="contact__map-img" src="../images/main/map.png">
-                        </a>
+                            مراجعان حضوری را نداریم.
+                        </p>
+                        <div id="map"></div>
                     </div>
                 </div>
             </div>
@@ -395,7 +398,10 @@
     <!--!==========================================Overlay Searchbar==========================================!-->
     <section class="overlay-header"></section>
     <!--!==========================================End Overlay Searchbar==========================================!-->
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin></script>
+<script src="/js/about.js"></script>
 </body>
 
 </html>

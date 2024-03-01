@@ -104,3 +104,11 @@
     font-size: var(--font-size-sm);
     margin: 1.5rem 0;
 } 
+
+#map{
+    height: 300px;
+    width: 100%;
+}
+#map .leaflet-zoom-animated {
+    height: 46px !important;
+}
