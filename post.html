@@ -434,12 +434,11 @@
                         </div>
                         <div class="post__btns">
                             <div class="post__btns-right">
-                                <button class="post__btn-tel">اطلاعات تماس</button>
-                                <button class="post__btn-chat">چت</button>
+                                <button class="post__btn-tel">اطلاعات تماس</button> 
                             </div>
                             <div class="post__btns-left">
                                 <button class="post__btn-save post__btn">
-                                    <i class="post__btn-icon bi bi-save"></i>
+                                    <i class="post__btn-icon bi bi-bookmark"></i>
                                 </button>
                                 <button class="post__btn-share post__btn">
                                     <i class="post__btn-icon bi bi-share"></i>
@@ -489,16 +488,7 @@
                                 داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد
                                 نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا
                                 مورد استفاده قرار گیرد.</p>
-                        </div>
-                        <div class="post__feedback">
-                            <div class="post__feedback-right">
-                                <i class="post__feedback-icon bi bi-exclamation-octagon"></i>
-                                <span class="post__feedback-text">کمک به بهبود قیمت و اطلاعات آگهی</span>
-                            </div>
-                            <div class="post__feedback-left">
-                                <i class="post__feedback-second-icon bi bi-chevron-left"></i>
-                            </div>
-                        </div>
+                        </div> 
                         <div class="post__tags">
                             <a class="post__tag" href="#">مبلمان خانگی و میز عسلی</a>
                             <a class="post__tag" href="#">مبلمان خانگی و میز عسلی در شهرک ولیعصر</a>
@@ -507,28 +497,41 @@
                 </div>
                 <div class="col-6">
                     <div class="post-preview">
-                        <div class="swiper post__preview-slider">
+                        <div  class="swiper mySwiper2">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/images/main/post_1.jfif" class="post-preview__slider-img">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/main/post_1.jfif" class="post-preview__slider-img">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/main/post_1.jfif" class="post-preview__slider-img">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/main/post_1.jfif" class="post-preview__slider-img">
-                                </div>
+                              <div class="swiper-slide">
+                                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                              </div>
+                              <div class="swiper-slide">
+                                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                              </div>
+                              <div class="swiper-slide">
+                                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                              </div>
+                                
+                              </div>
                             </div>
-                            <div class="swiper-pagination"></div>
-                        </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                          </div>
+                          <div thumbsSlider="" class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                              <div class="swiper-slide">
+                                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                              </div>
+                              <div class="swiper-slide">
+                                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                              </div>
+                              <div class="swiper-slide">
+                                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                              </div>
+                             
+                            
+                            </div>
+                          </div>
                         <textarea class="post-preview__input" placeholder="یادداشت شما..."></textarea>
                         <span class="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
-                        <div class="post-preview__map">
-                            <img class="post-preview__map-img" src="/images/main/map.png"></img>
-                        </div>
+                        
                         <a class="post-preview__shop" href="#">
                             <div class="post-preview__shop-right">
                                 <div class="post-preview__shop-right-right">
@@ -555,20 +558,17 @@
                             </div>
                             <p class="post-preview__location">آدرس: شهرک ولیعصر میدان ایثارگران دقیقا دور میدان چسبیده به بستنی فروشی انیل مبلمان مجلل</p>
                         </div>
-                        <div class="post-preview__help">
-                            <a class="post-preview__help-item" href="#">
-                                <i class="post-preview__help-icon bi bi-question-circle"></i>
-                                راهنمای خرید امن
-                            </a>
-                            <a class="post-preview__help-item" href="#">
-                                <i class="post-preview__help-icon bi bi-exclamation-octagon"></i>
-                                ثبت تخلف و مشکل آگهی
-                            </a>
+                        <div class="post__feedback">
+                           <p>بازخورد شما دربارهٔ این آگهی چیست؟</p>
+                           <div>
+                            <i class="bi post_feedback_icon bi-hand-thumbs-up"></i>
+                            <i class="bi post_feedback_icon bi-hand-thumbs-down"></i>
+                           </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="main__slider">
+            <!-- <div class="main__slider">
                 <div class="main__slider-title">کالاهای مشابه در دیوارِ فروشگاه‌ها</div>
                 <div class="swiper main__slider-wrapper">
                     <div class="swiper-wrapper">
@@ -605,7 +605,7 @@
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
-            </div>
+            </div> -->
     </main>
     <!--!==========================================End Main==========================================!-->
 
@@ -835,7 +835,7 @@
     <section class="overlay-header"></section>
     <!--!==========================================End Overlay Searchbar==========================================!-->
     <script src="/vendor/swiper/swiper.js"></script>
-    <script src="/js/custom_swiper-product.js"></script>
+    <script src="/js/post.js"></script>
 </body>
 
 </html>
