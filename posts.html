@@ -299,7 +299,8 @@
                         </form>
                         <i class="header__searchbar-icon bi bi-search"></i>
                         <div class="header__searchbar-dropdown" id="header__searchbar-dropdown">
-                            <span class="header__searchbar-dropdown-title">بیشترین جستجوهای دیوار</span>
+                            <section>
+                                <span class="header__searchbar-dropdown-title">بیشترین جستجوهای دیوار</span>
                             <ul class="header__searchbar-dropdown-list">
                                 <li class="header__searchbar-dropdown-item">
                                     <a class="header__searchbar-dropdown-link" href="#">خودروسواری</a>
@@ -329,6 +330,8 @@
                                     <a class="header__searchbar-dropdown-link" href="#">تلویزیون</a>
                                 </li>
                             </ul>
+                            </section>
+                            <div class="overlay searchbar__modal-overlay"></div>
                         </div>
                     </div>
                 </div>
@@ -340,10 +343,10 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li class="header__left-dropdown-item">
-                                <a class="header__left-dropdown-link" href="#">
+                                <p class="header__left-dropdown-link login_dropdown_link">
                                     <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
                                     ورود
-                                </a>
+                                </p>
                             </li>
                             <li class="header__left-dropdown-item">
                                 <a class="header__left-dropdown-link" href="#">
@@ -807,7 +810,8 @@
     <!--!==========================================End city Modal==========================================!-->
 
     <!--!==========================================Login Modal==========================================!-->
-    <section class="login-modal">
+    <div class="login-modal" id="login-modal">
+      <section>
         <div class="login-modal__header">
             <div class="login-modal__header-wrapper">
                 <span class="login-modal__title">ورود به حساب کاربری</span>
@@ -836,15 +840,12 @@
         <div class="login-modal__footer">
             <button class="login-modal__footer-btn">تایید</button>
         </div>
+      </section>
+      <div class="overlay login_modal_overlay"></div>
     </section>
     <!--!==========================================End Login Modal==========================================!-->
 
-    <!--!==========================================Overlay Modal==========================================!-->
-    <section class="overlay"></section>
-    <!--!==========================================End Overlay Modal==========================================!-->
-
-    <!--!==========================================Overlay Searchbar==========================================!-->
-    <section class="overlay-header"></section>
+ 
     <!--!==========================================End Overlay Searchbar==========================================!-->
 <script src="/js/posts.js" type="module"></script>
 <script src="/vendor/bootstrap/bootstrap.js"></script>

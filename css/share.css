@@ -278,28 +278,28 @@ button {
   visibility: visible;
   opacity: 1;
 }
-.header__category-menu--active .overlay{
-  opacity: 1 !important;
-  visibility: visible !important;
-  right: 0 !important;
-  z-index: 100 !important;
-}
+
 /* End Header Category Menu */
 .header__searchbar {
   display: flex;
-  align-items: center;
+  align-items: center; 
   position: relative;
 }
 
 /* Searchbar Dropdown */
-.header__searchbar-dropdown {
-  position: absolute;
-  top: 3.8rem;
-  width: 100%;
+.header__searchbar-dropdown section{
   background-color: var(--white-color);
   border-top: var(--border);
   border-radius: 0 0 0.3rem 0.3rem;
   padding: 2rem 0;
+  z-index: 99999;
+  position: relative;
+  width: 100%;
+}
+.header__searchbar-dropdown {
+  position: absolute;
+  top: 3.8rem;
+
   opacity: 0;
   visibility: hidden;
 }
@@ -330,6 +330,11 @@ button {
 .header__form {
   height: 3.8rem;
   width: 40rem;
+  z-index: 999;
+  position: relative;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .header__form-input {
   width: 100%;
@@ -338,6 +343,8 @@ button {
   border-radius: 0.3rem;
   color: var(--text-color);
   padding: 0.5rem 3.5rem 0.5rem 1rem;
+  z-index: 99999;
+  position: relative;
   font-size: var(--font-size-sm);
 }
 .header__searchbar-icon {
@@ -378,6 +385,7 @@ button {
     display: flex;
     padding: 1.5rem;
     border-bottom: var(--border);
+    cursor: pointer;
     align-items: center;
     font-size: var(--font-size-sm);
     color: var(--black-color);
@@ -426,19 +434,26 @@ button {
   right: 0;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 0; 
+  z-index: 2;
+  visibility: hidden;
+  width: 100%;
+  opacity: 0;
+  z-index: 99999;
+  transition: var(--transition);
+}
+.login-modal section{
+  z-index: 99999;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 49rem;
+  margin: 10rem auto;
   height: 70%;
   box-shadow: 0 8px 48px 8px rgba(0, 0, 0, 0.04), 0 12px 16px -8px rgba(0, 0, 0, 0.12),
       0 24px 32px 4px rgba(0, 0, 0, 0.08);
   border-radius: 0.5rem;
   background-color: var(--white-color);
-  z-index: 2;
-  visibility: hidden;
-  opacity: 0;
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 .login-modal__header-wrapper {
@@ -758,13 +773,31 @@ button {
   top: 0;
   height: 100vh;
   width: 100%;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
 }
-
+.header__category-menu--active .overlay{
+  opacity: 1 !important;
+  visibility: visible !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+.header__searchbar-dropdown--active .overlay{
+  opacity: 1 !important;
+  visibility: visible !important;
+  right: 0 !important;
+  z-index: 100 !important; 
+}
+.login-modal--active .overlay{
+  opacity: 1 !important;
+  visibility: visible !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
 /* !=======================================End Overlay Modal Style!======================================= */
 
 /* !=======================================Active Class Style!======================================= */
@@ -775,15 +808,12 @@ button {
   bottom: 0;
 } 
 /* به header__left-dropdown اد بشه */
-.header__left-dropdown--active,.header__category-menu--active,.header__searchbar-dropdown--active {
+.header__left-dropdown--active,.header__category-menu--active,.header__searchbar-dropdown--active,.login-modal--active {
   visibility: visible !important;
   opacity: 1 !important;
 }
 
-.overlay--active {
-  opacity: 1;
-  visibility: visible;
-}
+ 
 
 /* باید به sidebar__menu-link اد بشه */
 .sidebar__menu-link--active,
@@ -794,8 +824,7 @@ button {
 .sidebar__menu-link--active:hover,
 .sidebar__menu-link--active *:hover {
   color: var(--primary-color);
-}
-
+} 
 /* !=======================================End Active Class Style!======================================= */
 
 

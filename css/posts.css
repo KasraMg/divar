@@ -40,17 +40,7 @@
     transition: var(--transition);
 }
 
-.header__left-dropdown-link {
-    display: flex;
-    padding: 1.5rem;
-    border-bottom: var(--border);
-    align-items: center;
-    font-size: var(--font-size-sm);
-    color: var(--black-color);
-}
-.header__left-dropdown-link:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-}
+ 
 .header__left-dropdown-icon {
     color: var(--black-color);
     margin-left: 1rem;
