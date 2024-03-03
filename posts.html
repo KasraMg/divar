@@ -811,7 +811,7 @@
 
     <!--!==========================================Login Modal==========================================!-->
     <div class="login-modal" id="login-modal">
-      <section>
+      <section class="login_modal_step_1">
         <div class="login-modal__header">
             <div class="login-modal__header-wrapper">
                 <span class="login-modal__title">ورود به حساب کاربری</span>
@@ -826,7 +826,8 @@
             <p class="login-modal__main-notic">کد تأیید به این شماره پیامک می‌شود.</p>
             <div class="login-modal__form-wrapper">
                 <form class="login-modal__form" action="#">
-                    <input class="login-modal__input" type="text" placeholder="شماره موبایل">
+                    <input class="login-modal__input phone_Number_input"   placeholder="شماره موبایل">
+                    <span class="step-1-login-form__error"></span>
                 </form>
                 <span class="login-modal__form-text">+98</span>
             </div>
@@ -838,7 +839,35 @@
             </div>
         </div>
         <div class="login-modal__footer">
-            <button class="login-modal__footer-btn">تایید</button>
+            <button class="login-modal__footer-btn submit_phone_number_btn">تایید</button>
+        </div>
+      </section>
+      <section class="login_modal_step_2">
+        <div class="login-modal__header">
+            <div class="login-modal__header-wrapper">
+                <span class="login-modal__title">ورود به حساب کاربری</span>
+                <button class="login-modal__header-btn">
+                    <i class="login-modal__icon bi bi-x"></i>
+                </button>
+            </div>
+        </div>
+        <div class="login-modal__main">
+            <span class="login-modal__main-title">کد تأیید را وارد کنید</span>
+            <p class="login-modal__main-notic">کد پیامک‌شده به شمارۀ «<span class="user_number_notice">۰۹۰۴۶۴۱۷۰۸۴</span>» را وارد کنید.</p>
+         
+            <div class="login-modal__form-wrapper">
+                <form class="login-modal__form" action="#">
+                    <input class="login-modal__input code_input"  maxlength="4"  placeholder="کد تایید 4 رقمی">
+                    <span class="step-2-login-form__error"></span>
+                </form> 
+            </div>
+            <div class="login-modal__condition"> 
+                <span class="login-modal__condition-text login-change-number">تغییر شماره موبایل</span>
+            </div>
+        </div>
+        <div class="login-modal__footer">
+            <button class="login-modal__footer-btn req_new_code_btn">درخواست کد </button>
+            <button class="login-modal__footer-btn login_btn">ورود</button>
         </div>
       </section>
       <div class="overlay login_modal_overlay"></div>
@@ -848,6 +877,7 @@
  
     <!--!==========================================End Overlay Searchbar==========================================!-->
 <script src="/js/posts.js" type="module"></script>
+<script src="/js/funcs/shared.js" type="module"></script>
 <script src="/vendor/bootstrap/bootstrap.js"></script>
 </body>
 

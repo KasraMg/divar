@@ -1,96 +1,90 @@
-import { showSwal, saveIntoLocalStorage, getToken } from "./utils.js";
+import { saveIntoLocalStorage, getToken, hideModal } from "./utils.js";
 
-const register = () => {
-  const nameInput = document.querySelector("#name");
-  const usernameInput = document.querySelector("#username");
-  const emailInput = document.querySelector("#email");
-  const phoneInput = document.querySelector("#phone");
-  const passwordInput = document.querySelector("#password");
+const loginModalStep_1 = document.querySelector('.login_modal_step_1')
+const loginModalStep_2 = document.querySelector('.login_modal_step_2')
+const userNumberNotice = document.querySelector('.user_number_notice')
+const userPhoneNumberInput = document.querySelector(".phone_Number_input");
+const userCodeInput = document.querySelector(".code_input");
+const step1LoginFormError = document.querySelector('.step-1-login-form__error')
+const step2LoginFormError = document.querySelector('.step-2-login-form__error')
+const requestCodeBtn=document.querySelector('.req_new_code_btn')
+const changeNumberSpan = document.querySelector('.login-change-number')
 
-  const newUserInfos = {
-    name: nameInput.value.trim(),
-    username: usernameInput.value.trim(),
-    email: emailInput.value.trim(),
-    phone: phoneInput.value.trim(),
-    password: passwordInput.value.trim(),
-    confirmPassword: passwordInput.value.trim(),
-  };
+const SubmitNumber = () => {
+  const phoneRegex = RegExp(/^(09)[0-9]{9}$/) 
 
-  fetch(`http://localhost:4000/v1/auth/register`, {
+  const phoneRegexResult = phoneRegex.test(userPhoneNumberInput.value)
+
+  if (phoneRegexResult) {
+    step1LoginFormError.innerHTML = ""
+    fetch(`https://divarapi.liara.run/v1/auth/send`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phone: userPhoneNumberInput.value.trim() }),
+    }).then(res => {
+      console.log(res);
+      if (res.status == 200) {
+        loginModalStep_1.style.display = 'none'
+        loginModalStep_2.style.display = 'flex'
+        userNumberNotice.innerHTML = userPhoneNumberInput.value
+      }
+    })
+  } else {
+    step1LoginFormError.innerHTML = "لطفا یک شماره موبایل معتبر وارد نمایید."
+  }
+
+
+};
+
+const verifyNumber =()=>{
+  const codeRegex = RegExp(/^\d+/) 
+  const codeRegexResult = codeRegex.test(userCodeInput.value)
+ 
+  if (codeRegexResult) {
+    step2LoginFormError.innerHTML = ""
+    const datas={
+      phone:userPhoneNumberInput.value,
+      otp:userCodeInput.value
+    }
+    fetch(`https://divarapi.liara.run/v1/auth/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datas),
+    }).then(res => res.json())
+    .then(data=>{    
+        console.log(data);
+        if (data.status==400) {
+          step2LoginFormError.innerHTML = "کد منقضی یا نامعتبر است"
+         }else if(data.status == 200){
+          saveIntoLocalStorage('divar',data.data.token)
+          hideModal('login-modal', 'login-modal--active')
+         }
+    })
+  } else {
+    step2LoginFormError.innerHTML = "کد نامعتبر است"
+  }
+}
+requestCodeBtn?.addEventListener('click',()=>{
+  fetch(`https://divarapi.liara.run/v1/auth/send`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(newUserInfos),
+    body: JSON.stringify({ phone: userPhoneNumberInput.value.trim() }),
+  }).then(res => {
+    console.log(res);
+     
   })
-    .then((res) => {
-      if (res.status === 201) {
-        showSwal(
-          "ثبت نام با موفقیت انجام شد",
-          "success",
-          "ورود به پنل",
-          (result) => {
-            location.href = "index.html";
-          }
-        );
-      } else if (res.status === 409) {
-        showSwal(
-          "نام کاربری یا ایمیل قبلا استفاده شده",
-          "error",
-          "تصحیح اطلاعات",
-          () => {}
-        );
-      } else if (res.status === 403) {
-        showSwal(
-          "متاسفانه این شماره تماس بن شده",
-          "error",
-          "تصحیح اطلاعات",
-          () => {}
-        );
-      }
-      return res.json();
-    })
-    .then((result) => {
-      saveIntoLocalStorage("user", { token: result.accessToken });
-    });
-};
+})
 
-const login = () => {
-  const identifierInput = document.querySelector("#identifier");
-  const passwordInput = document.querySelector("#password");
-
-  const userInfos = {
-    identifier: identifierInput.value.trim(),
-    password: passwordInput.value.trim(),
-  };
-
-  fetch(`http://localhost:4000/v1/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userInfos),
-  })
-    .then((res) => {
-      if (res.status === 401) {
-        showSwal(
-          "کاربری با این اطلاعات یافت نشد",
-          "error",
-          "تصحیح اطلاعات",
-          () => {}
-        );
-      } else if (res.status === 200) {
-        showSwal("با موفقیت وارد شدید", "success", "ورود به پنل", () => {
-          location.href = "index.html";
-        });
-      }
-      return res.json();
-    })
-    .then((result) => {
-      console.log(result);
-      saveIntoLocalStorage("user", { token: result.accessToken });
-    });
-};
+changeNumberSpan?.addEventListener('click', () => {
+  loginModalStep_1.style.display = 'flex'
+  loginModalStep_2.style.display = 'none'
+})
 
 const getMe = async () => {
   const token = getToken();
@@ -109,4 +103,4 @@ const getMe = async () => {
   return data;
 };
 
-export { register, login, getMe };
+export { SubmitNumber, getMe,verifyNumber };
