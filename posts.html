@@ -341,38 +341,7 @@
                             <i class="header__left-icon bi bi-person"></i>
                             دیوار من
                         </button>
-                        <ul class="dropdown-menu">
-                            <li class="header__left-dropdown-item">
-                                <p class="header__left-dropdown-link login_dropdown_link">
-                                    <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
-                                    ورود
-                                </p>
-                            </li>
-                            <li class="header__left-dropdown-item">
-                                <a class="header__left-dropdown-link" href="#">
-                                    <i class="header__left-dropdown-icon bi bi-bookmark"></i>
-                                    نشان ها
-                                </a>
-                            </li>
-                            <li class="header__left-dropdown-item">
-                                <a class="header__left-dropdown-link" href="#">
-                                    <i class="header__left-dropdown-icon bi bi-journal"></i>
-                                    یادداشت ها
-                                </a>
-                            </li>
-                            <li class="header__left-dropdown-item">
-                                <a class="header__left-dropdown-link" href="#">
-                                    <i class="header__left-dropdown-icon bi bi-clock-history"></i>
-                                    بازدید های اخیر
-                                </a>
-                            </li>
-                            <li class="header__left-dropdown-item">
-                                <a class="header__left-dropdown-link" href="#">
-                                    <i class="header__left-dropdown-icon bi bi-shop"></i>
-                                    دیوار برای کسب و کارها
-                                </a>
-                            </li>
-                        </ul>
+                        
                       </div>
                     <a class="header__left-link" href="#">
                         <i class="header__left-icon bi bi-chat"></i>
@@ -867,6 +836,10 @@
         </div>
         <div class="login-modal__footer">
             <button class="login-modal__footer-btn req_new_code_btn">درخواست کد </button>
+            <div class="request_timer">
+                <p>درخواست مجدد</p>
+                <span>10</span>
+            </div>
             <button class="login-modal__footer-btn login_btn">ورود</button>
         </div>
       </section>
@@ -877,8 +850,10 @@
  
     <!--!==========================================End Overlay Searchbar==========================================!-->
 <script src="/js/posts.js" type="module"></script>
-<script src="/js/funcs/shared.js" type="module"></script>
+<script src="/js/shared.js" type="module"></script>
 <script src="/vendor/bootstrap/bootstrap.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>

@@ -15,12 +15,12 @@ const getFromLocalStorage = (key) => {
 };
 
 const getToken = () => {
-  const userInfos = JSON.parse(localStorage.getItem("user"));
-  return userInfos ? userInfos.token : null;
+  const userInfos = JSON.parse(localStorage.getItem("divar")); 
+  return userInfos ? userInfos : null;
 };
 
 const isLogin = () => {
-  const userInfos = localStorage.getItem("user");
+  const userInfos = localStorage.getItem("divar");
   return userInfos ? true : false;
 };
 

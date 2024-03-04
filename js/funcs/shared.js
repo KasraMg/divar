@@ -1,76 +1,119 @@
- 
-import { SubmitNumber, getMe,verifyNumber } from "../funcs/auth.js"
+
+import { SubmitNumber, getMe, verifyNumber, requestNewCode } from "../funcs/auth.js"
+import { isLogin } from "./utils.js";
 const getAndShowSocialMedia = async () => {
-  const footerSocialMedia = document.querySelector('.footer__social-media')
-  const res = await fetch(`https://divarapi.liara.run/v1/social/`);
-  const social = await res.json();
-  console.log(social);
+    const footerSocialMedia = document.querySelector('.footer__social-media')
+    const res = await fetch(`https://divarapi.liara.run/v1/social/`);
+    const social = await res.json();
+
 }
 
+const showPannelLinksToUser = async () => {
+    const dropDown = document.querySelector(".header_dropdown");
+    const isUserLogin = isLogin();
+
+    if (isUserLogin) {
+        getMe().then((data) => {
+            if (data.status == 200) {
+                dropDown.insertAdjacentHTML('beforeend', `
+      
+                <ul class="dropdown-menu">
+                    <li class="header__left-dropdown-item header_dropdown-item_account">
+                        <div class="header__left-dropdown-link login_dropdown_link"> 
+                           <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
+                           <div> 
+                           <span>کاربر دیوار </span>
+                           <p> تلفن 09046417084</p> 
+                           </div>
+                        </div>
+                      
+                    </li>
+                    <li class="header__left-dropdown-item">
+                    <a class="header__left-dropdown-link" href="#">
+                        <i class="header__left-dropdown-icon bi bi-bookmark"></i>
+                        تایید هویت
+                    </a>
+                </li>
+                    <li class="header__left-dropdown-item">
+                        <a class="header__left-dropdown-link" href="#">
+                            <i class="header__left-dropdown-icon bi bi-bookmark"></i>
+                            نشان ها
+                        </a>
+                    </li>
+                    <li class="header__left-dropdown-item">
+                        <a class="header__left-dropdown-link" href="#">
+                            <i class="header__left-dropdown-icon bi bi-journal"></i>
+                            یادداشت ها
+                        </a>
+                    </li>
+                    <li class="header__left-dropdown-item">
+                        <a class="header__left-dropdown-link" href="#">
+                            <i class="header__left-dropdown-icon bi bi-clock-history"></i>
+                            بازدید های اخیر
+                        </a>
+                    </li>
+                    <li class="header__left-dropdown-item">
+                        <a class="header__left-dropdown-link" href="#">
+                            <i class="header__left-dropdown-icon bi bi-shop"></i>
+                            دیوار برای کسب و کارها
+                        </a>
+                    </li>
+                    <li class="header__left-dropdown-item logout-link">
+                    <p class="header__left-dropdown-link" href="#">
+                        <i class="header__left-dropdown-icon bi bi-shop"></i>
+                        خروج
+                    </p>
+                </li>
+                </ul>
+                  `)
+            }
+        });
+    } else {
+        dropDown.insertAdjacentHTML('beforeend', `
+      
+    <ul class="dropdown-menu">
+        <li class="header__left-dropdown-item">
+            <p class="header__left-dropdown-link login_dropdown_link">
+                <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
+                ورود
+            </p>
+        </li>
+        <li class="header__left-dropdown-item">
+            <a class="header__left-dropdown-link" href="#">
+                <i class="header__left-dropdown-icon bi bi-bookmark"></i>
+                نشان ها
+            </a>
+        </li>
+        <li class="header__left-dropdown-item">
+            <a class="header__left-dropdown-link" href="#">
+                <i class="header__left-dropdown-icon bi bi-journal"></i>
+                یادداشت ها
+            </a>
+        </li>
+        <li class="header__left-dropdown-item">
+            <a class="header__left-dropdown-link" href="#">
+                <i class="header__left-dropdown-icon bi bi-clock-history"></i>
+                بازدید های اخیر
+            </a>
+        </li>
+        <li class="header__left-dropdown-item">
+            <a class="header__left-dropdown-link" href="#">
+                <i class="header__left-dropdown-icon bi bi-shop"></i>
+                دیوار برای کسب و کارها
+            </a>
+        </li>
+    </ul>
+      `);
+    }
+};
 
 
-const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
-const loginBtn = document.querySelector('.login_btn')
-
-submitPhoneNumberBtn?.addEventListener('click', event => {
-    event.preventDefault() 
-    SubmitNumber()
-})
-loginBtn?.addEventListener('click', event=>{
-  event.preventDefault() 
-  verifyNumber()
-})
 
 
-import { hideModal, showModal } from "./utils.js"
 
-const cityModalOverlay = document.querySelector('.city-modal__overlay')
-const headerCityBtn = document.querySelector('.header__city')
-const cityModalCloseBtn = document.querySelector('.city-modal__close') 
-const headerCategoryBtn = document.querySelector('.header__category-btn') 
-const categoryModalOverlay = document.querySelector('.category_modal_overlay')
-const SearchBox =document.querySelector('.header__form-input')
-const searchBoxModalOverlay =document.querySelector('.searchbar__modal-overlay')
-const loginDropdownLink =document.querySelector('.login_dropdown_link')
-const loginModalOverlay =document.querySelector('.login_modal_overlay')
 
-headerCityBtn?.addEventListener('click', () => {
-    showModal('city-modal', 'city-modal--active')
-})
-
-cityModalCloseBtn?.addEventListener('click', () => {
-    hideModal('city-modal', 'city-modal--active')
-})
- 
-headerCategoryBtn?.addEventListener('click', () => { 
-    showModal('header__category-menu', 'header__category-menu--active')
-})
-loginDropdownLink?.addEventListener('click', () => {  
-    showModal('login-modal', 'login-modal--active')
-})
-
- 
-SearchBox?.addEventListener('click', () => {  
-    showModal('header__searchbar-dropdown', 'header__searchbar-dropdown--active')
-})
- 
-
-searchBoxModalOverlay?.addEventListener('click', () => { 
-    hideModal('header__searchbar-dropdown', 'header__searchbar-dropdown--active')
-})
-cityModalOverlay?.addEventListener('click', () => {
-    hideModal('city-modal', 'city-modal--active')
-})
-categoryModalOverlay?.addEventListener('click', () => { 
-    hideModal('header__category-menu', 'header__category-menu--active')
-}) 
- 
-loginModalOverlay?.addEventListener('click', () => { 
-    hideModal('login-modal', 'login-modal--active')
-})
- 
- 
 
 export {
-  getAndShowSocialMedia
+    getAndShowSocialMedia,
+    showPannelLinksToUser
 };

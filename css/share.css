@@ -386,6 +386,22 @@ button {
     opacity: 0;
     transition: var(--transition);
 }
+
+.header_dropdown .dropdown-menu {
+padding: 0 !important;
+}
+.header_dropdown-item_account div{
+  text-align: right;
+}
+.header_dropdown-item_account  .header__left-dropdown-link{
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  align-items: flex-start;
+}
+.header__left-dropdown-item p:last-child{
+  border: 0; 
+  margin-bottom: 0;
+}
 .header__left-dropdown-item:last-child a{
   border: 0;
 }
@@ -571,10 +587,26 @@ button {
 .login_modal_step_2{
   display: none ;
 }
+ .active_step_2 .login_modal_step_2{
+display: block !important;
+}
+.active_step_2 .login_modal_step_1{
+  display: none !important;
+}
+.req_new_code_btn{
+  display: none;
+}
+.request_timer{
+  display: flex;
+  font-size: 1.5rem;
+  gap: 2rem;
+  margin-left: 3rem; 
+}
 .login-modal__footer {
   padding: 1rem 3rem;
   box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
   display: flex;
+  align-items: end;
   justify-content: flex-end;
 }
 .login-modal__footer-btn {
@@ -920,3 +952,7 @@ button {
   font-size: 1.6rem;
 }
 /* !=======================================End Footer Style!======================================= */
+
+.swal-footer{
+  text-align: center;
+}
