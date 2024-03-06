@@ -9,17 +9,35 @@ window.addEventListener('load', () => {
 
 
 
-
     const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
     const loginBtn = document.querySelector('.login_btn')
     const requestNewCodeBtn = document.querySelector('.req_new_code_btn')
+    const globalSearchInput = document.querySelector('#global_search_input')
+    const mostSearchedContainer = document.querySelector('#most_searched')
 
+    const mostSearchedArr = ['خودرو سواری', 'فروش آپارتمان', 'موبایل', 'حیوانات', 'تلویزیون']
+    globalSearchInput.addEventListener("keydown", event => {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            if (event.target.value.length) {
+                location.href = `posts.html?city=tehran&value=${globalSearchInput.value.trim()}`;
+            }
+        }
 
+    });
+    mostSearchedArr.map(value=>{
+        mostSearchedContainer.insertAdjacentHTML('beforeend', `
+        <li class="header__searchbar-dropdown-item">
+        <a class="header__searchbar-dropdown-link" href="${`posts.html?city=tehran&value=${value}`}">${value}</a>
+    </li>
+        `)
+    })
+ 
     submitPhoneNumberBtn?.addEventListener('click', event => {
         event.preventDefault()
         SubmitNumber()
     })
-    loginBtn.addEventListener('click', event => {
+    loginBtn?.addEventListener('click', event => {
         event.preventDefault()
         verifyNumber()
     })
@@ -31,9 +49,9 @@ window.addEventListener('load', () => {
     })
 
     getMe().then(data => {
-        if (data.status == 200) { 
+        if (data.status == 200) {
             const logoutUserBtn = document.querySelector(".logout-link");
-            logoutUserBtn.addEventListener("click", (event) => {
+            logoutUserBtn?.addEventListener("click", (event) => {
                 event.preventDefault();
                 logout()
             })
@@ -50,7 +68,17 @@ window.addEventListener('load', () => {
     const searchBoxModalOverlay = document.querySelector('.searchbar__modal-overlay')
     const loginDropdownLink = document.querySelector('.login_dropdown_link')
     const loginModalOverlay = document.querySelector('.login_modal_overlay')
+    const createPostBtn = document.querySelector('.create_post_btn')
 
+    createPostBtn.addEventListener('click', () => {
+        getMe().then(data => {
+            if (data.status === 200) {
+                location.href = '/new.html'
+            } else {
+                showModal('login-modal', 'login-modal--active')
+            }
+        })
+    })
     headerCityBtn?.addEventListener('click', () => {
         showModal('city-modal', 'city-modal--active')
     })

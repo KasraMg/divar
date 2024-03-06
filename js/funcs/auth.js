@@ -1,3 +1,4 @@
+
 import { saveIntoLocalStorage, getToken, hideModal, showSwal } from "./utils.js";
 
 const loginModalContainer = document.querySelector('.login-modal')
@@ -51,8 +52,7 @@ const SubmitNumber = () => {
   }
 
 
-};
-
+}; 
 const verifyNumber = () => {
   const codeRegex = RegExp(/^\d+/)
   const codeRegexResult = codeRegex.test(userCodeInput.value)
@@ -77,14 +77,13 @@ const verifyNumber = () => {
         } else if (data.status == 201 || data.status == 200) {
           saveIntoLocalStorage('divar', data.data.token)
           hideModal('login-modal', 'login-modal--active')
-          showSwal('با موفقیت وارد شدید', "success", "بزن بریم", () => console.log('22'))
+          showSwal('با موفقیت وارد شدید', "success", "بزن بریم", () => location.href = "/panel/verify.html")
         }
       })
   } else {
     step2LoginFormError.innerHTML = "کد نامعتبر است"
   }
-}
-
+} 
 const requestNewCode = () => {
   fetch('https://divarapi.liara.run/v1/auth/send', {
     method: 'POST',
@@ -115,35 +114,29 @@ const requestNewCode = () => {
     }
   });
 }
-const logout = () => {  
-    showSwal(
-      "آیا از Logout اطمینان دارید؟",
-      "success",
-      ["نه", "آره"],
-      (result) => {
-        if (result) {
-          showSwal("با موفقیت خارج شدید", "success", "اوکی", () => {
-            localStorage.removeItem("divar");
-            location.href = "/index.html"; 
-            return true;
-          });
-        }
+const logout = () => {
+  showSwal(
+    "آیا از Logout اطمینان دارید؟",
+    "success",
+    ["نه", "آره"],
+    (result) => {
+      if (result) {
+        showSwal("با موفقیت خارج شدید", "success", "اوکی", () => {
+          localStorage.removeItem("divar");
+          location.href = "/index.html";
+          return true;
+        });
       }
-    );
- 
-}
-changeNumberSpan?.addEventListener('click', () => {
-  loginModalContainer.classList.remove('active_step_2')
-  clearInterval(timer);
-})
+    }
+  );
 
+}
 const getMe = async () => {
   const token = getToken();
   console.log(token);
   if (!token) {
     return false;
   }
-
   const res = await fetch(`https://divarapi.liara.run/v1/auth/me`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -153,5 +146,10 @@ const getMe = async () => {
 
   return data;
 };
+changeNumberSpan?.addEventListener('click', () => {
+  loginModalContainer.classList.remove('active_step_2')
+  clearInterval(timer);
+})
 
-export { SubmitNumber, getMe, verifyNumber, requestNewCode,logout };
+
+export { SubmitNumber, getMe, verifyNumber, requestNewCode, logout };
