@@ -70,7 +70,7 @@ window.addEventListener('load', () => {
     const loginModalOverlay = document.querySelector('.login_modal_overlay')
     const createPostBtn = document.querySelector('.create_post_btn')
 
-    createPostBtn.addEventListener('click', () => {
+    createPostBtn?.addEventListener('click', () => {
         getMe().then(data => {
             if (data.status === 200) {
                 location.href = '/new.html'

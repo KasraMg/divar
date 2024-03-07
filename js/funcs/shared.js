@@ -8,7 +8,7 @@ const getAndShowSocialMedia = async () => {
     const social = await res.json();
     console.log(social);
     social.data.socials.map(data => {
-        SocialMediaContainer.insertAdjacentHTML("beforeend", `
+        SocialMediaContainer?.insertAdjacentHTML("beforeend", `
         <a class="sidebar__icon-link" href="${data.link}">
         <img width="18px" height="18px" src="${data.icon}" class="sidebar__icon bi bi-twitter"></img>
         </a>

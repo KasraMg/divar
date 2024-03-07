@@ -22,62 +22,25 @@
                 <div class="header__wrapper">
                     <div class="header__right">
                         <a class="header__logo-link" href="#">
-                            <img
-                                class="header__logo-img"
+                            <img class="header__logo-img"
                                 src="/images/header/logo.svg"
-                                alt="logo" />
+                                alt="logo">
                         </a>
                     </div>
                     <div class="header__left">
-                        <a class="header__left-link" href="#">
-                            <i class="header__left-icon bi bi-person"></i>
-                            دیوار من
-                        </a>
-                        <div class="header__left-dropdown">
-                            <ul class="header__left-dropdown-list">
-                                <li class="header__left-dropdown-item">
-                                    <a class="header__left-dropdown-link"
-                                        href="#">
-                                        <i
-                                            class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
-                                        ورود
-                                    </a>
-                                </li>
-                                <li class="header__left-dropdown-item">
-                                    <a class="header__left-dropdown-link"
-                                        href="#">
-                                        <i
-                                            class="header__left-dropdown-icon bi bi-bookmark"></i>
-                                        نشان ها
-                                    </a>
-                                </li>
-                                <li class="header__left-dropdown-item">
-                                    <a class="header__left-dropdown-link"
-                                        href="#">
-                                        <i
-                                            class="header__left-dropdown-icon bi bi-journal"></i>
-                                        یادداشت ها
-                                    </a>
-                                </li>
-                                <li class="header__left-dropdown-item">
-                                    <a class="header__left-dropdown-link"
-                                        href="#">
-                                        <i
-                                            class="header__left-dropdown-icon bi bi-clock-history"></i>
-                                        بازدید های اخیر
-                                    </a>
-                                </li>
-                                <li class="header__left-dropdown-item">
-                                    <a class="header__left-dropdown-link"
-                                        href="#">
-                                        <i
-                                            class="header__left-dropdown-icon bi bi-shop"></i>
-                                        دیوار برای کسب و کارها
-                                    </a>
-                                </li>
-                            </ul>
+                        <div class="dropdown header_dropdown">
+                            <button class="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="header__left-icon bi bi-person"></i>
+                                دیوار من
+                            </button>
+                            <ul class="dropdown-menu header_dropdown_menu"></ul>
+
                         </div>
-                        <a class="header__left-link" href="#"> پشتیبانی </a>
+                        <a class="header__left-link" href="/support.html">
+                            پشتیبانی
+                        </a>
                     </div>
                 </div>
             </div>
@@ -204,33 +167,103 @@
                         </div>
                     </div>
                     <div class="footer__left">
-                        <div class="footer__social-media">
-                            <a class="footer__social-media-link" href="#">
-                                <i
-                                    class="footer__social-media-icon bi bi-twitter"></i>
-                            </a>
-                            <a class="footer__social-media-link" href="#">
-                                <i
-                                    class="footer__social-media-icon bi bi-instagram"></i>
-                            </a>
-                            <a class="footer__social-media-link" href="#">
-                                <i
-                                    class="footer__social-media-icon bi bi-linkedin"></i>
-                            </a>
-                        </div>
+                        <div class="footer__social-media"
+                            id="footer__social-media"></div>
                     </div>
                 </div>
             </div>
         </footer>
         <!--!==========================================End Footer==========================================!-->
+        <!--!==========================================Login Modal==========================================!-->
+        <div class="login-modal" id="login-modal">
+            <section class="login_modal_step_1">
+                <div class="login-modal__header">
+                    <div class="login-modal__header-wrapper">
+                        <span class="login-modal__title">ورود به حساب کاربری</span>
+                        <button class="login-modal__header-btn">
+                            <i class="login-modal__icon bi bi-x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="login-modal__main">
+                    <span class="login-modal__main-title">شماره موبایل خود را
+                        وارد کنید.</span>
+                    <p class="login-modal__main-notic">قبل از ثبت آگهی، لطفاً
+                        وارد حساب خود شوید.</p>
+                    <p class="login-modal__main-notic">کد تأیید به این شماره
+                        پیامک می‌شود.</p>
+                    <div class="login-modal__form-wrapper">
+                        <form class="login-modal__form" action="#">
+                            <input class="login-modal__input phone_Number_input"
+                                placeholder="شماره موبایل">
+                            <span class="step-1-login-form__error"></span>
+                        </form>
+                        <span class="login-modal__form-text">+98</span>
+                    </div>
+                    <div class="login-modal__condition">
+                        <a class="login-modal__condition-link" href="#">شرایط
+                            استفاده از خدمات</a>
+                        <span class="login-modal__condition-text">و</span>
+                        <a class="login-modal__condition-link" href="#">حریم
+                            خصوصی</a>
+                        <span class="login-modal__condition-text">دیوار را
+                            میپذیرم.</span>
+                    </div>
+                </div>
+                <div class="login-modal__footer">
+                    <button
+                        class="login-modal__footer-btn submit_phone_number_btn">تایید</button>
+                </div>
+            </section>
+            <section class="login_modal_step_2">
+                <div class="login-modal__header">
+                    <div class="login-modal__header-wrapper">
+                        <span class="login-modal__title">ورود به حساب کاربری</span>
+                        <button class="login-modal__header-btn">
+                            <i class="login-modal__icon bi bi-x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="login-modal__main">
+                    <span class="login-modal__main-title">کد تأیید را وارد کنید</span>
+                    <p class="login-modal__main-notic">کد پیامک‌شده به شمارۀ «<span
+                            class="user_number_notice">۰۹۰۴۶۴۱۷۰۸۴</span>» را
+                        وارد کنید.</p>
 
-        <!--!==========================================Overlay Searchbar==========================================!-->
-        <section class="overlay-header"></section>
-        <!--!==========================================End Overlay Searchbar==========================================!-->
+                    <div class="login-modal__form-wrapper">
+                        <form class="login-modal__form" action="#">
+                            <input class="login-modal__input code_input"
+                                maxlength="4" placeholder="کد تایید 4 رقمی">
+                            <span class="step-2-login-form__error"></span>
+                        </form>
+                    </div>
+                    <div class="login-modal__condition">
+                        <span
+                            class="login-modal__condition-text login-change-number">تغییر
+                            شماره موبایل</span>
+                    </div>
+                </div>
+                <div class="login-modal__footer">
+                    <button class="login-modal__footer-btn req_new_code_btn">درخواست
+                        کد </button>
+                    <div class="request_timer">
+                        <p>درخواست مجدد</p>
+                        <span>10</span>
+                    </div>
+                    <button class="login-modal__footer-btn login_btn">ورود</button>
+                </div>
+            </section>
+            <div class="overlay login_modal_overlay"></div>
+        </div>
+        <!--!==========================================End Login Modal==========================================!-->
+
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin></script>
         <script src="/js/new/registerPost.js"></script>
+        <script src="/js//shared.js" type="module"></script>
+        <script src="/vendor/bootstrap/bootstrap.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     </body>
 </html>

@@ -147,6 +147,7 @@ body {
 }
 .socials__list {
   display: flex;
+  gap: 25px;
   justify-content: center;
 }
 
