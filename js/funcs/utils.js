@@ -75,11 +75,11 @@ const paginateItems = (array, itemsPerPage, paginateParentElem, currentPage) => 
 }
 const showModal = (id, className) => {
   const element = document.querySelector(`#${id}`) 
-  element.classList.add(`${className}`)
+  element?.classList.add(`${className}`)
 };
 const hideModal = (id, className) => {
-  const element = document.querySelector(`#${id}`)
-  element.classList.remove(`${className}`)
+  const element = document.querySelector(`#${id}`) 
+  element?.classList.remove(`${className}`)
 };
 
 export {

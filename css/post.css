@@ -17,8 +17,8 @@
  .header__category-btn {
      display: flex;
      align-items: center;
-     font-family: "iransans-bold";
-     transition: var(--transition);
+     background-color: white !important;
+     font-family: "iransans-bold"; 
      padding: 1rem 1.3rem;
      border-radius: 0.3rem;
  }
@@ -33,20 +33,7 @@
  }
 
  /* Header Category Menu */
- .header__category-menu {
-     position: absolute;
-     background-color: var(--white-color);
-     width: 20rem;
-     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
-         0 16px 24px -6px rgba(0, 0, 0, 0.04);
-     border-radius: 0 0.5rem 0.5rem 0;
-     z-index: 100;
-     top: 4.5rem;
-     height: 50rem;
-     opacity: 0;
-     visibility: hidden;
-     transition: var(--transition);
- }
+
 
  .header__category-menu-right {
      padding: 2.5rem 2rem;
@@ -105,22 +92,7 @@
      font-size: 1rem;
  }
 
- .header__category-dropdown {
-     position: absolute;
-     top: -6.3rem;
-     left: -92rem;
-     background-color: var(--white-color);
-     border-radius: 0.5rem 0 0 0.5rem;
-     width: 90rem;
-     height: 50rem;
-     border-right: var(--border);
-     padding: 2rem;
-     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
-         0 16px 24px -6px rgba(0, 0, 0, 0.04);
-     transition: var(--transition);
-     visibility: hidden;
-     opacity: 0;
- }
+ 
 
  .header__category-dropdown-list {
      margin: 2rem 0;
@@ -149,25 +121,9 @@
  }
 
  /* End Header Category Menu */
- .header__searchbar {
-     display: flex;
-     align-items: center;
-     position: relative;
- }
-
+ 
  /* Searchbar Dropdown */
- .header__searchbar-dropdown {
-     position: absolute;
-     top: 3.8rem;
-     width: 100%;
-     background-color: var(--white-color);
-     border-top: var(--border);
-     border-radius: 0 0 0.3rem 0.3rem;
-     padding: 2rem 0;
-     opacity: 0;
-     visibility: hidden;
- }
-
+ 
  .header__searchbar-dropdown-title {
      display: block;
      font-size: var(--font-size-md);

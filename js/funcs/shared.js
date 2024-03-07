@@ -20,8 +20,7 @@ const getAndShowSocialMedia = async () => {
 
 const showPannelLinksToUser = async () => {
     const dropDown = document.querySelector(".header_dropdown_menu");
-    const isUserLogin = isLogin();
-
+    const isUserLogin = isLogin(); 
     if (isUserLogin) {
         getMe().then((data) => {
             if (data.status == 200) {

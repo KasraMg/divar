@@ -140,7 +140,8 @@ button {
     padding: 1rem 1.3rem;
     border-radius: 0.3rem;
 }
-
+ 
+ 
 .header__city *,
 .header__category-btn * {
     transition: var(--transition);
@@ -194,7 +195,7 @@ button {
 }
 .header__category-menu{
   position: absolute; 
-  top: 4.5rem;
+  top: 5.2rem;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
@@ -247,7 +248,7 @@ button {
 }
 .header__category-dropdown{
   position: absolute;
-  top: -6.8rem;
+  top: -6.85rem;
   left: -92rem;
   background-color: var(--white-color);
   border-radius: .5rem 0 0 .5rem;
@@ -291,6 +292,7 @@ button {
 .header__searchbar {
   display: flex;
   align-items: center; 
+  z-index: 1;
   position: relative;
 }
 
@@ -386,7 +388,38 @@ button {
     opacity: 0;
     transition: var(--transition);
 }
-
+.header_dropdown button::after{
+  display: none !important;
+}.header_dropdown button:focus,.header_dropdown button:active{
+  color: black !important;
+  background-color: white !important;
+  border-color: white;
+  outline: 0;
+  box-shadow: none;
+}
+.header_dropdown button:hover .bi{
+  color: black;
+}
+.header_dropdown .dropdown-menu{
+  width: 220px;
+}
+.header_dropdown button:hover{
+  background-color: rgba(0, 0, 0, 0.04);
+  color: black;
+}
+.header_dropdown button{
+  background: white !important;
+  color: unset !important ;
+  border: 0; 
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  margin: 0 1.5rem;
+  font-family: "iransans-medium";
+  padding: 1rem 1.3rem;
+  border-radius: 0.3rem;
+}
 .header_dropdown .dropdown-menu {
 padding: 0 !important;
 }
@@ -864,7 +897,8 @@ display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
   right: 0 !important;
-  z-index: 9999 !important;
+  z-index: 999 !important;
+  top: 65px;
 }
 .header__searchbar-dropdown--active .overlay{
   opacity: 1 !important;
@@ -944,6 +978,7 @@ display: block !important;
 }
 .footer__social-media{
   display: flex;
+  gap: 20px;
 }
 .footer__social-media-link{
   margin-right: 2rem;

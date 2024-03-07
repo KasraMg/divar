@@ -295,7 +295,7 @@
                     </div>
                     <div class="header__searchbar">
                         <form class="header__form">
-                            <input class="header__form-input" id="global_search_input"  type="text" placeholder="جستجو در تمام آگهی ها...">
+                            <input autocomplete="off" class="header__form-input" id="global_search_input"  type="text" placeholder="جستجو در تمام آگهی ها...">
                         </form>
                         <i class="header__searchbar-icon bi bi-search"></i>
                         <div class="header__searchbar-dropdown" id="header__searchbar-dropdown">
@@ -803,15 +803,14 @@
         </div>
       </section>
       <div class="overlay login_modal_overlay"></div>
-    </section>
+    </div>
     <!--!==========================================End Login Modal==========================================!-->
 
  
     <!--!==========================================End Overlay Searchbar==========================================!-->
 <script src="/js/posts.js" type="module"></script>
 <script src="/js/shared.js" type="module"></script>
-<script src="/vendor/bootstrap/bootstrap.js"></script>
-
+<script src="/vendor/bootstrap/bootstrap.js"></script> 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 

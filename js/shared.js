@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
     const mostSearchedContainer = document.querySelector('#most_searched')
 
     const mostSearchedArr = ['خودرو سواری', 'فروش آپارتمان', 'موبایل', 'حیوانات', 'تلویزیون']
-    globalSearchInput.addEventListener("keydown", event => {
+    globalSearchInput?.addEventListener("keydown", event => {
         if (event.keyCode == 13) {
             event.preventDefault();
             if (event.target.value.length) {
@@ -26,7 +26,7 @@ window.addEventListener('load', () => {
 
     });
     mostSearchedArr.map(value=>{
-        mostSearchedContainer.insertAdjacentHTML('beforeend', `
+        mostSearchedContainer?.insertAdjacentHTML('beforeend', `
         <li class="header__searchbar-dropdown-item">
         <a class="header__searchbar-dropdown-link" href="${`posts.html?city=tehran&value=${value}`}">${value}</a>
     </li>
@@ -76,27 +76,31 @@ window.addEventListener('load', () => {
                 location.href = '/new.html'
             } else {
                 showModal('login-modal', 'login-modal--active')
+                hideModal('header__category-menu', 'header__category-menu--active')
             }
         })
     })
     headerCityBtn?.addEventListener('click', () => {
         showModal('city-modal', 'city-modal--active')
+        hideModal('header__category-menu', 'header__category-menu--active')
     })
 
     cityModalCloseBtn?.addEventListener('click', () => {
-        hideModal('city-modal', 'city-modal--active')
+        hideModal('city-modal', 'city-modal--active') 
     })
 
     headerCategoryBtn?.addEventListener('click', () => {
-        showModal('header__category-menu', 'header__category-menu--active')
+        showModal('header__category-menu', 'header__category-menu--active') 
     })
     loginDropdownLink?.addEventListener('click', () => {
         showModal('login-modal', 'login-modal--active')
+        hideModal('header__category-menu', 'header__category-menu--active')
     })
 
 
     SearchBox?.addEventListener('click', () => {
         showModal('header__searchbar-dropdown', 'header__searchbar-dropdown--active')
+        hideModal('header__category-menu', 'header__category-menu--active')
     })
 
 
