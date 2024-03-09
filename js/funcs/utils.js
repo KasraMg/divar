@@ -11,9 +11,10 @@ const saveIntoLocalStorage = (key, value) => {
 };
 
 const getFromLocalStorage = (key) => {
-  return JSON.stringify(localStorage.getItem(key));
+  return JSON.parse(localStorage.getItem(key));
 };
 
+ 
 const getToken = () => {
   const userInfos = JSON.parse(localStorage.getItem("divar")); 
   return userInfos ? userInfos : null;
@@ -93,5 +94,5 @@ export {
   paginateItems,
   addParamToUrl,
   showModal,
-  hideModal
+  hideModal, 
 };

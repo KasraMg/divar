@@ -24,7 +24,7 @@
                     </a>
                     <button class="header__city">
                         <i class="header__city-icon bi bi-geo-alt"></i>
-                        <span class="header__city-title">اصفهان</span>
+                        <span id="header-city-title" class="header__city-title">اصفهان</span>
                     </button>
                     <div class="header__category">
                         <button class="header__category-btn">
@@ -571,46 +571,10 @@
                 <div class="city-modal__header-wrapper">
                     <div class="city-modal__title-wrapper">
                         <span class="city-modal__title">انتخاب شهر</span>
-                        <button class="city-modal__btn">حذف همه</button>
+                        <button id="delete-all-cities" class="city-modal__btn delete_cities">حذف همه</button>
                     </div>
-                    <div class="city-modal__selected">
-                        <div class="city-modal__selected-item">
-                            <span class="city-modal__selected-text">اصفهان</span>
-                            <button class="city-modal__selected-btn">
-                                <i class="city-modal__selected-icon bi bi-x"></i>
-                            </button>
-                        </div>
-                        <div class="city-modal__selected-item">
-                            <span class="city-modal__selected-text">اصفهان</span>
-                            <button class="city-modal__selected-btn">
-                                <i class="city-modal__selected-icon bi bi-x"></i>
-                            </button>
-                        </div>
-                        <div class="city-modal__selected-item">
-                            <span class="city-modal__selected-text">اصفهان</span>
-                            <button class="city-modal__selected-btn">
-                                <i class="city-modal__selected-icon bi bi-x"></i>
-                            </button>
-                        </div>
-                        <div class="city-modal__selected-item">
-                            <span class="city-modal__selected-text">اصفهان</span>
-                            <button class="city-modal__selected-btn">
-                                <i class="city-modal__selected-icon bi bi-x"></i>
-                            </button>
-                        </div>
-                        <div class="city-modal__selected-item">
-                            <span class="city-modal__selected-text">اصفهان</span>
-                            <button class="city-modal__selected-btn">
-                                <i class="city-modal__selected-icon bi bi-x"></i>
-                            </button>
-                        </div>
-                        <div class="city-modal__selected-item">
-                            <span class="city-modal__selected-text">اصفهان</span>
-                            <button class="city-modal__selected-btn">
-                                <i class="city-modal__selected-icon bi bi-x"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <p id="city_modal_error">حداقل یک شهر را انتخاب کنید.</p>
+                    <div class="city-modal__selected" id="city-selected"></div>
                     <div class="city-modal__searchbar">
                         <form class="city-modal__form">
                             <input class="city-modal__input" type="text" placeholder="جستجو در شهرها">
@@ -620,33 +584,19 @@
                 </div>
             </div>
             <div class="city-modal__cities">
-                <ul class="city-modal__cities-list">
-                    <li class="city-modal__cities-item">
-                        اصفهان
-                        <i class="city-modal__cities-icon bi bi-chevron-left"></i>
-                    </li>
-                    <li class="city-modal__cities-item">
-                        اصفهان
-                        <i class="city-modal__cities-icon bi bi-chevron-left"></i>
-                    </li>
-                    <li class="city-modal__cities-item">
-                        اصفهان
-                        <i class="city-modal__cities-icon bi bi-chevron-left"></i>
-                    </li>
-                    
-                </ul>
+                <ul class="city-modal__cities-list" id="city_modal_list"></ul>
            
             </div>
             <div class="city-modal__footer">
                 <div class="city-modal__footer-wrapper">
                     <button class="city-modal__btn-footer city-modal__close">انصراف</button>
-                    <button class="city-modal__btn-footer city-modal__accept--active">تایید</button>
+                    <button class="city-modal__btn-footer city-modal__accept ">تایید</button>
                 </div>
             </div>
         </section>
     </div>
     <!--!==========================================End city Modal==========================================!-->
-
+<!-- city-modal__accept--active -->
     <!--!==========================================Login Modal==========================================!-->
     <div class="login-modal" id="login-modal">
         <section class="login_modal_step_1">

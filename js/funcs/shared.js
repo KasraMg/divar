@@ -1,12 +1,11 @@
 
-import {  getMe } from "../funcs/auth.js"
-import { getUrlParam, isLogin } from "./utils.js";
+import { getMe } from "../funcs/auth.js"
+import { getFromLocalStorage, getUrlParam, isLogin } from "./utils.js";
 
 const getAndShowSocialMedia = async () => {
     const SocialMediaContainer = document.querySelector('#footer__social-media')
     const res = await fetch(`https://divarapi.liara.run/v1/social/`);
     const social = await res.json();
-    console.log(social);
     social.data.socials.map(data => {
         SocialMediaContainer?.insertAdjacentHTML("beforeend", `
         <a class="sidebar__icon-link" href="${data.link}">
@@ -20,7 +19,7 @@ const getAndShowSocialMedia = async () => {
 
 const showPannelLinksToUser = async () => {
     const dropDown = document.querySelector(".header_dropdown_menu");
-    const isUserLogin = isLogin(); 
+    const isUserLogin = isLogin();
     if (isUserLogin) {
         getMe().then((data) => {
             if (data.status == 200) {
@@ -126,11 +125,29 @@ const getAndShowCategoryPosts = async () => {
     // return courses;
 };
 
+const getAndShowCities = async () => {
+    const res = await fetch(`https://divarapi.liara.run/v1/location/`);
+    const cities = await res.json();
+    return cities
+}
 
+const getAndShowHeaderCityTitle = () => {
+    const headerCityTitle = document.querySelector('#header-city-title')
+    const cities = getFromLocalStorage('cities')
+    console.log(cities.length);
+    if (cities.length == 1) {
+        headerCityTitle.innerHTML = cities[0]
+    } else {
+        headerCityTitle.innerHTML = `${cities.length} شهر`
+    }
+
+}
 
 
 export {
     getAndShowSocialMedia,
     showPannelLinksToUser,
-    getAndShowCategoryPosts
+    getAndShowCategoryPosts,
+    getAndShowCities,
+    getAndShowHeaderCityTitle
 };
