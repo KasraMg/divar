@@ -809,6 +809,7 @@ display: block !important;
   background-size: 40px;
   background-repeat: no-repeat;
   background-position: center;
+  z-index: -1;
   left: 4px;
   border: 1px solid black;
   border-radius: 3px;

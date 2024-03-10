@@ -125,7 +125,7 @@ const getAndShowCategoryPosts = async () => {
     // return courses;
 };
 
-const getAndShowCities = async () => {
+const getAllCitiesHandler = async () => {
     const res = await fetch(`https://divarapi.liara.run/v1/location/`);
     const cities = await res.json();
     return cities
@@ -136,7 +136,7 @@ const getAndShowHeaderCityTitle = () => {
     const cities = getFromLocalStorage('cities')
     console.log(cities.length);
     if (cities.length == 1) {
-        headerCityTitle.innerHTML = cities[0]
+        headerCityTitle.innerHTML = cities[0].title
     } else {
         headerCityTitle.innerHTML = `${cities.length} شهر`
     }
@@ -148,6 +148,6 @@ export {
     getAndShowSocialMedia,
     showPannelLinksToUser,
     getAndShowCategoryPosts,
-    getAndShowCities,
+    getAllCitiesHandler,
     getAndShowHeaderCityTitle
 };
