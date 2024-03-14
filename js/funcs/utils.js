@@ -38,14 +38,19 @@ const searchInArray = (array, searchProperty, searchValue) => {
   return outputArray;
 };
 
-const addParamToUrl = (param, value) => {
-  console.log(param, value);
+const addParamToUrl = (param, value) => { 
   let url = new URL(location.href)
   let searchParams = url.searchParams
 
   searchParams.set(param, value)
   url.search = searchParams.toString()
   location.href = url.toString()
+}
+
+const removeParameterFromURL = (param)=> {
+  var url = new URL(window.location.href);
+  url.searchParams.delete(param);
+  window.history.replaceState(null, null, url);
 }
 
 const paginateItems = (array, itemsPerPage, paginateParentElem, currentPage) => {
@@ -90,6 +95,7 @@ export {
   getToken,
   isLogin,
   getUrlParam,
+  removeParameterFromURL,
   searchInArray,
   paginateItems,
   addParamToUrl,

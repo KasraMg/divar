@@ -117,10 +117,48 @@
 .sidebar__category-list {
     margin: 1rem 0;
 }
-.sidebar__category-link {
+.sidebar__category-link_details p{
+    margin-top: 5px;
+}
+.sidebar__category-link_details{ 
     display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.subCategory-list li{
+    margin-top: 15px;
+}
+.active-category .subCategory-list{
+display: block !important;
+}
+.all-categories p{
+    margin-top: 5px;
+    cursor: pointer;
+}
+.active-subCategory{
+    color: red;
+    padding-right: 5px;
+    border-right:solid 1px red !important;
+}
+.subCategory-list li{
+    font-size: 1.3rem;
+}
+.all-categories{
+    display: flex;
+    gap: 15px;
+    flex-direction: row-reverse;
+    font-size: 1.5rem;
+    justify-content: right;
+    align-items: center;
+}
+.subCategory-list{
+    padding-right: 2rem;
+    display: none;
+}
+.sidebar__category-link {
     padding: 1rem 0;
     font-size: var(--font-size-md);
+    cursor: pointer;
     font-family: "iransans-medium";
 }
 .sidebar__category-link:hover .sidebar__category-icon {
@@ -283,7 +321,8 @@
     display: flex;
     border: var(--border);
     border-radius: 0.3rem;
-    padding: 1.5rem 2rem;
+    justify-content: space-evenly;
+    padding: 1.5rem 2rem 1.5rem 1rem;
     margin: 1rem 0;
 }
 .product-card__right {
@@ -317,6 +356,8 @@
 }
 .product-card__img {
     border-radius: 0.3rem;
+    width: 136px;
+    height: 136px;
 }
 .product-card__icon {
     font-size: var(--font-size-md);

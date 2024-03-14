@@ -1,6 +1,6 @@
 
 import { getMe } from "../funcs/auth.js"
-import { getFromLocalStorage, getUrlParam, isLogin } from "./utils.js";
+import { getFromLocalStorage, getUrlParam, isLogin, saveIntoLocalStorage } from "./utils.js";
 
 const getAndShowSocialMedia = async () => {
     const SocialMediaContainer = document.querySelector('#footer__social-media')
@@ -112,17 +112,18 @@ const showPannelLinksToUser = async () => {
     }
 };
 
-const getAndShowCategoryPosts = async () => {
-    const categoryName = getUrlParam("value");
-    const cityName = getUrlParam("city");
-    console.log(categoryName);
-    console.log(cityName);
-    // const res = await fetch(
-    //   `http://localhost:4000/v1/courses/category/${categoryName}`
-    // );
-    // const courses = await res.json();
+const getAndShowCategories = async () => {
+    const res = await fetch("https://divarapi.liara.run/v1/category/")
+    const categories = await res.json()
+    return categories
+}
 
-    // return courses;
+const getAndShowCategoryPosts = async () => {
+    const cityId = getUrlParam("city");
+    console.log(cityId);
+    const res = await fetch(`https://divarapi.liara.run/v1/post/?city=${cityId}`)
+    const posts = await res.json()
+    return posts
 };
 
 const getAllCitiesHandler = async () => {
@@ -134,19 +135,26 @@ const getAllCitiesHandler = async () => {
 const getAndShowHeaderCityTitle = () => {
     const headerCityTitle = document.querySelector('#header-city-title')
     const cities = getFromLocalStorage('cities')
-    console.log(cities.length);
-    if (cities.length == 1) {
+    if (!cities) {
+        saveIntoLocalStorage('cities', [{ title: 'تهران', id: 301 }])
+        const cities = getFromLocalStorage('cities')
         headerCityTitle.innerHTML = cities[0].title
     } else {
-        headerCityTitle.innerHTML = `${cities.length} شهر`
+        if (cities.length == 1) {
+            headerCityTitle.innerHTML = cities[0].title
+        } else {
+            headerCityTitle.innerHTML = `${cities.length} شهر`
+        }
     }
-
 }
+
+
 
 
 export {
     getAndShowSocialMedia,
     showPannelLinksToUser,
+    getAndShowCategories,
     getAndShowCategoryPosts,
     getAllCitiesHandler,
     getAndShowHeaderCityTitle

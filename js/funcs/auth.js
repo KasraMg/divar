@@ -16,8 +16,7 @@ let timer;
 
 const SubmitNumber = () => {
   const phoneRegex = RegExp(/^(09)[0-9]{9}$/)
-  const phoneRegexResult = phoneRegex.test(userPhoneNumberInput.value)
-
+  const phoneRegexResult = phoneRegex.test(userPhoneNumberInput.value) 
   if (phoneRegexResult) {
     step1LoginFormError.innerHTML = ""
     fetch(`https://divarapi.liara.run/v1/auth/send`, {
@@ -29,8 +28,7 @@ const SubmitNumber = () => {
     }).then(res => {
       if (res.status == 200) {
         loginModalContainer.classList.add('active_step_2')
-        userNumberNotice.innerHTML = userPhoneNumberInput.value
-
+        userNumberNotice.innerHTML = userPhoneNumberInput.value 
         requestCodeBtn.style.display = 'none'
         let count = 30
         requestBtnTimerContainer.style.display = 'flex'
@@ -70,8 +68,7 @@ const verifyNumber = () => {
       },
       body: JSON.stringify(datas),
     }).then(res => res.json())
-      .then(data => {
-        console.log(data);
+      .then(data => { 
         if (data.status == 400) {
           step2LoginFormError.innerHTML = "کد منقضی یا نامعتبر است"
         } else if (data.status == 201 || data.status == 200) {
@@ -91,10 +88,8 @@ const requestNewCode = () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ phone: userPhoneNumberInput.value.trim() }),
-  }).then(res => {
-    console.log(res);
-    if (res.status == 200) {
-
+  }).then(res => { 
+    if (res.status == 200) { 
       requestBtnTimer.textContent = '30';
       requestCodeBtn.style.display = 'none';
       requestBtnTimerContainer.style.display = 'flex';
@@ -103,8 +98,7 @@ const requestNewCode = () => {
 
       timer = setInterval(function () {
         count--;
-        requestBtnTimer.textContent = count;
-        console.log(count);
+        requestBtnTimer.textContent = count; 
         if (count === 0) {
           clearInterval(timer);
           requestCodeBtn.style.display = 'block';
