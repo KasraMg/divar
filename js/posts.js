@@ -3,47 +3,55 @@ import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL
 
 window.addEventListener('load', () => {
     const categoryId = getUrlParam('categoryId');
-function findSubCategoryById(categories, categoryId) {
-    const allSubCategories = categories.flatMap(category => category.subCategories);
-    return allSubCategories.find(subCategory => subCategory._id === categoryId);
-}
+    const searchValue = getUrlParam('value')
+    const priceValue = getUrlParam('price')
+    // const citySelect = getFromLocalStorage("cities")
 
-// تابعی برای ایجاد HTML برای زیردسته‌ها
-function createSubCategoryHTML(subCategory) {
-    return `
+    // let ids = citySelect.map(obj => obj.id).join('|'); 
+    // addParamToUrl('city',ids)
+
+    if (searchValue) {
+        const searchInput = document.querySelector('#global_search_input')
+        searchInput.value = searchValue
+    }
+
+    function findSubCategoryById(categories, categoryId) {
+        const allSubCategories = categories.flatMap(category => category.subCategories);
+        return allSubCategories.find(subCategory => subCategory._id === categoryId);
+    }
+
+    // تابعی برای ایجاد HTML برای زیردسته‌ها
+    function createSubCategoryHTML(subCategory) {
+        return `
         <li class="${categoryId == subCategory._id ? 'active-subCategory' : ''}" 
-            onclick="subCategoryItemClickHandler('${subCategory._id}')">
+            onclick="categoryItemClickHandler('${subCategory._id}')">
             ${subCategory.title}
         </li>
     `;
-}
+    }
 
-getAndShowCategories().then(data => {
-    const categoriesContainer = document.querySelector('#categories-container');
- 
+    getAndShowCategories().then(data => {
+        const categoriesContainer = document.querySelector('#categories-container');
 
-    // تابعی برای بازگشت به تمام دسته‌بندی‌ها
-    window.backToAllCategories = () => {
-        removeParameterFromURL('categoryId');
-        location.reload();
-    };
+        // تابعی برای بازگشت به تمام دسته‌بندی‌ها
+        window.backToAllCategories = () => {
+            removeParameterFromURL('categoryId');
+            location.reload();
+        };
 
-    // تابعی برای باز کردن یک دسته بندی
-    window.categoryItemClickHandler = (categoryId) => {
-        addParamToUrl('categoryId', categoryId);
-    };
+        // تابعی برای ست کردن ایدی کتگوری یا ساب کتگوری در url
+        window.categoryItemClickHandler = (categoryId) => {
+            addParamToUrl('categoryId', categoryId);
+        };
 
-    // تابعی برای باز کردن یک زیردسته
-    window.subCategoryItemClickHandler = (subCategoryId) => {
-        addParamToUrl('categoryId', subCategoryId);
-    };
 
-    if (location.href.includes('categoryId')) {
-        const categoryInfoes = data.data.categories.filter(category => category._id == categoryId);
-        if (!categoryInfoes.length) {
-            const subCategory = findSubCategoryById(data.data.categories, categoryId);
-            if (subCategory) {
-                categoriesContainer.insertAdjacentHTML('beforeend', `
+
+        if (location.href.includes('categoryId')) {
+            const categoryInfoes = data.data.categories.filter(category => category._id == categoryId);
+            if (!categoryInfoes.length) {
+                const subCategory = findSubCategoryById(data.data.categories, categoryId);
+                if (subCategory) {
+                    categoriesContainer.insertAdjacentHTML('beforeend', `
                     <div class="all-categories" onclick="backToAllCategories()"> 
                         <p>همه اگهی ها</p> 
                         <i class="bi bi-arrow-right"></i> 
@@ -58,25 +66,25 @@ getAndShowCategories().then(data => {
                         </ul> 
                     </div>
                 `);
-            } else {
-                const filteredObjects = [];
-                function findObjects(categoryObj, categoryId) {
-                    if (categoryObj._id === categoryId) {
-                        filteredObjects.push(categoryObj);
+                } else {
+                    const filteredObjects = [];
+                    function findObjects(categoryObj, categoryId) {
+                        if (categoryObj._id === categoryId) {
+                            filteredObjects.push(categoryObj);
+                        }
+                        if (categoryObj.subCategories) {
+                            categoryObj.subCategories.forEach(subObj => findObjects(subObj, categoryId));
+                        }
                     }
-                    if (categoryObj.subCategories) {
-                        categoryObj.subCategories.forEach(subObj => findObjects(subObj, categoryId));
-                    }
-                }
-                data.data.categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
-                const subSubCategory = findSubCategoryById(data.data.categories, filteredObjects[0].parent);
-                categoriesContainer.insertAdjacentHTML('beforeend', `
+                    data.data.categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
+                    const subSubCategory = findSubCategoryById(data.data.categories, filteredObjects[0].parent);
+                    categoriesContainer.insertAdjacentHTML('beforeend', `
                     <div class="all-categories" onclick="backToAllCategories()">
                         <p>همه اگهی ها</p>
                         <i class="bi bi-arrow-right"></i>
                     </div>
                     <div class="sidebar__category-link active-category" id="category-${subSubCategory._id}" href="#">
-                        <div onclick="subCategoryItemClickHandler('${subSubCategory._id}')" class="sidebar__category-link_details">
+                        <div onclick="categoryItemClickHandler('${subSubCategory._id}')" class="sidebar__category-link_details">
                             <i class="sidebar__category-icon bi bi-house"></i>
                             <p>${subSubCategory.title}</p>
                         </div>
@@ -85,10 +93,10 @@ getAndShowCategories().then(data => {
                         </ul>
                     </div>
                 `);
-            }
-        } else {
-            categoryInfoes.forEach(category => {
-                categoriesContainer.insertAdjacentHTML('beforeend', `
+                }
+            } else {
+                categoryInfoes.forEach(category => {
+                    categoriesContainer.insertAdjacentHTML('beforeend', `
                     <div class="all-categories" onclick="backToAllCategories()">
                         <p>همه اگهی ها</p>
                         <i class="bi bi-arrow-right"></i>
@@ -103,12 +111,12 @@ getAndShowCategories().then(data => {
                         </ul>
                     </div>
                 `);
-            });
-        }
-    } else {
-        categoriesContainer.innerHTML = '';
-        data.data.categories.forEach(category => {
-            categoriesContainer.insertAdjacentHTML('beforeend', `
+                });
+            }
+        } else {
+            categoriesContainer.innerHTML = '';
+            data.data.categories.forEach(category => {
+                categoriesContainer.insertAdjacentHTML('beforeend', `
                 <div class="sidebar__category-link" id="category-${category._id}" href="#">
                     <div onclick="categoryItemClickHandler('${category._id}')" class="sidebar__category-link_details">
                         <i class="sidebar__category-icon bi bi-house"></i>
@@ -116,37 +124,74 @@ getAndShowCategories().then(data => {
                     </div>
                 </div>
             `);
-        });
-    }
-});
+            });
+        }
+    });
 
 
-   
+
 
     getAndShowCategoryPosts().then(data => {
+        console.log(data);
         const postsContainer = document.querySelector('#posts-container')
-        data.data.posts.map(post => {
-            postsContainer.insertAdjacentHTML('beforeend', `
-            <div class="col-4">
-                            <a href="post.html?id=${post._id}" class="product-card">
-                                <div class="product-card__right">
-                                    <div class="product-card__right-top">
-                                        <p class="product-card__link">${post.title}</p>
+
+        if (data.data.posts.length) {
+            data.data.posts.map(post => { 
+                postsContainer.insertAdjacentHTML('beforeend', `
+                <div class="col-4">
+                                <a href="post.html?id=${post._id}" class="product-card">
+                                    <div class="product-card__right">
+                                        <div class="product-card__right-top">
+                                            <p class="product-card__link">${post.title}</p>
+                                        </div>
+                                        <div class="product-card__right-bottom">
+                                            <span class="product-card__condition">در حد نو</span>
+                                            <span class="product-card__price">${post.price.toLocaleString()} تومان</span>
+                                            <span class="product-card__time">لحظاتی پیش</span>
+                                        </div>
                                     </div>
-                                    <div class="product-card__right-bottom">
-                                        <span class="product-card__condition">در حد نو</span>
-                                        <span class="product-card__price">${post.price} تومان</span>
-                                        <span class="product-card__time">لحظاتی پیش</span>
+                                    <div class="product-card__left"> 
+                                        <img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>
                                     </div>
-                                </div>
-                                <div class="product-card__left"> 
-                                    <img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>
-                                </div>
-                            </a>
-                        </div>
-        
-            `)
-        })
+                                </a>
+                            </div>
+            
+                `)
+            })
+        } else {
+            postsContainer.innerHTML = '<p class="empty">آگهی یافت نشد</p>'
+        }
+
 
     })
+
+    const minPriceSelectbox = document.querySelector('#min-price-selectbox')
+    const maxPriceSelectbox = document.querySelector('#max-price-selectbox')
+    console.log(priceValue);
+    if (priceValue) {
+        let priceArray = priceValue.split("-");
+        let price1 = parseInt(priceArray[0]);
+        let price2 = parseInt(priceArray[1]);
+        console.log(price2);
+        if (price1) {
+            minPriceSelectbox.value = price1
+        }
+        if (price2) {
+            maxPriceSelectbox.value = price2
+        }
+
+    }
+
+
+    minPriceSelectbox.addEventListener('change', event => {
+        const maxPrice = maxPriceSelectbox.value !== 'default' ? maxPriceSelectbox.value : '';
+        addParamToUrl('price', `${event.target.value}-${maxPrice}`);
+    });
+
+    maxPriceSelectbox.addEventListener('change', event => {
+        const minPrice = minPriceSelectbox.value !== 'default' ? minPriceSelectbox.value : '';
+        addParamToUrl('price', `${minPrice}-${event.target.value}`);
+    });
 })
+
+ 

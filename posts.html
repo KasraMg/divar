@@ -339,68 +339,59 @@
                             </ul>
                         </div>
                         <div class="sidebar__filters">
-                            <div class="sidebar__filter">
-                                <div class="sidebar__filter-title-wrapper">
-                                    <i class="sidebar__filter-icon bi bi-chevron-down"></i>
-                                    <span class="sidebar__filter-title">قیمت</span>
-                                </div>
-                                <div class="sidebar__filter-price sidebar__filter-item">
-                                    <div class="sidebar__filter-price-wrapper">
-                                        <label class="sidebar__filter-price-label">حداقل</label>
-                                        <div class="sidebar__filter-price-input">
-                                            <div class="sidebar__filter-price-right">
-                                                <span class="sidebar__filter-price-example">مثلا 70,000,000</span>
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                       <span class="sidebar__filter-title">قیمت</span>
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">  
+                                        <div class="sidebar__filter-price sidebar__filter-item">
+                                            <div class="sidebar__filter-price-wrapper">
+                                                <label class="sidebar__filter-price-label">حداقل</label>
+                                                <select name="" id="min-price-selectbox">
+                                                    <option value="default">مثال 750,000 </option>
+                                                    <option value="10000">10 هزار</option>
+                                                    <option value="50000">50 هزار</option>
+                                                    <option value="200000">200 هزار</option>
+                                                    <option value="500000">500 هزار</option>
+                                                    <option value="1000000">1 میلیون</option>
+                                                    <option value="5000000">5 میلیون</option>
+                                                    <option value="10000000">10 میلیون</option>
+                                                    <option value="20000000">20 میلیون</option>
+                                                    <option value="50000000">50 میلیون</option>
+                                                    <option value="100000000">100 میلیون</option>
+                                                    <option value="150000000">150 میلیون</option>
+                                                    <option value="200000000">200 میلیون</option>
+                                                </select>
+                                                <p>تومان</p>
                                             </div>
-                                            <div class="sidebar__filter-price-left">
-                                                <span class="sidebar__filter-price-text">تومان</span>
-                                                <i class="sidebar__filter-price-icon bi bi-chevron-down"></i>
+                                            <div class="sidebar__filter-price-wrapper">
+                                                <label class="sidebar__filter-price-label">حداکثر</label>
+                                                <select name="" id="max-price-selectbox">
+                                                    <option value="default">مثال 750,000 </option>
+                                                    <option value="10000">10 هزار</option>
+                                                    <option value="50000">50 هزار</option>
+                                                    <option value="200000">200 هزار</option>
+                                                    <option value="500000">500 هزار</option>
+                                                    <option value="1000000">1 میلیون</option>
+                                                    <option value="5000000">5 میلیون</option>
+                                                    <option value="10000000">10 میلیون</option>
+                                                    <option value="20000000">20 میلیون</option>
+                                                    <option value="50000000">50 میلیون</option>
+                                                    <option value="100000000">100 میلیون</option>
+                                                    <option value="150000000">150 میلیون</option>
+                                                    <option value="200000000">200 میلیون</option>
+                                                </select>
+                                                <p>تومان</p>
                                             </div>
-                                        </div>
+                                        </div> 
                                     </div>
-                                    <div class="sidebar__filter-price-wrapper">
-                                        <label class="sidebar__filter-price-label">حداقل</label>
-                                        <div class="sidebar__filter-price-input">
-                                            <div class="sidebar__filter-price-right">
-                                                <span class="sidebar__filter-price-example">مثلا 70,000,000</span>
-                                            </div>
-                                            <div class="sidebar__filter-price-left">
-                                                <span class="sidebar__filter-price-text">تومان</span>
-                                                <i class="sidebar__filter-price-icon bi bi-chevron-down"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sidebar__filter">
-                                <div class="sidebar__filter-title-wrapper">
-                                    <i class="sidebar__filter-icon bi bi-chevron-down"></i>
-                                    <span class="sidebar__filter-title">وضعیت آگهی</span>
-                                </div>
-                                <div class="sidebar__filter-condition sidebar__filter-item">
-                                    <div class="sidebar__filter-condition-wrapper">
-                                        <div class="sidebar__filter-condition-right">
-                                            <label class="sidebar__filter-condition-label">فقط عکس دار</label>
-                                        </div>
-                                        <div class="sidebar__filter-condition-left">
-                                            <label class="sidebar__filter-condition-switch">
-                                                <input class="sidebar__filter-condition-input" type="checkbox" checked>
-                                                <span class="sidebar__filter-condition-slider"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="sidebar__filter-condition-wrapper">
-                                        <div class="sidebar__filter-condition-right">
-                                            <label class="sidebar__filter-condition-label">فقط فوری ها</label>
-                                        </div>
-                                        <div class="sidebar__filter-condition-left">
-                                            <label class="sidebar__filter-condition-switch">
-                                                <input class="sidebar__filter-condition-input" type="checkbox" checked>
-                                                <span class="sidebar__filter-condition-slider"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                  </div>
+                                </div> 
+                              </div> 
                         </div>
                         <div class="sidebar__links">
                             <a class="sidebar__link" href="#">درباره دیوار</a>

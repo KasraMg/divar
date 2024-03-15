@@ -115,15 +115,30 @@ const showPannelLinksToUser = async () => {
 const getAndShowCategories = async () => {
     const res = await fetch("https://divarapi.liara.run/v1/category/")
     const categories = await res.json()
+    console.log(categories);
     return categories
 }
 
 const getAndShowCategoryPosts = async () => {
     const cityId = getUrlParam("city");
-    console.log(cityId);
-    const res = await fetch(`https://divarapi.liara.run/v1/post/?city=${cityId}`)
-    const posts = await res.json()
-    return posts
+    const categoryId = getUrlParam('categoryId');
+    const searchValue = getUrlParam('value')
+    const priceValue = getUrlParam('price')
+   
+    let url = `https://divarapi.liara.run/v1/post/?city=${cityId}`;
+    if (categoryId) {
+        url += `&categoryId=${categoryId};`
+    }
+     if (searchValue) {
+        url += `&search=${searchValue};`
+    }
+     if(priceValue){
+        url += `&price=${priceValue};`
+    }
+
+    const res = await fetch(url);
+    const posts = await res.json();
+    return posts;
 };
 
 const getAllCitiesHandler = async () => {
@@ -135,17 +150,20 @@ const getAllCitiesHandler = async () => {
 const getAndShowHeaderCityTitle = () => {
     const headerCityTitle = document.querySelector('#header-city-title')
     const cities = getFromLocalStorage('cities')
-    if (!cities) {
-        saveIntoLocalStorage('cities', [{ title: 'تهران', id: 301 }])
-        const cities = getFromLocalStorage('cities')
-        headerCityTitle.innerHTML = cities[0].title
-    } else {
-        if (cities.length == 1) {
+    if (headerCityTitle) {
+        if (!cities) {
+            saveIntoLocalStorage('cities', [{ title: 'تهران', id: 301 }])
+            const cities = getFromLocalStorage('cities')
             headerCityTitle.innerHTML = cities[0].title
         } else {
-            headerCityTitle.innerHTML = `${cities.length} شهر`
+            if (cities.length == 1) {
+                headerCityTitle.innerHTML = cities[0].title
+            } else {
+                headerCityTitle.innerHTML = `${cities.length} شهر`
+            }
         }
     }
+   
 }
 
 

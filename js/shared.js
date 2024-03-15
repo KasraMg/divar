@@ -1,5 +1,5 @@
 import { getAllCitiesHandler, getAndShowHeaderCityTitle, getAndShowSocialMedia, showPannelLinksToUser } from './funcs/shared.js'
-import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage } from "./funcs/utils.js"
+import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage, addParamToUrl } from "./funcs/utils.js"
 import { SubmitNumber, getMe, verifyNumber, requestNewCode, logout } from './funcs/auth.js'
 
 const cityModalOverlay = document.querySelector('.city-modal__overlay')
@@ -62,7 +62,10 @@ window.addEventListener('load', () => {
 
     // Event listeners
     cityModalAcceptBtn.addEventListener('click', () => {
-        saveIntoLocalStorage('cities', citySelect);
+        saveIntoLocalStorage('cities', citySelect); 
+        console.log(citySelect);
+        let ids = citySelect.map(obj => obj.id).join('|'); 
+        addParamToUrl('city',ids)
         getAndShowHeaderCityTitle();
         hideModal('city-modal', 'city-modal--active');
     });
@@ -154,6 +157,7 @@ window.addEventListener('load', () => {
         const item = provinceId ? document.querySelector(`#city-${cityId}-${provinceId}`) : document.querySelector(`#city-${cityId}`);
         const checkbox = item.querySelector("input");
         const cityTitle = item.querySelector("span").innerHTML;
+        const cityItemId = item.id
         if (!provinceId) {
             citySelect.map(city => {
                 if (city.title == cityTitle) {
@@ -165,7 +169,7 @@ window.addEventListener('load', () => {
 
         const checkboxShape = item.querySelector("div");
         checkbox.checked = !checkbox.checked; 
-        if (!provinceId) {
+        if (!provinceId) { 
             if (checkbox.checked) {
                 updateCitySelectList(cityTitle, cityId);
                 checkbox.checked = false;
@@ -353,11 +357,15 @@ window.addEventListener('load', () => {
     const mostSearchedContainer = document.querySelector('#most_searched')
 
     const mostSearchedArr = ['خودرو سواری', 'فروش آپارتمان', 'موبایل', 'حیوانات', 'تلویزیون']
-    globalSearchInput?.addEventListener("keydown", event => {
+    globalSearchInput?.addEventListener("keydown", event => { console.log(location);
         if (event.keyCode == 13) {
             event.preventDefault();
             if (event.target.value.length) {
-                location.href = `posts.html?city=${ids}&value=${globalSearchInput.value.trim()}`;
+              if (location.pathname == '/posts.html') {
+                addParamToUrl('value',globalSearchInput.value.trim())
+              }else{ 
+                  location.href = `posts.html?city=${ids}&value=${globalSearchInput.value.trim()}`;
+              }
             }
         }
 
