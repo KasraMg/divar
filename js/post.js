@@ -1,3 +1,5 @@
+import { getCourseDetails } from "./funcs/shared.js";
+
 var swiper = new Swiper(".mySwiper", {
     spaceBetween: 10,
     rewind: true,
@@ -18,12 +20,14 @@ var swiper2 = new Swiper(".mySwiper2", {
     },
 });
 
+window.addEventListener('load',()=>{
+    getCourseDetails()
+    const feedbackIcons = document.querySelectorAll('.post_feedback_icon')
 
-const feedbackIcons = document.querySelectorAll('.post_feedback_icon')
-
-feedbackIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-        feedbackIcons.forEach(icon => icon.classList.remove('active'))
-        icon.classList.add('active')
+    feedbackIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            feedbackIcons.forEach(icon => icon.classList.remove('active'))
+            icon.classList.add('active')
+        })
     })
 })

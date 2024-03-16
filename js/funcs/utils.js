@@ -51,6 +51,7 @@ const removeParameterFromURL = (param)=> {
   var url = new URL(window.location.href);
   url.searchParams.delete(param);
   window.history.replaceState(null, null, url);
+  location.reload()
 }
 
 const paginateItems = (array, itemsPerPage, paginateParentElem, currentPage) => {

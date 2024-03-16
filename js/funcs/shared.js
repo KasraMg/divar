@@ -134,8 +134,7 @@ const getAndShowCategoryPosts = async () => {
     }
      if(priceValue){
         url += `&price=${priceValue};`
-    }
-
+    } 
     const res = await fetch(url);
     const posts = await res.json();
     return posts;
@@ -166,7 +165,12 @@ const getAndShowHeaderCityTitle = () => {
    
 }
 
-
+const getCourseDetails = async () => {
+const productId = getUrlParam('id')
+const res = await fetch (`https://divarapi.liara.run/v1/post/${productId}`)
+const data = await res.json()
+console.log(data);
+}
 
 
 export {
@@ -175,5 +179,6 @@ export {
     getAndShowCategories,
     getAndShowCategoryPosts,
     getAllCitiesHandler,
-    getAndShowHeaderCityTitle
+    getAndShowHeaderCityTitle,
+    getCourseDetails
 };

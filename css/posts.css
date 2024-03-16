@@ -108,6 +108,7 @@
 }
 .sidebar__category {
     border-bottom: var(--border);
+    min-height: 235px;
 }
 .sidebar__category-title {
     font-size: var(--font-size-sm);
@@ -170,9 +171,26 @@ display: block !important;
 /* ==========End Sidebar Category========== */
 
 /* ==========Sidebar Filter========== */
+.sidebar__filter p{
+    color: black;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+.sidebar__filter:last-child{
+    border-top: 0;
+    padding-top: 0;
+}
 .sidebar__filter {
     border-bottom: var(--border);
-    padding: 0 0.5rem;
+    border-top: var(--border);
+    padding: 1rem 0.5rem ;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    font-size: 1.3rem;
 }
 .sidebar__filter-item {
     scrollbar-width: 0;
@@ -325,7 +343,7 @@ display: block !important;
 .sidebar__images {
     margin: 2rem 0;
 }.accordion-button:not(.collapsed),.accordion-button:focus {
-   padding: 18px 1.25rem;
+
     color: black !important;
     background-color: white !important;
     box-shadow: none !important;
@@ -333,9 +351,70 @@ display: block !important;
 .accordion-button:not(.collapsed)::after {  
     background-image: var(--bs-accordion-btn-icon) !important;
 }
+.accordion-button{
+    padding: 18px 1.25rem;
+}
 .accordion-button::after{
    right: 1px;
    position: absolute;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 23.4px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 100%;
+  height:100%;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 21px;
+  left: 2px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switch input:checked+.slider {
+  background-color: var(--primary-color);
+}
+
+.switch input:focus+.slider {
+  box-shadow: 0 0 1px var(--primary-color);
+}
+
+.switch input:checked+.slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 /* ==========End Sidebar Filter========== */
 

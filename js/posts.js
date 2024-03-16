@@ -5,11 +5,18 @@ window.addEventListener('load', () => {
     const categoryId = getUrlParam('categoryId');
     const searchValue = getUrlParam('value')
     const priceValue = getUrlParam('price')
-    // const citySelect = getFromLocalStorage("cities")
 
-    // let ids = citySelect.map(obj => obj.id).join('|'); 
-    // addParamToUrl('city',ids)
-
+    if (!location.href.includes('city')) {
+        const citySelect = getFromLocalStorage("cities")
+        let ids = citySelect.map(obj => obj.id).join('|');
+        addParamToUrl('city', ids)
+    }
+    const sss = async () => {
+        const res = await fetch('https://divarapi.liara.run/v1/post/')
+        const data = await res.json()
+        console.log(data);
+    }
+    sss()
     if (searchValue) {
         const searchInput = document.querySelector('#global_search_input')
         searchInput.value = searchValue
@@ -32,6 +39,7 @@ window.addEventListener('load', () => {
 
     getAndShowCategories().then(data => {
         const categoriesContainer = document.querySelector('#categories-container');
+        const sidebarFilters = document.querySelector('#sidebar-filters')
 
         // تابعی برای بازگشت به تمام دسته‌بندی‌ها
         window.backToAllCategories = () => {
@@ -136,7 +144,7 @@ window.addEventListener('load', () => {
         const postsContainer = document.querySelector('#posts-container')
 
         if (data.data.posts.length) {
-            data.data.posts.map(post => { 
+            data.data.posts.map(post => {
                 postsContainer.insertAdjacentHTML('beforeend', `
                 <div class="col-4">
                                 <a href="post.html?id=${post._id}" class="product-card">
@@ -146,12 +154,17 @@ window.addEventListener('load', () => {
                                         </div>
                                         <div class="product-card__right-bottom">
                                             <span class="product-card__condition">در حد نو</span>
-                                            <span class="product-card__price">${post.price.toLocaleString()} تومان</span>
+                                            <span class="product-card__price">${post.price == 0 ? "توافقی" : post.price.toLocaleString() + "تومان"} </span>
                                             <span class="product-card__time">لحظاتی پیش</span>
                                         </div>
                                     </div>
                                     <div class="product-card__left"> 
-                                        <img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>
+                                    ${post.pics.length ? (
+                        `   <img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
+                    ) : (
+                        `      <img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
+                    )}
+                                     
                                     </div>
                                 </a>
                             </div>
@@ -161,6 +174,9 @@ window.addEventListener('load', () => {
         } else {
             postsContainer.innerHTML = '<p class="empty">آگهی یافت نشد</p>'
         }
+
+
+
 
 
     })
@@ -184,14 +200,68 @@ window.addEventListener('load', () => {
 
 
     minPriceSelectbox.addEventListener('change', event => {
-        const maxPrice = maxPriceSelectbox.value !== 'default' ? maxPriceSelectbox.value : '';
-        addParamToUrl('price', `${event.target.value}-${maxPrice}`);
+        if (event.target.value !== "default" || maxPriceSelectbox.value !== "default") {
+            if (event.target.value !== "default") {
+                if (maxPriceSelectbox.value !== 'default') {
+                    addParamToUrl('price', `${event.target.value}-${maxPriceSelectbox.value}`);
+                } else {
+                    addParamToUrl('price', `${event.target.value}-`);
+                }
+            } else {
+                addParamToUrl('price', `-${maxPriceSelectbox.value}`);
+            }
+        } else {
+            removeParameterFromURL('price')
+            location.reload()
+        }
+
+
     });
 
     maxPriceSelectbox.addEventListener('change', event => {
-        const minPrice = minPriceSelectbox.value !== 'default' ? minPriceSelectbox.value : '';
-        addParamToUrl('price', `${minPrice}-${event.target.value}`);
+        if (event.target.value !== "default" || minPriceSelectbox.value !== 'default') {
+            if (event.target.value !== "default") {
+                if (minPriceSelectbox.value !== 'default') {
+                    addParamToUrl('price', `${minPriceSelectbox.value}-${event.target.value}`);
+                } else {
+                    addParamToUrl('price', `-${event.target.value}`);
+                }
+            } else {
+                if (minPriceSelectbox.value) {
+                    addParamToUrl('price', `${minPriceSelectbox.value}-`);
+                }
+            }
+        } else {
+            removeParameterFromURL('price')
+            location.reload()
+        }
     });
+
+
+    const exchangeControll = document.querySelector('#exchange_controll')
+    const exchangeStatus = getUrlParam('exchange')
+    if (exchangeStatus) { 
+        exchangeControll.checked = true
+    }
+    exchangeControll.addEventListener('click',()=>{
+        if (exchangeControll.checked) {
+            addParamToUrl('exchange', 'true')
+        }else{
+            removeParameterFromURL('exchange')
+        }
+    })
+
+    const justPhotoControll = document.querySelector('#just_photo_controll')
+    const justPhotoStatus = getUrlParam('justPhoto')
+    if (justPhotoStatus) { 
+        justPhotoControll.checked = true
+    }
+    justPhotoControll.addEventListener('click',()=>{
+        if (justPhotoControll.checked) {
+            addParamToUrl('justPhoto', 'true')
+        }else{
+            removeParameterFromURL('justPhoto')
+        }
+    })
 })
 
- 
