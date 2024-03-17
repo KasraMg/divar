@@ -3,8 +3,9 @@ import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL
 
 window.addEventListener('load', () => {
     const categoryId = getUrlParam('categoryId');
-    const searchValue = getUrlParam('value')
-    const priceValue = getUrlParam('price')
+    const searchValue = getUrlParam('value') 
+    let posts;
+    let backupPosts;
 
     if (!location.href.includes('city')) {
         const citySelect = getFromLocalStorage("cities")
@@ -137,14 +138,11 @@ window.addEventListener('load', () => {
     });
 
 
-
-
-    getAndShowCategoryPosts().then(data => {
-        console.log(data);
+    const generatePosts = (posts => { 
         const postsContainer = document.querySelector('#posts-container')
-
-        if (data.data.posts.length) {
-            data.data.posts.map(post => {
+        postsContainer.innerHTML=''
+        if (posts.length) {
+            posts.map(post=>{
                 postsContainer.insertAdjacentHTML('beforeend', `
                 <div class="col-4">
                                 <a href="post.html?id=${post._id}" class="product-card">
@@ -160,10 +158,10 @@ window.addEventListener('load', () => {
                                     </div>
                                     <div class="product-card__left"> 
                                     ${post.pics.length ? (
-                        `   <img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
-                    ) : (
-                        `      <img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
-                    )}
+                            `   <img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
+                        ) : (
+                            `      <img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
+                        )}
                                      
                                     </div>
                                 </a>
@@ -171,10 +169,20 @@ window.addEventListener('load', () => {
             
                 `)
             })
-        } else {
+        }else{
             postsContainer.innerHTML = '<p class="empty">آگهی یافت نشد</p>'
         }
+    
+   
+    })
 
+    getAndShowCategoryPosts().then(data => {
+        console.log(data);
+        posts = data.data.posts
+        backupPosts =data.data.posts
+        if (posts) { 
+        generatePosts(posts)  
+        }  
 
 
 
@@ -182,85 +190,73 @@ window.addEventListener('load', () => {
     })
 
     const minPriceSelectbox = document.querySelector('#min-price-selectbox')
-    const maxPriceSelectbox = document.querySelector('#max-price-selectbox')
-    console.log(priceValue);
-    if (priceValue) {
-        let priceArray = priceValue.split("-");
-        let price1 = parseInt(priceArray[0]);
-        let price2 = parseInt(priceArray[1]);
-        console.log(price2);
-        if (price1) {
-            minPriceSelectbox.value = price1
-        }
-        if (price2) {
-            maxPriceSelectbox.value = price2
-        }
+    const maxPriceSelectbox = document.querySelector('#max-price-selectbox') 
 
-    }
-
-
+ 
     minPriceSelectbox.addEventListener('change', event => {
-        if (event.target.value !== "default" || maxPriceSelectbox.value !== "default") {
-            if (event.target.value !== "default") {
-                if (maxPriceSelectbox.value !== 'default') {
-                    addParamToUrl('price', `${event.target.value}-${maxPriceSelectbox.value}`);
-                } else {
-                    addParamToUrl('price', `${event.target.value}-`);
-                }
-            } else {
-                addParamToUrl('price', `-${maxPriceSelectbox.value}`);
-            }
-        } else {
-            removeParameterFromURL('price')
-            location.reload()
+        const minPrice = event.target.value;
+        const maxPrice = maxPriceSelectbox.value;
+    console.log(minPrice);
+    if (minPrice !== 'default') {
+        if (maxPrice !== 'default') {
+            posts = backupPosts.filter(post => post.price >= minPrice && post.price <= maxPrice);
+         generatePosts(posts);
+        } else { 
+            posts= backupPosts.filter(post => post.price >= minPrice);
+            generatePosts(posts);
+        } 
+    }else{
+        if (maxPrice !== 'default') {
+            posts= backupPosts.filter(post => post.price <= maxPrice);
+            generatePosts(posts);
+        }else{
+            posts = backupPosts
+            generatePosts(posts) 
         }
-
-
+    }
+       
     });
 
     maxPriceSelectbox.addEventListener('change', event => {
-        if (event.target.value !== "default" || minPriceSelectbox.value !== 'default') {
-            if (event.target.value !== "default") {
-                if (minPriceSelectbox.value !== 'default') {
-                    addParamToUrl('price', `${minPriceSelectbox.value}-${event.target.value}`);
-                } else {
-                    addParamToUrl('price', `-${event.target.value}`);
-                }
+        const minPrice = minPriceSelectbox.value;
+        const maxPrice = event.target.value;
+        if (maxPrice !== 'default') {
+            if (minPrice !== 'default') {
+                posts = backupPosts.filter(post => post.price >= minPrice && post.price <= maxPrice); 
+                generatePosts(posts);
             } else {
-                if (minPriceSelectbox.value) {
-                    addParamToUrl('price', `${minPriceSelectbox.value}-`);
-                }
+                posts = backupPosts.filter(post => post.price <= maxPrice);
+                generatePosts(posts);
             }
-        } else {
-            removeParameterFromURL('price')
-            location.reload()
-        }
-    });
-
-
-    const exchangeControll = document.querySelector('#exchange_controll')
-    const exchangeStatus = getUrlParam('exchange')
-    if (exchangeStatus) { 
-        exchangeControll.checked = true
-    }
-    exchangeControll.addEventListener('click',()=>{
-        if (exchangeControll.checked) {
-            addParamToUrl('exchange', 'true')
         }else{
-            removeParameterFromURL('exchange')
+            if (minPrice !== 'default') {
+                posts = backupPosts.filter(post => post.price >= minPrice);
+                generatePosts(posts);
+            }else{
+                posts = backupPosts
+                generatePosts(posts) 
+            }
         }
-    })
+       
+    });
+   
 
     const justPhotoControll = document.querySelector('#just_photo_controll')
-    const justPhotoStatus = getUrlParam('justPhoto')
-    if (justPhotoStatus) { 
-        justPhotoControll.checked = true
-    }
-    justPhotoControll.addEventListener('click',()=>{
-        if (justPhotoControll.checked) {
-            addParamToUrl('justPhoto', 'true')
-        }else{
-            removeParameterFromURL('justPhoto')
+    justPhotoControll.addEventListener('click', () => {
+        if (justPhotoControll.checked) { 
+            const postWithPic = posts.filter(post=> post.pics.length ) 
+            generatePosts(postWithPic)  
+        } else {
+            generatePosts(posts) 
+        }
+    })
+     
+    const exchangeControll = document.querySelector('#exchange_controll')
+    exchangeControll.addEventListener('click', () => {
+        if (exchangeControll.checked) {
+
+        } else {
+
         }
     })
 })

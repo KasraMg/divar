@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
     getAndShowSocialMedia()
     showPannelLinksToUser()
     getAndShowHeaderCityTitle()
-
+    
     // city modal //
     let citySelect;
     let AllCitiesData;
@@ -61,7 +61,7 @@ window.addEventListener('load', () => {
     const cityModalList = document.querySelector('#city_modal_list');
 
     // Event listeners
-    cityModalAcceptBtn.addEventListener('click', () => {
+    cityModalAcceptBtn?.addEventListener('click', () => {
         saveIntoLocalStorage('cities', citySelect); 
         console.log(citySelect);
         let ids = citySelect.map(obj => obj.id).join('|'); 
@@ -70,7 +70,7 @@ window.addEventListener('load', () => {
         hideModal('city-modal', 'city-modal--active');
     });
 
-    deleteAllSelectedBtn.addEventListener('click', () => {
+    deleteAllSelectedBtn?.addEventListener('click', () => {
         removeCitiesModalActive();
         citySelect = [];
         addCityToModal(citySelect);
@@ -99,7 +99,7 @@ window.addEventListener('load', () => {
     // Function to display provinces and cities in the modal
     function showProvinces(data) {
         data.data.provinces.forEach(province => {
-            cityModalList.insertAdjacentHTML("beforeend", `
+            cityModalList?.insertAdjacentHTML("beforeend", `
             <li class="city-modal__cities-item province-item" data-province-id="${province.id}">
                 <span>${province.name}</span>
                 <i class="city-modal__cities-icon bi bi-chevron-left"></i>
@@ -219,9 +219,7 @@ window.addEventListener('load', () => {
     // Function to update the selected cities
     function updateCitySelectList(cityTitle, cityId) {
         const index = citySelect.findIndex(item => item.id === cityId);
-        const isTitleRepeated = citySelect.some(item => item.title === cityTitle);
-
-
+        const isTitleRepeated = citySelect.some(item => item.title === cityTitle); 
         if (index == -1 && !isTitleRepeated) {
             citySelect.push({ title: cityTitle, id: cityId });
             addCityToModal(citySelect);
@@ -262,7 +260,7 @@ window.addEventListener('load', () => {
     const cityModalSearchInput = document.querySelector('#city-modal-search-input')
 
 
-    cityModalSearchInput.addEventListener('keyup', (event) => {
+    cityModalSearchInput?.addEventListener('keyup', (event) => {
         const filteredResult = AllCitiesData.data.cities.filter(city => city.name.includes(event.target.value))
         if (event.target.value.length !== 0 && filteredResult.length !== 0) {
             cityModalList.innerHTML = "";
