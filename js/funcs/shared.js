@@ -24,8 +24,7 @@ const showPannelLinksToUser = async () => {
         getMe().then((data) => {
             if (data.status == 200) {
                 dropDown.innerHTML = ''
-                dropDown.insertAdjacentHTML('beforeend', `
-       
+                dropDown.insertAdjacentHTML('beforeend', ` 
                     <li class="header__left-dropdown-item header_dropdown-item_account">
                         <div class="header__left-dropdown-link login_dropdown_link"> 
                            <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
@@ -79,7 +78,7 @@ const showPannelLinksToUser = async () => {
         dropDown.insertAdjacentHTML('beforeend', ` 
     
         <li class="header__left-dropdown-item">
-            <span class="header__left-dropdown-link login_dropdown_link">
+            <span id="login-btn" class="header__left-dropdown-link login_dropdown_link">
                 <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
                 ورود
             </span>

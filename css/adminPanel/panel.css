@@ -1,15 +1,18 @@
 @import url(../share.css);
-body{
+
+body {
     margin: 0;
     overflow-x: hidden;
-    background: #f4f2f2;
+    background: #e4e4e4;
     direction: rtl;
 }
-.panel-container{
+
+.panel-container {
     padding: 0;
     display: flex;
 }
-.panel-container aside{
+
+.panel-container aside {
     width: 300px;
     background: #a62626;
     padding: 1rem;
@@ -17,24 +20,27 @@ body{
     position: relative;
 }
 
-.sidebar-title img{
-width: 40px;  
+.sidebar-title img {
+    width: 40px;
 }
-.sidebar-title p{
-  color: white;
+
+.sidebar-title p {
+    color: white;
 }
-.sidebar-title span{
-    color: white; 
-    background: #a62626; 
+
+.sidebar-title span {
+    color: white;
+    background: #a62626;
     text-align: center;
     font-size: 1.5rem;
     position: relative;
     display: block;
-    z-index: 99; 
+    z-index: 99;
     padding: 0 15px;
-    text-align: center; 
+    text-align: center;
 }
-.sidebar-title div:nth-child(2)::before{
+
+.sidebar-title div:nth-child(2)::before {
     content: "";
     width: 100%;
     right: 0;
@@ -43,33 +49,40 @@ width: 40px;
     position: absolute;
     top: 9px;
 }
-.sidebar-title div:nth-child(2){
+
+.sidebar-title div:nth-child(2) {
     position: relative;
 }
+
 .sidebar-title {
     position: relative;
     margin-bottom: 40px;
-  
+
 }
-.sidebar-title div{
+
+.sidebar-title div {
     justify-content: center;
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 2rem; 
+    font-size: 2rem;
 }
+
 .sidebar-items li a .bi,
-.sidebar-items li a p{
+.sidebar-items li a p {
     color: white;
 
 }
-.sidebar-items li .active{
+
+.sidebar-items li .active {
     opacity: 1 !important;
 }
-.sidebar-items li a:hover{
+
+.sidebar-items li a:hover {
     opacity: 1;
 }
-.sidebar-items li a{
+
+.sidebar-items li a {
     opacity: .6;
     margin-top: 10px;
     transition: .1 all ease-in;
@@ -78,41 +91,79 @@ width: 40px;
     gap: 10px;
     font-size: 1.7rem;
 }
-nav{
+
+nav {
     background: white;
     width: 100%;
     padding: .5rem;
 }
-.contents{
+
+.contents {
     width: 100%;
 }
-.profile img{
-    border-radius: 100px; 
+
+.contents-title::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    height: 3px;
+    background: #a62626;
+    right: 0;
+    width: 100%;
 }
-.profile p{
+
+.contents-title p {
+    background: #e4e4e4;
+    padding: 0 10px;
+    width: max-content;
+    margin: 0 auto;
+    color: black;
+    z-index: 999;
+    display: block;
+    position: relative;
+}
+
+.contents-title {
+    position: relative;
+    margin-bottom: 5rem;
+    margin-top: 3rem;
+    font-size: 3rem;
+}
+
+.profile img {
+    border-radius: 100px;
+}
+
+.profile p {
     font-size: 1.5rem;
 }
-.profile{
+
+.profile {
     display: flex;
     gap: 10px;
 }
-.logout p{
+
+.logout p {
     margin-left: 2rem;
 }
-.logout p, .logout .bi{
-    color: white;
+
+.logout p,
+.logout .bi {
+    margin: 0;
+    color: #a62626;
 }
-.logout{ 
-    margin-top: 10px;
+
+.logout {
     transition: .1 all ease-in;
     display: flex;
     cursor: pointer;
-     justify-content: center;
-    position: absolute;
-    bottom: 25px;
+    justify-content: left;
     padding-left: 1rem;
     gap: 10px;
     width: 100%;
-    border-top: 1px solid white;
     font-size: 1.7rem;
+}
+
+.contents {
+    padding: 2rem 4rem;
 }

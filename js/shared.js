@@ -2,16 +2,8 @@ import { getAllCitiesHandler, getAndShowHeaderCityTitle, getAndShowSocialMedia, 
 import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage, addParamToUrl } from "./funcs/utils.js"
 import { SubmitNumber, getMe, verifyNumber, requestNewCode, logout } from './funcs/auth.js'
 
-const cityModalOverlay = document.querySelector('.city-modal__overlay')
-const cityModalBtn = document.querySelector('.header__city')
-const cityModalCloseBtn = document.querySelector('.city-modal__close')
-const categoryModalBtn = document.querySelector('.header__category-btn')
-const categoryModalOverlay = document.querySelector('.category_modal_overlay')
-const SearchBox = document.querySelector('.header__form-input')
-const searchBoxModalOverlay = document.querySelector('.searchbar__modal-overlay')
-const loginDropdownLink = document.querySelector('.login_dropdown_link')
-const loginModalOverlay = document.querySelector('.login_modal_overlay')
-const createPostBtn = document.querySelector('.create_post_btn')
+
+
 
 window.addEventListener('load', () => {
     getAndShowSocialMedia()
@@ -285,7 +277,16 @@ window.addEventListener('load', () => {
 
 
     // modals show //
-
+    const loginDropdownLink = document.querySelector('#login-btn')
+    const cityModalOverlay = document.querySelector('.city-modal__overlay')
+    const cityModalBtn = document.querySelector('.header__city')
+    const cityModalCloseBtn = document.querySelector('.city-modal__close')
+    const categoryModalBtn = document.querySelector('.header__category-btn')
+    const categoryModalOverlay = document.querySelector('.category_modal_overlay')
+    const SearchBox = document.querySelector('.header__form-input')
+    const searchBoxModalOverlay = document.querySelector('.searchbar__modal-overlay')
+     
+    const loginModalOverlay = document.querySelector('.login_modal_overlay')
     cityModalBtn?.addEventListener('click', () => {
         showModal('city-modal', 'city-modal--active')
         hideModal('header__category-menu', 'header__category-menu--active')
@@ -304,7 +305,8 @@ window.addEventListener('load', () => {
     categoryModalBtn?.addEventListener('click', () => {
         showModal('header__category-menu', 'header__category-menu--active')
     })
-    console.log(loginDropdownLink);
+    
+   
     loginDropdownLink?.addEventListener('click', () => {
         showModal('login-modal', 'login-modal--active')
         hideModal('header__category-menu', 'header__category-menu--active')
@@ -405,7 +407,7 @@ window.addEventListener('load', () => {
 
 
 
-
+    const createPostBtn = document.querySelector('.create_post_btn')
     createPostBtn?.addEventListener('click', () => {
         getMe().then(data => {
             if (data.status === 200) {

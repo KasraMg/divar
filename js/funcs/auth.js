@@ -74,7 +74,7 @@ const verifyNumber = () => {
         } else if (data.status == 201 || data.status == 200) {
           saveIntoLocalStorage('divar', data.data.token)
           hideModal('login-modal', 'login-modal--active')
-          showSwal('با موفقیت وارد شدید', "success", "بزن بریم", () => location.href = "/panel/verify.html")
+          showSwal('با موفقیت وارد شدید', "success", "بزن بریم", () => location.href = "/userPanel/verify.html")
         }
       })
   } else {
