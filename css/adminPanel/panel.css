@@ -3,7 +3,8 @@
 body {
     margin: 0;
     overflow-x: hidden;
-    background: #e4e4e4;
+    background: #e4e4e4 !important;
+    font-family: "iransans-regular" !important;
     direction: rtl;
 }
 
@@ -67,11 +68,13 @@ body {
     gap: 10px;
     font-size: 2rem;
 }
-
+.sidebar-title div p{
+    margin: 15px 0;
+}
 .sidebar-items li a .bi,
 .sidebar-items li a p {
     color: white;
-
+    margin: 15px 0;
 }
 
 .sidebar-items li .active {
@@ -83,8 +86,9 @@ body {
 }
 
 .sidebar-items li a {
+    text-decoration: none;
     opacity: .6;
-    margin-top: 10px;
+    margin-top: 10px !important;
     transition: .1 all ease-in;
     display: flex;
     cursor: pointer;
@@ -184,10 +188,10 @@ table th {
 
 
 table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: #a62626;
-    color: white;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    background-color: #a62626 !important;
+    color: white !important;
 }
 
 .no-verify {
@@ -206,4 +210,25 @@ table th {
     border: 1px solid #a62626;
     color: #a62626;
     background-color: #ffffff;
+}
+.accordion-button:not(.collapsed),.accordion-button:focus { 
+    color: black !important;
+    background-color: white !important;
+    box-shadow: none !important;
+}
+.accordion-button:not(.collapsed)::after {  
+    background-image: var(--bs-accordion-btn-icon) !important;
+}
+.accordion-button{
+    background-color: transparent !important;
+    padding-right: 2rem !important;
+    padding: 18px 1.25rem;
+}
+.accordion-button::after{
+   right: 1px;
+   position: absolute;
+}
+.accordion,.accordion-item,.accordion-button:not(.collapsed), .accordion-button:focus {
+    background-color: transparent !important;
+    font-size: 1.5rem;
 }

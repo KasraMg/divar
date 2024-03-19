@@ -6,6 +6,7 @@
         <title>مقالات</title>
         <link rel="stylesheet" href="/css/adminPanel/panel.css">
         <link rel="stylesheet" href="/css/adminPanel/articles.css">
+        <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.css" />
     </head>
     <body>
         <div class="panel-container">
@@ -68,11 +69,28 @@
                     <p>مقالات</p>
                 </div>
                 <div class="new-article-container">
-                    <p id="new-article" class="new-article-title"><span>+</span> اضافه کردن مقاله جدید </p>
-                    <div class="new-article-contents">
-                            <input type="text" placeholder="تیتر مقاله را وارد کنید">
-                            <div id="editor"></div>
-                            <button class="add-article-btn">تایید</button>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne"
+                                    aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                    اضافه کردن مقاله جدید 
+                                </button>
+                            </h2>
+                            <div id="collapseOne"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <input type="text" placeholder="تیتر مقاله را وارد کنید">
+                                    <div id="editor"></div>
+                                    <button class="add-article-btn">تایید</button>
+                                </div>
+                            </div>
+                        </div>
                     </div> 
                 </div>
                 <section>
@@ -145,5 +163,6 @@
         </div>
         <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
         <script src="/js/adminPanel/articles.js"></script>
+        <script src="/vendor/bootstrap/bootstrap.js"></script>
     </body>
 </html>
