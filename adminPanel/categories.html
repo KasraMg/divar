@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>دسته بندی ها</title>
-        <link rel="stylesheet" href="/css/adminPanel/panel.css">
+        <link rel="stylesheet" href="/css/adminPanel/panel.css"> 
+        <link rel="stylesheet" href="/css/adminPanel/categories.css">
     </head>
     <body>
         <div class="panel-container">
@@ -57,14 +58,32 @@
                         </a>
                     </li>
                 </ul>
+            </aside>
+            <div class="contents">
                 <div class="logout">
                     <i class="bi bi-box-arrow-left"></i>
                     <p>خروج</p>
                 </div>
-            </aside>
-            <div class="contents">
+                <div class="contents-title">
+                    <p>دسته بندی های آگهی</p>
+                </div> 
+                <section>
+                    <div class="back-to-post-categories-btn">
+                        <i class="bi bi-arrow-return-right"></i>
+                        <p> برگشت به لیست کتگوری ها</p>
+                    </div>
+                    <table class="post-categories-table"></table>
+                </section>
+
+                <div class="contents-title">
+                    <p>دسته بندی های مقالات</p>
+                </div> 
+                <section> 
+                    <table class="article-categories-table"></table>
+                </section>
 
             </div>
         </div>
+       <script src="/js/adminPanel/categories.js" type="module"></script>
     </body>
 </html>

@@ -111,29 +111,32 @@ const showPannelLinksToUser = async () => {
     }
 };
 
-const getAndShowCategories = async () => {
+const getAndShowPostCategories = async () => {
     const res = await fetch("https://divarapi.liara.run/v1/category/")
     const categories = await res.json()
-    console.log(categories);
     return categories
 }
-
-const getAndShowCategoryPosts = async () => {
+const getAndShowArticleCategories = async () => {
+    const res = await fetch("https://divarapi.liara.run/v1/support/categories")
+    const categories = await res.json()
+    return categories
+}
+const getAndShowPosts = async () => {
     const cityId = getUrlParam("city");
     const categoryId = getUrlParam('categoryId');
     const searchValue = getUrlParam('value')
     const priceValue = getUrlParam('price')
-   
+
     let url = `https://divarapi.liara.run/v1/post/?city=${cityId}`;
     if (categoryId) {
         url += `&categoryId=${categoryId};`
     }
-     if (searchValue) {
+    if (searchValue) {
         url += `&search=${searchValue};`
     }
-     if(priceValue){
+    if (priceValue) {
         url += `&price=${priceValue};`
-    } 
+    }
     const res = await fetch(url);
     const posts = await res.json();
     return posts;
@@ -161,22 +164,23 @@ const getAndShowHeaderCityTitle = () => {
             }
         }
     }
-   
+
 }
 
 const getCourseDetails = async () => {
-const productId = getUrlParam('id')
-const res = await fetch (`https://divarapi.liara.run/v1/post/${productId}`)
-const data = await res.json()
-console.log(data);
+    const productId = getUrlParam('id')
+    const res = await fetch(`https://divarapi.liara.run/v1/post/${productId}`)
+    const data = await res.json()
+    console.log(data);
 }
 
 
 export {
     getAndShowSocialMedia,
     showPannelLinksToUser,
-    getAndShowCategories,
-    getAndShowCategoryPosts,
+    getAndShowPostCategories,
+    getAndShowPosts,
+    getAndShowArticleCategories,
     getAllCitiesHandler,
     getAndShowHeaderCityTitle,
     getCourseDetails

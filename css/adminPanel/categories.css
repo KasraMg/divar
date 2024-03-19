@@ -1,0 +1,10 @@
+.back-to-post-categories-btn * { 
+    color: #a62626;
+}
+.back-to-post-categories-btn { 
+    display: none;
+    cursor: pointer;
+    align-items: center;
+    gap: 5px; 
+    font-size: 1.5rem;
+}

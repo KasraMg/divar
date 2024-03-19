@@ -1,4 +1,4 @@
-import { getAndShowCategories, getAndShowCategoryPosts } from "./funcs/shared.js"
+import { getAndShowPostCategories, getAndShowPosts } from "./funcs/shared.js"
 import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, saveIntoLocalStorage } from "./funcs/utils.js"
 
 window.addEventListener('load', () => {
@@ -38,7 +38,7 @@ window.addEventListener('load', () => {
     `;
     }
 
-    getAndShowCategories().then(data => {
+    getAndShowPostCategories().then(data => {
         const categoriesContainer = document.querySelector('#categories-container');
         const sidebarFilters = document.querySelector('#sidebar-filters')
 
@@ -176,7 +176,7 @@ window.addEventListener('load', () => {
    
     })
 
-    getAndShowCategoryPosts().then(data => {
+    getAndShowPosts().then(data => {
         console.log(data);
         posts = data.data.posts
         backupPosts =data.data.posts

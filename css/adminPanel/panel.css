@@ -168,22 +168,22 @@ nav {
     padding: 2rem 4rem;
 }
 
-.table {
+table {
     border-collapse: collapse;
     width: 100%;
     font-size: 1.5rem;
     background-color: white;
 }
 
-.table td,
-.table th {
+table td,
+table th {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
 
 
-.table th {
+table th {
     padding-top: 12px;
     padding-bottom: 12px;
     background-color: #a62626;
