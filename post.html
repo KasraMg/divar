@@ -358,7 +358,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="post">
-                        <h1 class="post__name">مبل سبزلرن</h1>
+                        <h1 id="post-title" class="post__name"></h1>
                         <span class="post__location">3 روز پیش در اصفهان،مرداویج</span>
                         <div class="post__verify">
                             <img class="post__verify-img" src="/images/main/verify.png">
@@ -378,106 +378,28 @@
                             </div>
                         </div>
                         <div class="post__infos">
-                            <ul class="post__info-list">
-                                <li class="post__info-item">
-                                    <span class="post__info-key">نوع مبل</span>
-                                    <span class="post__info-value">راحتی</span>
-                                </li>
-                                <li class="post__info-item">
-                                    <span class="post__info-key">نوع مبل</span>
-                                    <span class="post__info-value">راحتی</span>
-                                </li>
-                                <li class="post__info-item">
-                                    <span class="post__info-key">نوع مبل</span>
-                                    <span class="post__info-value">راحتی</span>
-                                </li>
-                                <li class="post__info-item">
-                                    <span class="post__info-key">نوع مبل</span>
-                                    <span class="post__info-value">راحتی</span>
-                                </li>
-                                <li class="post__info-item">
-                                    <span class="post__info-key">نوع مبل</span>
-                                    <span class="post__info-value">راحتی</span>
-                                </li>
-                                <li class="post__info-item">
-                                    <span class="post__info-key">نوع مبل</span>
-                                    <span class="post__info-value">راحتی</span>
-                                </li>
-                                <li class="post__info-item">
-                                    <span class="post__info-key">نوع مبل</span>
-                                    <span class="post__info-value">راحتی</span>
-                                </li>
-                            </ul>
+                            <ul class="post__info-list" id="post-infoes-list"></ul>
                         </div>
                         <div class="post__intro">
                             <h2 class="post__intro-title">توضیحات</h2>
-                            <p class="post__intro-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
-                                با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-                                که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود
-                                ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
-                                جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی
-                                الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد
-                                نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا
-                                مورد استفاده قرار گیرد.</p>
-                        </div> 
-                        <div class="post__tags">
-                            <a class="post__tag" href="#">مبلمان خانگی و میز عسلی</a>
-                            <a class="post__tag" href="#">مبلمان خانگی و میز عسلی در شهرک ولیعصر</a>
-                        </div>
+                            <p class="post__intro-desc" id="post-description"></p>
+                        </div>  
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="post-preview">
                         <div  class="swiper mySwiper2">
-                            <div class="swiper-wrapper">
-                              <div class="swiper-slide">
-                                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                              </div>
-                              <div class="swiper-slide">
-                                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                              </div>
-                              <div class="swiper-slide">
-                                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                              </div>
-                                
-                              </div>
+                            <div class="swiper-wrapper" id="main-slider-wrapper"></div>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                           </div>
                           <div thumbsSlider="" class="swiper mySwiper">
-                            <div class="swiper-wrapper">
-                              <div class="swiper-slide">
-                                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                              </div>
-                              <div class="swiper-slide">
-                                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                              </div>
-                              <div class="swiper-slide">
-                                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                              </div>
-                             
-                            
-                            </div>
+                            <div class="swiper-wrapper" id="secend-slider-wrapper"></div>
                           </div>
                         <textarea class="post-preview__input" placeholder="یادداشت شما..."></textarea>
                         <span class="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
-                        
-                        <a class="post-preview__shop" href="#">
-                            <div class="post-preview__shop-right">
-                                <div class="post-preview__shop-right-right">
-                                    <img class="post-preview__shop-img" src="/images/main/shop.jfif">
-                                </div>
-                                <div class="post-preview__shop-right-left">
-                                    <span class="post-preview__shop-title">فروشگاه مبلمان سبزلرن</span>
-                                    <span class="post-preview__shop-text">مشاهده همه آگهی ها</span>
-                                </div>
-                            </div>
-                            <div class="post-preview__shop-left">
-                                <i class="post-preview__shop-icon bi bi-chevron-left"></i>
-                            </div>
-                        </a>
+                         
                         <div class="post-preview__send">
                             <span class="post-preview__send-title">نحوه خرید از فروشگاه</span>
                             <div class="post-preview__send-item">
@@ -635,4 +557,4 @@
     <script src="/js/shared.js" type="module"></script>
 </body>
 
-</html>
+</html> 

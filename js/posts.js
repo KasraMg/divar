@@ -1,26 +1,60 @@
-import { getAndShowPostCategories, getAndShowPosts } from "./funcs/shared.js"
-import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, saveIntoLocalStorage } from "./funcs/utils.js"
+import { getAndShowPostCategories, getAndShowPosts } from "./funcs/shared.js";
+import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, saveIntoLocalStorage } from "./funcs/utils.js";
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     const categoryId = getUrlParam('categoryId');
-    const searchValue = getUrlParam('value') 
+    const city = getUrlParam('city');
+    const searchValue = getUrlParam('value');
+    const minPriceSelectbox = document.querySelector('#min-price-selectbox');
+    const maxPriceSelectbox = document.querySelector('#max-price-selectbox'); 
     let posts;
-    let backupPosts;
-
-    if (!location.href.includes('city')) {
-        const citySelect = getFromLocalStorage("cities")
-        let ids = citySelect.map(obj => obj.id).join('|');
-        addParamToUrl('city', ids)
-    }
-    const sss = async () => {
-        const res = await fetch('https://divarapi.liara.run/v1/post/')
-        const data = await res.json()
-        console.log(data);
-    }
-    sss()
+    let backupPosts; 
+    let appliedFilters = {};
+  
     if (searchValue) {
         const searchInput = document.querySelector('#global_search_input')
         searchInput.value = searchValue
+    }
+    if (!city) {
+        addParamToUrl('city',301)
+    }
+ 
+    const exchangeControll = document.querySelector('#exchange_controll')
+    const justPhotoControll = document.querySelector('#just_photo_controll')
+
+    function applyFilters(posts) {
+        let filteredPosts = backupPosts
+        if (posts) {
+             filteredPosts = posts; 
+        }
+      
+        // اعمال فیلترهای استاتیک
+        for (const slug in appliedFilters) {
+            filteredPosts = filteredPosts.filter(post => post.dynamicFields.some(fields => fields.slug === slug && fields.data === appliedFilters[slug]));
+        } 
+        posts = filteredPosts;
+
+        const minPrice = minPriceSelectbox.value;
+        const maxPrice = maxPriceSelectbox.value;
+        if (maxPrice !== 'default' ) {
+            if (minPrice !== 'default') {
+                 filteredPosts =filteredPosts.filter(post => post.price >= minPrice && post.price <= maxPrice); 
+            } else {
+                 filteredPosts =filteredPosts.filter(post => post.price <= maxPrice); 
+            }
+        } else {
+            if (minPrice !== 'default') {
+                 filteredPosts =filteredPosts.filter(post => post.price >= minPrice); 
+            }  
+        }
+        
+        if (justPhotoControll.checked) {
+            filteredPosts = filteredPosts.filter(post => post.pics.length); 
+        } 
+        if (exchangeControll.checked) {
+            filteredPosts = filteredPosts.filter(post => post.exchange == true); 
+        }  
+        generatePosts(filteredPosts);
     }
 
     function findSubCategoryById(categories, categoryId) {
@@ -28,16 +62,34 @@ window.addEventListener('load', () => {
         return allSubCategories.find(subCategory => subCategory._id === categoryId);
     }
 
-    // تابعی برای ایجاد HTML برای زیردسته‌ها
+    // Function to create HTML for subcategories
     function createSubCategoryHTML(subCategory) {
         return `
-        <li class="${categoryId == subCategory._id ? 'active-subCategory' : ''}" 
-            onclick="categoryItemClickHandler('${subCategory._id}')">
-            ${subCategory.title}
-        </li>
-    `;
+            <li class="${categoryId == subCategory._id ? 'active-subCategory' : ''}" 
+                onclick="categoryItemClickHandler('${subCategory._id}')">
+                ${subCategory.title}
+            </li>
+        `;
     }
 
+    // Function to handle click on category item
+    window.categoryItemClickHandler = (categoryId) => {
+        addParamToUrl('categoryId', categoryId);
+    };
+
+    // Function to handle back to all categories
+    window.backToAllCategories = () => {
+        removeParameterFromURL('categoryId');
+        location.reload();
+    };
+
+    // Function to handle selectbox filter
+    window.selectboxFilterHandler = function (value, slug) {
+        appliedFilters[slug] = value;
+        applyFilters();
+    };
+
+    // Fetch and show post categories
     getAndShowPostCategories().then(data => {
         const categoriesContainer = document.querySelector('#categories-container');
         const sidebarFilters = document.querySelector('#sidebar-filters')
@@ -52,14 +104,51 @@ window.addEventListener('load', () => {
         window.categoryItemClickHandler = (categoryId) => {
             addParamToUrl('categoryId', categoryId);
         };
-
-
-
+ 
         if (location.href.includes('categoryId')) {
             const categoryInfoes = data.data.categories.filter(category => category._id == categoryId);
             if (!categoryInfoes.length) {
                 const subCategory = findSubCategoryById(data.data.categories, categoryId);
+                console.log(subCategory);
                 if (subCategory) {
+                    console.log(subCategory.filters);
+                    subCategory.filters.map(filter => {
+                        sidebarFilters.insertAdjacentHTML("beforebegin", `
+                 ${filter.type == 'checkbox' ? (
+                                `  <div class="sidebar__filter">
+                    <label class="switch">  
+                    <input id="exchange_controll" class="icon-controll" type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                      <p>${filter.name}</p>
+                  </div>
+                    `
+                            ) : ''}
+                 ${filter.type == "selectbox" ? (
+                                `  
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="accordion-${filter.name}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-${filter.slug}" aria-expanded="false" aria-controls="accordion-${filter.name}">
+                                           <span class="sidebar__filter-title">${filter.name}</span>
+                                        </button>
+                                      </h2>
+                                      <div id="accordion-${filter.slug}" class="accordion-collapse collapse" aria-labelledby="accordion-${filter.name}" data-bs-parent="#accordionFlushExample" style="">
+                                        <div class="accordion-body">  
+                                        <select onchange="selectboxFilterHandler(event.target.value,'${filter.slug}')"   class="selectbox" id="">
+                                        ${filter.options.map(option => (
+                                    `   <option value="${option}">${option}</option>`
+                                ))} 
+                                    </select>
+                                        </div>
+                                      </div>
+                                    </div>  
+                                    </div>  
+                    `
+                            ) : ''}
+                    `)
+                    })
+
                     categoriesContainer.insertAdjacentHTML('beforeend', `
                     <div class="all-categories" onclick="backToAllCategories()"> 
                         <p>همه اگهی ها</p> 
@@ -85,25 +174,104 @@ window.addEventListener('load', () => {
                             categoryObj.subCategories.forEach(subObj => findObjects(subObj, categoryId));
                         }
                     }
+
                     data.data.categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
-                    const subSubCategory = findSubCategoryById(data.data.categories, filteredObjects[0].parent);
+                    const subCategory = findSubCategoryById(data.data.categories, filteredObjects[0].parent);
+                    const subSubCategory = subCategory.subCategories.filter(subCategory => subCategory._id == categoryId)
+                    console.log(subSubCategory);
+                    subSubCategory[0].filters.map(filter => {
+                        sidebarFilters.insertAdjacentHTML("beforebegin", `
+                 ${filter.type == 'checkbox' ? (
+                                `  <div class="sidebar__filter">
+                    <label class="switch">  
+                    <input id="exchange_controll" class="icon-controll" type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                      <p>${filter.name}</p>
+                  </div>
+                    `
+                            ) : ''}
+                 ${filter.type == "selectbox" ? (
+                                `  
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="accordion-${filter.name}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-${filter.slug}" aria-expanded="false" aria-controls="accordion-${filter.name}">
+                                           <span class="sidebar__filter-title">${filter.name}</span>
+                                        </button>
+                                      </h2>
+                                      <div id="accordion-${filter.slug}" class="accordion-collapse collapse" aria-labelledby="accordion-${filter.name}" data-bs-parent="#accordionFlushExample" style="">
+                                        <div class="accordion-body">  
+                                        <select onchange="selectboxFilterHandler(event.target.value,'${filter.slug}')"   class="selectbox" id="">
+                                        ${filter.options.map(option => (
+                                    `   <option value="${option}">${option}</option>`
+                                ))} 
+                                    </select>
+                                        </div>
+                                      </div>
+                                    </div>  
+                                    </div>  
+                    `
+                            ) : ''}
+                    `)
+                    })
+
                     categoriesContainer.insertAdjacentHTML('beforeend', `
                     <div class="all-categories" onclick="backToAllCategories()">
                         <p>همه اگهی ها</p>
                         <i class="bi bi-arrow-right"></i>
                     </div>
-                    <div class="sidebar__category-link active-category" id="category-${subSubCategory._id}" href="#">
-                        <div onclick="categoryItemClickHandler('${subSubCategory._id}')" class="sidebar__category-link_details">
+                    <div class="sidebar__category-link active-category" id="category-${subCategory._id}" href="#">
+                        <div onclick="categoryItemClickHandler('${subCategory._id}')" class="sidebar__category-link_details">
                             <i class="sidebar__category-icon bi bi-house"></i>
-                            <p>${subSubCategory.title}</p>
+                            <p>${subCategory.title}</p>
                         </div>
                         <ul class="subCategory-list">
-                            ${subSubCategory.subCategories.map(createSubCategoryHTML).join('')}
+                            ${subCategory.subCategories.map(createSubCategoryHTML).join('')}
                         </ul>
                     </div>
                 `);
                 }
             } else {
+                console.log(categoryInfoes[0]);
+                categoryInfoes[0].filters?.map(filter => {
+
+                    sidebarFilters.insertAdjacentHTML("beforebegin", `
+             ${filter.type == 'checkbox' ? (
+                            `  <div class="sidebar__filter">
+                <label class="switch">  
+                <input id="exchange_controll" class="icon-controll" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                  <p>${filter.name}</p>
+              </div>
+                `
+                        ) : ''}
+             ${filter.type == "selectbox" ? (
+                            `  
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="accordion-${filter.name}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-${filter.slug}" aria-expanded="false" aria-controls="accordion-${filter.name}">
+                                       <span class="sidebar__filter-title">${filter.name}</span>
+                                    </button>
+                                  </h2>
+                                  <div id="accordion-${filter.slug}" class="accordion-collapse collapse" aria-labelledby="accordion-${filter.name}" data-bs-parent="#accordionFlushExample" style="">
+                                    <div class="accordion-body">  
+                                    <select onchange="selectboxFilterHandler(event.target.value,'${filter.slug}')"   class="selectbox" id="">
+                                    ${filter.options.map(option => (
+                                `   <option value="${option}">${option}</option>`
+                            ))} 
+                                </select>
+                                    </div>
+                                  </div>
+                                </div>  
+                                </div>  
+                `
+                        ) : ''}
+                `)
+                })
+
                 categoryInfoes.forEach(category => {
                     categoriesContainer.insertAdjacentHTML('beforeend', `
                     <div class="all-categories" onclick="backToAllCategories()">
@@ -137,127 +305,76 @@ window.addEventListener('load', () => {
         }
     });
 
-
-    const generatePosts = (posts => { 
-        const postsContainer = document.querySelector('#posts-container')
-        postsContainer.innerHTML=''
-        if (posts.length) {
-            posts.map(post=>{
-                postsContainer.insertAdjacentHTML('beforeend', `
-                <div class="col-4">
-                                <a href="post.html?id=${post._id}" class="product-card">
-                                    <div class="product-card__right">
-                                        <div class="product-card__right-top">
-                                            <p class="product-card__link">${post.title}</p>
-                                        </div>
-                                        <div class="product-card__right-bottom">
-                                            <span class="product-card__condition">در حد نو</span>
-                                            <span class="product-card__price">${post.price == 0 ? "توافقی" : post.price.toLocaleString() + "تومان"} </span>
-                                            <span class="product-card__time">لحظاتی پیش</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-card__left"> 
-                                    ${post.pics.length ? (
-                            `   <img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
-                        ) : (
-                            `      <img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
-                        )}
-                                     
-                                    </div>
-                                </a>
-                            </div>
-            
-                `)
-            })
-        }else{
-            postsContainer.innerHTML = '<p class="empty">آگهی یافت نشد</p>'
-        }
-    
-   
-    })
-
+    // Fetch and show posts
     getAndShowPosts().then(data => {
-        console.log(data);
-        posts = data.data.posts
-        backupPosts =data.data.posts
-        if (posts) { 
-        generatePosts(posts)  
-        }  
-
-
-
-
-    })
-
-    const minPriceSelectbox = document.querySelector('#min-price-selectbox')
-    const maxPriceSelectbox = document.querySelector('#max-price-selectbox') 
+        posts = data.data.posts;
+        backupPosts = data.data.posts;
+        generatePosts(posts);
+    });
 
  
-    minPriceSelectbox.addEventListener('change', event => {
-        const minPrice = event.target.value;
-        const maxPrice = maxPriceSelectbox.value;
-    console.log(minPrice);
-    if (minPrice !== 'default') {
-        if (maxPrice !== 'default') {
-            posts = backupPosts.filter(post => post.price >= minPrice && post.price <= maxPrice);
-         generatePosts(posts);
-        } else { 
-            posts= backupPosts.filter(post => post.price >= minPrice);
-            generatePosts(posts);
-        } 
-    }else{
-        if (maxPrice !== 'default') {
-            posts= backupPosts.filter(post => post.price <= maxPrice);
-            generatePosts(posts);
-        }else{
-            posts = backupPosts
-            generatePosts(posts) 
-        }
+ 
+
+
+
+// Function to generate HTML for posts
+const generatePosts = (posts) => {
+    const postsContainer = document.querySelector('#posts-container');
+    postsContainer.innerHTML = '';
+    if (posts.length) {
+        posts.forEach(post => {
+            postsContainer.insertAdjacentHTML('beforeend', `
+                <div class="col-4">
+                    <a href="post.html?id=${post._id}" class="product-card">
+                        <div class="product-card__right">
+                            <div class="product-card__right-top">
+                                <p class="product-card__link">${post.title}</p>
+                            </div>
+                            <div class="product-card__right-bottom">
+                                <span class="product-card__condition">${post.dynamicFields[0].data}</span>
+                                <span class="product-card__price">${post.price == 0 ? "توافقی" : post.price.toLocaleString() + "تومان"} </span>
+                                <span class="product-card__time">لحظاتی پیش</span>
+                            </div>
+                        </div>
+                        <div class="product-card__left"> 
+                            ${post.pics.length ? (
+                                `<img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
+                            ) : (
+                                `<img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
+                            )}
+                        </div>
+                    </a>
+                </div>
+            `);
+        });
+    } else {
+        postsContainer.innerHTML = '<p class="empty">آگهی یافت نشد</p>';
     }
-       
-    });
+};
 
-    maxPriceSelectbox.addEventListener('change', event => {
-        const minPrice = minPriceSelectbox.value;
-        const maxPrice = event.target.value;
-        if (maxPrice !== 'default') {
-            if (minPrice !== 'default') {
-                posts = backupPosts.filter(post => post.price >= minPrice && post.price <= maxPrice); 
-                generatePosts(posts);
-            } else {
-                posts = backupPosts.filter(post => post.price <= maxPrice);
-                generatePosts(posts);
-            }
-        }else{
-            if (minPrice !== 'default') {
-                posts = backupPosts.filter(post => post.price >= minPrice);
-                generatePosts(posts);
-            }else{
-                posts = backupPosts
-                generatePosts(posts) 
-            }
-        }
-       
-    });
-   
+// Event listener for min price selectbox
+minPriceSelectbox.addEventListener('change', event => {
+    applyFilters(posts)
+});
 
-    const justPhotoControll = document.querySelector('#just_photo_controll')
-    justPhotoControll.addEventListener('click', () => {
-        if (justPhotoControll.checked) { 
-            const postWithPic = posts.filter(post=> post.pics.length ) 
-            generatePosts(postWithPic)  
-        } else {
-            generatePosts(posts) 
-        }
-    })
-     
-    const exchangeControll = document.querySelector('#exchange_controll')
-    exchangeControll.addEventListener('click', () => {
-        if (exchangeControll.checked) {
+// Event listener for max price selectbox
+maxPriceSelectbox.addEventListener('change', event => {
+    applyFilters(posts)
+});
 
-        } else {
 
-        }
-    })
-})
+// Event listener for just photo control
+justPhotoControll.addEventListener('click', () => {
+    applyFilters(posts)
+});
 
+// Event listener for exchange control
+exchangeControll.addEventListener('click', () => {
+    applyFilters(posts)
+});
+
+
+ 
+
+
+});

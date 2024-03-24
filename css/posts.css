@@ -177,14 +177,11 @@ display: block !important;
     margin-top: 1rem;
 }
 .sidebar__filter:last-child{
-    border-top: 0;
-    padding-top: 0;
+    border-top: 0; 
 }
 .sidebar__filter {
-    border-bottom: var(--border);
-    border-top: var(--border);
-    padding: 1rem 0.5rem ;
-    margin-bottom: 1rem;
+    border-bottom: var(--border); 
+    padding: 1rem 0.5rem ; 
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -224,6 +221,13 @@ display: block !important;
 }
 .sidebar__filter-price-label {
     font-size: var(--font-size-sm);
+}
+.selectbox{
+    width:100%;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0.203);
 }
 .sidebar__filter-price-wrapper select{
     width:75%;
@@ -357,6 +361,9 @@ display: block !important;
 .accordion-button::after{
    right: 1px;
    position: absolute;
+}
+.accordion-item{
+    border-bottom: var(--border) !important;
 }
 .switch {
     position: relative;

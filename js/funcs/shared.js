@@ -171,7 +171,7 @@ const getCourseDetails = async () => {
     const productId = getUrlParam('id')
     const res = await fetch(`https://divarapi.liara.run/v1/post/${productId}`)
     const data = await res.json()
-    console.log(data);
+    return data
 }
 
 
