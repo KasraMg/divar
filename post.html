@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="/vendor/bootstrap_icon/bootstraicon.css">
     <link rel="stylesheet" href="/css/share.css">
     <link rel="stylesheet" href="/css/post.css">
+    <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin />
 </head>
 
 <body>
@@ -366,13 +370,13 @@
                         </div>
                         <div class="post__btns">
                             <div class="post__btns-right">
-                                <button class="post__btn-tel">اطلاعات تماس</button> 
+                                <button class="post__btn-tel" id="phone-info-btn">اطلاعات تماس</button> 
                             </div>
                             <div class="post__btns-left">
-                                <button class="post__btn-save post__btn">
+                                <button class="post__btn-save post__btn" id="bookmark-icon-btn">
                                     <i class="post__btn-icon bi bi-bookmark"></i>
                                 </button>
-                                <button class="post__btn-share post__btn">
+                                <button class="post__btn-share post__btn" id="share-icon">
                                     <i class="post__btn-icon bi bi-share"></i>
                                 </button>
                             </div>
@@ -387,31 +391,26 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="post-preview">
+                    <div class="post-preview" id="post-preview">
                         <div  class="swiper mySwiper2">
                             <div class="swiper-wrapper" id="main-slider-wrapper"></div>
-                            </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
-                          </div>
-                          <div thumbsSlider="" class="swiper mySwiper">
-                            <div class="swiper-wrapper" id="secend-slider-wrapper"></div>
-                          </div>
-                        <textarea class="post-preview__input" placeholder="یادداشت شما..."></textarea>
-                        <span class="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
-                         
-                        <div class="post-preview__send">
-                            <span class="post-preview__send-title">نحوه خرید از فروشگاه</span>
-                            <div class="post-preview__send-item">
-                                <i class="post-preview__send-icon bi bi-truck"></i>
-                                <span class="post-preview__send-text">امکان ارسال به سراسر ایران</span>
-                            </div>
-                            <div class="post-preview__send-item">
-                                <i class="post-preview__send-icon bi bi-geo-alt"></i>
-                                <span class="post-preview__send-text">امکان ارسال به سراسر ایران</span>
-                            </div>
-                            <p class="post-preview__location">آدرس: شهرک ولیعصر میدان ایثارگران دقیقا دور میدان چسبیده به بستنی فروشی انیل مبلمان مجلل</p>
                         </div>
+                      
+
+                            <div thumbsSlider="" class="swiper mySwiper">
+                                <div class="swiper-wrapper" id="secend-slider-wrapper"></div>
+                              </div>
+                          </div>
+                          <div class="note">
+                              <textarea id="note-textarea" class="post-preview__input" placeholder="یادداشت شما..."></textarea>
+                              <i id="note-trash-icon" class="bi bi-trash3-fill"></i>
+                              <span class="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
+                          </div>
+                         
+                        <div id="map"></div>
+
                         <div class="post__feedback">
                            <p>بازخورد شما دربارهٔ این آگهی چیست؟</p>
                            <div>
@@ -549,12 +548,15 @@
         <div class="overlay login_modal_overlay"></div>
       </div>
     <!--!==========================================End Login Modal==========================================!-->
- 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin></script>
     <script src="/vendor/swiper/swiper.js"></script>
     <script src="/vendor/bootstrap/bootstrap.js"></script> 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/js/post.js" type="module"></script>
     <script src="/js/shared.js" type="module"></script>
+
 </body>
 
 </html> 

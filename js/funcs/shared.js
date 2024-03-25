@@ -172,13 +172,25 @@ const getCourseDetails = async () => {
     const res = await fetch(`https://divarapi.liara.run/v1/post/${productId}`)
     const data = await res.json()
     return data
+  
 }
 
+const getUserBookmarks= async (token)=>{ 
+    const res = await fetch(`https://divarapi.liara.run/v1/user/bookmarks`,{
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        } 
+    })
+    const data = await res.json()
+    return data
+}
 
 export {
     getAndShowSocialMedia,
     showPannelLinksToUser,
     getAndShowPostCategories,
+    getUserBookmarks,
     getAndShowPosts,
     getAndShowArticleCategories,
     getAllCitiesHandler,

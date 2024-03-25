@@ -327,11 +327,7 @@
      border-radius: 0.3rem;
      width: 12rem;
  }
-
-
- .post__btn-save {
-     margin-left: 2rem;
- }
+ 
 
  .post__btn-icon {
      font-size: var(--font-size-md);
@@ -555,38 +551,30 @@
  .post-preview__shop-icon {
      font-size: var(--font-size-lg);
  }
-
- .post-preview__send {
-     margin-top: 2rem;
+ .note .bi:hover{
+    color: black;
  }
-
- .post-preview__send-title {
-     font-size: 1.5rem;
-     font-family: "iransans-bold";
-     color: var(--black-color);
-     margin-bottom: 1rem;
-     display: block;
+ .note textarea{
+    resize: none;
  }
-
- .post-preview__send-item {
-     display: flex;
-     align-items: center;
-     font-size: 1.5rem;
-     border-bottom: var(--border);
-     padding: 1.5rem 0;
+ .note .bi{
+    position: absolute;
+    bottom: 34px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: none;
+    left:10px;
  }
-
- .post-preview__send-icon {
-     font-size: 1.8rem;
-     color: var(--black-color);
-
+ .note{
+    position: relative;
  }
-
- .post-preview__send-text {
-     margin-right: 1rem;
-     color: var(--black-color);
- }
-
+  #map{
+    height: 300px;
+    margin: 20px 0;
+  }
+  #map .leaflet-zoom-animated {
+    height: 46px !important;
+}
  .post-preview__location {
      font-size: 1.5rem;
      color: var(--black-color);
