@@ -13,6 +13,9 @@
     align-items: center;
     gap: 10px; 
 }
+.breadcrumb p{
+    margin: 0;
+}
  .title{
     font-size: 2rem;
     color: black;
@@ -23,7 +26,7 @@
     
     margin-top: 3rem;
  }
- .content p{
+ .content {
     color: black;
     line-height: 2.7rem;
     font-size: 1.7rem;
@@ -34,12 +37,12 @@
     color: #000;
 }
 
-.same_articles a{
+.same_articles-container a{
     margin-top: 13px;
     display: block;
     margin-right: 2rem;
 }
-.same_articles{
+.same_articles-container{
     position: absolute;
     top: 130px;
     left: 60px;
@@ -49,7 +52,7 @@
     padding-right: 2rem;
     border-right: 1px solid rgba(0, 0, 0, 0.095);
 }
-.same_articles p{
+.same_articles-container p{
     font-weight: 600;
 }
 /* !=======================================Footer Style!======================================= */

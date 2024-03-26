@@ -1,5 +1,3 @@
-import { getMe } from "./auth.js";
-
 const showSwal = (title, icon, buttons, callback) => {
   swal({
     title,
@@ -22,16 +20,9 @@ const getToken = () => {
   return userInfos ? userInfos : null;
 };
 
-const isLogin = () => {
-  let loginStatus;
-  getMe().then(data=>{  
-    if (data) {
-      loginStatus = true
-     }else{
-      loginStatus= false
-     }
-  }) 
-  return loginStatus ? true : false;
+const isLogin = () => { 
+  const userInfos = localStorage.getItem("divar");
+  return userInfos ? true : false;
 }; 
 
 const getUrlParam = (key) => {

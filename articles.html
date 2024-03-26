@@ -4,12 +4,12 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Main</title>
+        <title>مقالات</title>
         <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.css" />
         <link rel="stylesheet" href="/vendor/bootstrap_icon/bootstraicon.css" />
         <link rel="stylesheet" href="/css/share.css" />
-        <link rel="stylesheet" href="/css/support.css" />
-         
+        <link rel="stylesheet" href="/css/articles.css" />
+
     </head>
 
     <body>
@@ -46,27 +46,14 @@
 
         <!--!===========================================Main==========================================!-->
         <main class="main">
-            <div class="topbar">
-                <p>به مرکز پشتیبانی دیوار خوش آمدید</p>
-                <span>چطور می‌توانیم کمکتان کنیم؟</span>
-                <div>
-                    <input type="text" placeholder="جستجو در مقالات">
-                    <i class="bi bi-search"></i>
-                </div>
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="support.html">پشتیبانی</a>
+                <i class="bi bi-chevron-left"></i>
+                <span></span>
             </div>
-            <div class="support_container">
-                <div class="articles">
-                    <div class="articles_title">
-                        <p>شاید برای شما هم سوال باشد</p>
-                    </div>
-                    <section id="general-articles"></section>
-                </div>
 
-                <div class="articles_title">
-                    <p>با دیوار بیشتر آشنا شوید</p>
-                </div>
-                <div class="categories" id="categories-container"></div>
-            </div>
+            <div class="category-info" id="category-info"></div>
+            <div class="articles" id="articles"></div>
         </main>
         <!--!==========================================End Main==========================================!-->
         <!--!==========================================Footer==========================================!-->
@@ -175,10 +162,9 @@
         </div>
         <!--!==========================================End Login Modal==========================================!-->
 
-        
-        <script src="/js//shared.js" type="module"></script>
+        <script src="/js/shared.js" type="module"></script>
         <script src="/vendor/bootstrap/bootstrap.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="/js/support.js" type="module"></script>
+        <script src="/js/articles.js" type="module"></script>
     </body>
 </html>

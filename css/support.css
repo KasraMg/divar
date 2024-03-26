@@ -102,7 +102,7 @@
     margin-right: auto;
     padding-left: 1rem;
     padding-right: 1rem;
-    max-width: 1184px;
+    max-width: 1066px;
 }
 .articles section{
     display: grid;
@@ -139,23 +139,30 @@
     border: 1px solid rgba(0, 0, 0, 0.159);
 }
 
-.contents{
+.categories{
     gap: 3rem;
     display: grid;
-    margin-top: 9rem;
-    grid-template-columns: auto auto auto;
+    margin-top: 4rem;
+    grid-template-columns: auto auto;
 }
-.contents section img{
-    margin-bottom: .5rem;
+.categories a img{
+    margin-bottom: 1.5rem;
 }
-.contents section p{
+.categories a p{
     font-size: 1.6rem;
     font-weight: 600;
     color: black;
 }
-.contents a{
-    display: block;
-    font-size: 1.4rem;
-    margin-top: 2rem;
+.categories a .bi{
+    color: black;
+}
+.categories a{
+    display: flex;
+    border-radius: 5px;
+    padding: 1rem ;
+    border: 1px solid rgba(0, 0, 0, 0.151);
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem; 
 }
 

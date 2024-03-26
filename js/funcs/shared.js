@@ -20,6 +20,7 @@ const getAndShowSocialMedia = async () => {
 const showPannelLinksToUser = async () => {
     const dropDown = document.querySelector(".header_dropdown_menu");
     const isUserLogin = isLogin();
+    console.log(isUserLogin); 
     if (isUserLogin) {
         getMe().then((data) => {
             if (data.status == 200) {
@@ -169,9 +170,9 @@ const getAndShowHeaderCityTitle = () => {
 
 }
 
-const getArticles= async()=>{
-    const res=await fetch ('https://divarapi.liara.run/v1/support/category-articles')
-    const data =await res.json()
+const getArticles = async () => {
+    const res = await fetch('https://divarapi.liara.run/v1/support/category-articles')
+    const data = await res.json()
     return data
 }
 const getCourseDetails = async () => {
@@ -179,24 +180,38 @@ const getCourseDetails = async () => {
     const res = await fetch(`https://divarapi.liara.run/v1/post/${productId}`)
     const data = await res.json()
     return data
-  
+
 }
 
-const getUserBookmarks= async (token)=>{ 
-    const res = await fetch(`https://divarapi.liara.run/v1/user/bookmarks`,{
+const getUserBookmarks = async (token) => {
+    const res = await fetch(`https://divarapi.liara.run/v1/user/bookmarks`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
-        } 
+        }
     })
     const data = await res.json()
     return data
 }
 
+const getArticlesByCategory = async (categoryId) => {
+    const res = await fetch(`https://divarapi.liara.run/v1/support/categories/${categoryId}/articles`)
+    const data = await res.json()
+    return data.data.articles
+}
+
+const getArticleById = async (articleId) => {
+    const res = await fetch(`https://divarapi.liara.run/v1/support/articles/${articleId}`)
+    const data = await res.json()
+    return data.data.article
+}
+
 export {
     getAndShowSocialMedia,
     showPannelLinksToUser,
+    getArticlesByCategory,
     getAndShowPostCategories,
+    getArticleById,
     getUserBookmarks,
     getArticles,
     getAndShowPosts,
