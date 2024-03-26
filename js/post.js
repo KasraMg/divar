@@ -1,5 +1,5 @@
 import { getAndShowPostCategories, getCourseDetails, getUserBookmarks } from "./funcs/shared.js";
-import { getToken, getUrlParam, showSwal } from "./funcs/utils.js";
+import { getToken, getUrlParam, isLogin, showModal, showSwal } from "./funcs/utils.js";
 
 
 
@@ -7,6 +7,8 @@ import { getToken, getUrlParam, showSwal } from "./funcs/utils.js";
 
 
 window.addEventListener('load', () => {
+    const userLogin = isLogin()
+    
     getCourseDetails().then(postData => {
         const postTitle = document.querySelector('#post-title')
         const postInfoes = document.querySelector('#post-infoes-list')
@@ -30,8 +32,9 @@ window.addEventListener('load', () => {
             await navigator.share({ title: data.title, url: location.href });
         });
 
-        const checkBookmark = () => {
-            const icon = bookmarkIconBtn.querySelector('.bi')
+        const checkBookmark = () => { 
+            if (userLogin) {
+                const icon = bookmarkIconBtn.querySelector('.bi')
             getUserBookmarks(token).then(bookmarksData => {
                 bookmarksData.data.bookmarks.some(bookmark => {
                     if (bookmark.post._id == data._id) {
@@ -44,38 +47,45 @@ window.addEventListener('load', () => {
                     }
                 })
             })
+            } 
+            
         }
         checkBookmark()
         bookmarkIconBtn.addEventListener("click", () => {
             const id = getUrlParam('id')
-            if (bookmarkStaus) {
-                fetch(`https://divarapi.liara.run/v1/bookmark/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
-                    }
-                }).then(res => {
-                    console.log(res);
-                    if (res.status == 200) {
-                        checkBookmark()
-                    }
-                })
-            } else {
-                fetch(`https://divarapi.liara.run/v1/bookmark/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
-                    }
-                }).then(res => {
-                    console.log(res);
-                    if (res.status == 201) {
-                        checkBookmark()
-                    }
-                })
+            if (userLogin) {
+                if (bookmarkStaus) {
+                    fetch(`https://divarapi.liara.run/v1/bookmark/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+                    }).then(res => {
+                        console.log(res);
+                        if (res.status == 200) {
+                            checkBookmark()
+                        }
+                    })
+                } else {
+                    fetch(`https://divarapi.liara.run/v1/bookmark/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+                    }).then(res => {
+                        console.log(res);
+                        if (res.status == 201) {
+                            checkBookmark()
+                        }
+                    })
+                }
+    
+            }else{
+                showModal('login-modal', 'login-modal--active')
             }
-
+           
         })
 
         postInfoes.insertAdjacentHTML('beforeend', `

@@ -1,3 +1,5 @@
+import { getMe } from "./auth.js";
+
 const showSwal = (title, icon, buttons, callback) => {
   swal({
     title,
@@ -21,9 +23,16 @@ const getToken = () => {
 };
 
 const isLogin = () => {
-  const userInfos = localStorage.getItem("divar");
-  return userInfos ? true : false;
-};
+  let loginStatus;
+  getMe().then(data=>{  
+    if (data) {
+      loginStatus = true
+     }else{
+      loginStatus= false
+     }
+  }) 
+  return loginStatus ? true : false;
+}; 
 
 const getUrlParam = (key) => {
   const urlParams = new URLSearchParams(window.location.search);

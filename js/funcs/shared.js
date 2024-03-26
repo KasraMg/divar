@@ -116,11 +116,13 @@ const getAndShowPostCategories = async () => {
     const categories = await res.json()
     return categories
 }
+
 const getAndShowArticleCategories = async () => {
     const res = await fetch("https://divarapi.liara.run/v1/support/categories")
     const categories = await res.json()
     return categories
 }
+
 const getAndShowPosts = async () => {
     const cityId = getUrlParam("city");
     const categoryId = getUrlParam('categoryId');
@@ -167,6 +169,11 @@ const getAndShowHeaderCityTitle = () => {
 
 }
 
+const getArticles= async()=>{
+    const res=await fetch ('https://divarapi.liara.run/v1/support/category-articles')
+    const data =await res.json()
+    return data
+}
 const getCourseDetails = async () => {
     const productId = getUrlParam('id')
     const res = await fetch(`https://divarapi.liara.run/v1/post/${productId}`)
@@ -191,6 +198,7 @@ export {
     showPannelLinksToUser,
     getAndShowPostCategories,
     getUserBookmarks,
+    getArticles,
     getAndShowPosts,
     getAndShowArticleCategories,
     getAllCitiesHandler,
