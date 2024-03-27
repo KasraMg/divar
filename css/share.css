@@ -965,8 +965,7 @@ display: block !important;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
+  visibility: hidden; 
 }
 .header__category-menu--active .overlay{
   opacity: 1 !important;

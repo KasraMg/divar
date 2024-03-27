@@ -430,7 +430,7 @@ display: block !important;
     display: flex;
     border: var(--border);
     border-radius: 0.3rem;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding: 1.5rem 2rem 1.5rem 1rem;
     margin: 1rem 0;
 }
