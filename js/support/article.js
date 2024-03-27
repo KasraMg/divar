@@ -1,5 +1,5 @@
-import { getArticleById, getArticlesByCategory } from "./funcs/shared.js"
-import { getUrlParam } from "./funcs/utils.js"
+import { getArticleById, getArticlesByCategory } from "../funcs/shared.js"
+import { getUrlParam } from "../funcs/utils.js"
 
 window.addEventListener('load', async () => {
     const articleId = getUrlParam('id')
@@ -17,7 +17,7 @@ window.addEventListener('load', async () => {
         articleBody.innerHTML = article.body
         getArticlesByCategory(article.categories[0]).then(articles => {
             articles.map(article => {
-                sameArticles.innerHTML += `<a href="article.html?id=${article._id}">${article.title}</a>`
+                sameArticles.innerHTML += `<a href="/support/article.html?id=${article._id}">${article.title}</a>`
             })
         })
     })

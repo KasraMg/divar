@@ -1,5 +1,5 @@
-import { getArticles } from "./funcs/shared.js"
-import { getUrlParam } from "./funcs/utils.js"
+import { getArticles } from "../funcs/shared.js"
+import { getUrlParam } from "../funcs/utils.js"
 
 window.addEventListener('load', async () => {
 
@@ -23,7 +23,7 @@ window.addEventListener('load', async () => {
 
         category.articles.map(article=>{
             articles.insertAdjacentHTML('beforeend', `
-            <a href="article.html?id=${article._id}">
+            <a href="/support/article.html?id=${article._id}">
             <div>
                 <p>${article.title}</p>
                 <span>نحوه انجام پرداخت، استفاده از کیف پول، افزایش

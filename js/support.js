@@ -1,16 +1,16 @@
 import { getArticles } from "./funcs/shared.js"
 
 window.addEventListener('load', () => {
-    const generalArticles = document.querySelector('#general-articles')
-    const articlesContainer = document.querySelector('#categories-container')
-    getArticles().then(data => {
-        console.log(data);
 
-        const popularCategory = data.data.categories.find(category => category.shortName === "popular_articles");
+    getArticles().then(categories => {
+        console.log(categories);
+        const generalArticles = document.querySelector('#general-articles')
+        const articlesContainer = document.querySelector('#categories-container')
+        const popularCategory = categories.find(category => category.shortName === "popular_articles");
 
         popularCategory.articles.map(article => {
             generalArticles.insertAdjacentHTML('beforeend', `
-                <a href="article.html?${article._id}" class="article">
+                <a href="/support/article.html?id=${article._id}" class="article">
                             <p>${article.title}</p>
                             <span>${article.body.slice(0, 155)}...</span>
                             <div>
@@ -21,9 +21,9 @@ window.addEventListener('load', () => {
                 `)
         })
 
-        data.data.categories.map(category => {
+        categories.map(category => {
             articlesContainer.insertAdjacentHTML('beforeend', `
-            <a href="articles.html?id=${category._id}">
+            <a href="/support/articles.html?id=${category._id}">
             <img src="https://divarapi.liara.run/${category.pic.path}" width="64" height="64" alt="">
             <div>
                 <p>${category.name}</p>
@@ -33,6 +33,55 @@ window.addEventListener('load', () => {
         </a>  
             `)
         })
+
+
+
+        let articlesArray = [];
+
+        categories.forEach(category => {
+            let articles = category.articles;
+            articlesArray.push(...articles);
+        });
+
+        const searchInput = document.querySelector('#search-input')
+        const searchResult = document.querySelector('#search-result')
+        const removeIcon = document.querySelector('#remove-icon')
+
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.target.value.length) {
+                let filteredResult = articlesArray.filter(article => article.title.includes(event.target.value))
+                searchResult.classList.add('active')
+                removeIcon.classList.add('active')
+                if (filteredResult.length) {
+                    searchResult.innerHTML = '' 
+                    filteredResult.map(result => {
+                        searchResult.insertAdjacentHTML("beforeend", `
+                            <a href="/support/article.html?id=${result._id}">
+                            <i class="bi bi-card-text"></i>
+                            ${result.title}
+                            </a>
+                            `)
+                    }) 
+                } else {
+                    searchResult.innerHTML = '<p class="empty">مقاله ای یافت نشد</p>'
+                }
+            } else {
+                searchResult.classList.remove('active')
+                removeIcon.classList.remove('active')
+                searchResult.innerHTML = ''
+            }
+
+        })
+        removeIcon.addEventListener('click', () => {
+            searchInput.value = ''
+            searchResult.classList.remove('active')
+            removeIcon.classList.remove('active')
+
+        })
+
     })
+
+
+
 })
 

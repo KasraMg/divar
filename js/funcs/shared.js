@@ -19,8 +19,7 @@ const getAndShowSocialMedia = async () => {
 
 const showPannelLinksToUser = async () => {
     const dropDown = document.querySelector(".header_dropdown_menu");
-    const isUserLogin = isLogin();
-    console.log(isUserLogin); 
+    const isUserLogin = isLogin(); 
     if (isUserLogin) {
         getMe().then((data) => {
             if (data.status == 200) {
@@ -173,8 +172,9 @@ const getAndShowHeaderCityTitle = () => {
 const getArticles = async () => {
     const res = await fetch('https://divarapi.liara.run/v1/support/category-articles')
     const data = await res.json()
-    return data
+    return data.data.categories
 }
+
 const getCourseDetails = async () => {
     const productId = getUrlParam('id')
     const res = await fetch(`https://divarapi.liara.run/v1/post/${productId}`)
@@ -202,7 +202,7 @@ const getArticlesByCategory = async (categoryId) => {
 
 const getArticleById = async (articleId) => {
     const res = await fetch(`https://divarapi.liara.run/v1/support/articles/${articleId}`)
-    const data = await res.json()
+    const data = await res.json() 
     return data.data.article
 }
 
