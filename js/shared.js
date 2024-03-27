@@ -277,7 +277,8 @@ window.addEventListener('load', () => {
 
 
     // modals show //
-    const loginDropdownLink = document.querySelector('#login-btn')
+    const loginDropdownBtn = document.querySelector('#login-btn')
+    const loginExitIcon = document.querySelector('.login-modal__icon') 
     const cityModalOverlay = document.querySelector('.city-modal__overlay')
     const cityModalBtn = document.querySelector('.header__city')
     const cityModalCloseBtn = document.querySelector('.city-modal__close')
@@ -307,7 +308,7 @@ window.addEventListener('load', () => {
     })
 
 
-    loginDropdownLink?.addEventListener('click', () => {
+    loginDropdownBtn?.addEventListener('click', () => {
         showModal('login-modal', 'login-modal--active')
         hideModal('header__category-menu', 'header__category-menu--active')
     })
@@ -334,7 +335,9 @@ window.addEventListener('load', () => {
     loginModalOverlay?.addEventListener('click', () => {
         hideModal('login-modal', 'login-modal--active')
     })
-
+    loginExitIcon?.addEventListener('click',()=>{
+        hideModal('login-modal', 'login-modal--active')
+    })
 
     // modals show //
 
@@ -351,12 +354,12 @@ window.addEventListener('load', () => {
 
     const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
 
-    const loginBtn = document.querySelector('.login_btn')
+    const loginBtn = document.querySelector('#login_btn')
     const requestNewCodeBtn = document.querySelector('.req_new_code_btn')
     const globalSearchInput = document.querySelector('#global_search_input')
     const mostSearchedContainer = document.querySelector('#most_searched')
 
-    const mostSearchedArr = ['خودرو سواری', 'فروش آپارتمان', 'موبایل', 'حیوانات', 'تلویزیون']
+    const mostSearchedArr = ['ماشین', 'ساعت', 'موبایل', 'کیف', 'تلویزیون']
     globalSearchInput?.addEventListener("keydown", event => {
         console.log(location);
         if (event.keyCode == 13) {
@@ -380,7 +383,21 @@ window.addEventListener('load', () => {
         `)
     })
 
-    // فرایند ریجستر
+
+    const createPostBtn = document.querySelector('.create_post_btn')
+    createPostBtn?.addEventListener('click', () => {
+        getMe().then(data => {
+            if (data.status === 200) {
+                location.href = '/new.html'
+            } else {
+                showModal('login-modal', 'login-modal--active')
+                hideModal('header__category-menu', 'header__category-menu--active')
+            }
+        })
+    })
+
+
+    // register functions
     submitPhoneNumberBtn?.addEventListener('click', event => {
         event.preventDefault()
         SubmitNumber()
@@ -398,8 +415,8 @@ window.addEventListener('load', () => {
 
     getMe().then(data => {
         if (data.status == 200) {
-            const logoutUserBtn = document.querySelector(".logout-link");
-            logoutUserBtn?.addEventListener("click", (event) => {
+            const logoutBtn = document.querySelector(".logout-link");
+            logoutBtn?.addEventListener("click", (event) => {
                 event.preventDefault();
                 logout()
             })
@@ -408,17 +425,7 @@ window.addEventListener('load', () => {
 
 
 
-    const createPostBtn = document.querySelector('.create_post_btn')
-    createPostBtn?.addEventListener('click', () => {
-        getMe().then(data => {
-            if (data.status === 200) {
-                location.href = '/new.html'
-            } else {
-                showModal('login-modal', 'login-modal--active')
-                hideModal('header__category-menu', 'header__category-menu--active')
-            }
-        })
-    })
+ 
 
 
     // category modal
@@ -427,60 +434,65 @@ window.addEventListener('load', () => {
     const allCategoriesPostsBtn = document.querySelector('#all-categories-posts')
     const categoryresults = document.querySelector('#category-results')
 
-    allCategoriesPostsBtn.addEventListener('click', () => {
-        removeParameterFromURL('categoryId')
-    })
-
-
-
-    getAndShowPostCategories().then(categories => { 
-
-        categories.map(category => {
-            categoriesList.insertAdjacentHTML('beforeend', `
-        <li onmouseenter="showAcitveCategoryItems('${category._id}')" class="header__category-menu-item">
-                                            <div class="header__category-menu-link">
-                                                <div class="header__category-menu-link-right">
-                                                    <i class="header__category-menu-icon bi bi-house"></i>
-                                                   ${category.title}
-                                                </div>
-                                                <div class="header__category-menu-link-left">
-                                                    <i class="header__category-menu-arrow-icon bi bi-chevron-left"></i>
-                                                </div>
-                                            </div> 
-                                        </li>
-        `)
+    if (categoryModalBtn) {
+        allCategoriesPostsBtn.addEventListener('click', () => {
+            removeParameterFromURL('categoryId')
         })
- 
-        window.showAcitveCategoryItems = function (categoryId) {
-            categoryresults.innerHTML = ''
-            const category = categories.find(category => category._id == categoryId)
-            category.subCategories.map(subCategory => {
-                categoryresults.insertAdjacentHTML("beforeend", `
-            <div>
-                                             <ul class="header__category-dropdown-list">
-                                                 <div  onclick="categoryClickHandler('${subCategory._id}')"  class="header__category-dropdown-title" href="#">${subCategory.title}</div>
-                                              ${subCategory.subCategories.map(subSubCategory => (
-                    ` <li class="header__category-dropdown-item">
-                                                <div  onclick="categoryClickHandler('${subSubCategory._id}')" class="header__category-dropdown-link"
-                                                    href="#">${subSubCategory.title}</div>
-                                            </li>`
-                )).join('')} 
-                                             </ul>
-                                         </div>
+    
+    
+    
+        getAndShowPostCategories().then(categories => { 
+    
+            categories.map(category => {
+                categoriesList.insertAdjacentHTML('beforeend', `
+            <li onmouseenter="showAcitveCategoryItems('${category._id}')" class="header__category-menu-item">
+                                                <div class="header__category-menu-link">
+                                                    <div class="header__category-menu-link-right">
+                                                        <i class="header__category-menu-icon bi bi-house"></i>
+                                                       ${category.title}
+                                                    </div>
+                                                    <div class="header__category-menu-link-left">
+                                                        <i class="header__category-menu-arrow-icon bi bi-chevron-left"></i>
+                                                    </div>
+                                                </div> 
+                                            </li>
             `)
             })
+     
+            window.showAcitveCategoryItems = function (categoryId) {
+                categoryresults.innerHTML = ''
+                const category = categories.find(category => category._id == categoryId)
+                category.subCategories.map(subCategory => {
+                    categoryresults.insertAdjacentHTML("beforeend", `
+                <div>
+                                                 <ul class="header__category-dropdown-list">
+                                                     <div  onclick="categoryClickHandler('${subCategory._id}')"  class="header__category-dropdown-title" href="#">${subCategory.title}</div>
+                                                  ${subCategory.subCategories.map(subSubCategory => (
+                        ` <li class="header__category-dropdown-item">
+                                                    <div  onclick="categoryClickHandler('${subSubCategory._id}')" class="header__category-dropdown-link"
+                                                        href="#">${subSubCategory.title}</div>
+                                                </li>`
+                    )).join('')} 
+                                                 </ul>
+                                             </div>
+                `)
+                })
+            }
+    
+            showAcitveCategoryItems(categories[0]._id)
+    
+        })
+    
+        window.categoryClickHandler = function (categoryId) {
+            addParamToUrl('categoryId', categoryId);
         }
-
-        showAcitveCategoryItems(data.data.categories[0]._id)
-
-    })
-
+    
+    }
+    
+    
 })
 
 
 
-window.categoryClickHandler = function (categoryId) {
-    addParamToUrl('categoryId', categoryId);
-}
 
 
