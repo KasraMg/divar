@@ -49,11 +49,15 @@ window.addEventListener('load', () => {
 
         searchInput.addEventListener('keyup', (event) => {
             if (event.target.value.length) {
+                if (event.keyCode == 13) {
+                    location.href=`/support/search.html?key=${event.target.value}`
+                }
                 let filteredResult = articlesArray.filter(article => article.title.includes(event.target.value))
                 searchResult.classList.add('active')
                 removeIcon.classList.add('active')
                 if (filteredResult.length) {
-                    searchResult.innerHTML = '' 
+                    searchResult.innerHTML = ''
+                    searchResult.innerHTML = `<a href="/support/search.html?key=${event.target.value}" > <i class="bi bi-search"></i> ${event.target.value}</a>`
                     filteredResult.map(result => {
                         searchResult.insertAdjacentHTML("beforeend", `
                             <a href="/support/article.html?id=${result._id}">
@@ -61,9 +65,9 @@ window.addEventListener('load', () => {
                             ${result.title}
                             </a>
                             `)
-                    }) 
+                    })
                 } else {
-                    searchResult.innerHTML = '<p class="empty">مقاله ای یافت نشد</p>'
+                    searchResult.innerHTML = `<a href="/support/search.html?key=${event.target.value}" >   <i class="bi bi-search"></i> ${event.target.value}</a>`
                 }
             } else {
                 searchResult.classList.remove('active')

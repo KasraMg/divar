@@ -10,7 +10,7 @@ window.addEventListener('load', async () => {
     const categoryId = getUrlParam('id')
 
     getArticles().then(data => {
-        const category = data.data.categories.find(category => category._id == categoryId)
+        const category = data.find(category => category._id == categoryId)
         console.log(category);
         breadcrumbSpan.innerHTML = category.name
         document.title = category.name

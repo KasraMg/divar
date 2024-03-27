@@ -3,15 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-        <title>مرکز پشتیبانی دیوار</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>نتایج جستجوی - مرکز پشتیبانی دیوار</title>
         <link rel="icon" type="image/png" sizes="32x32"
             href="https://support-faq.divarcdn.com/web/2024/03/favicon-32x32.png" />
         <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.css" />
         <link rel="stylesheet" href="/vendor/bootstrap_icon/bootstraicon.css" />
         <link rel="stylesheet" href="/css/share.css" />
-        <link rel="stylesheet" href="/css/support.css" />
-         
+        <link rel="stylesheet" href="/css/support/search.css">
+
     </head>
 
     <body>
@@ -48,31 +48,16 @@
 
         <!--!===========================================Main==========================================!-->
         <main class="main">
-            <div class="topbar">
-                <p>به مرکز پشتیبانی دیوار خوش آمدید</p>
-                <span>چطور می‌توانیم کمکتان کنیم؟</span>
-                <div>
-                    <i id="remove-icon" class="bi bi-x"></i>
-                    <input autocomplete="off" id="search-input" type="text" placeholder="جستجو در مقالات">
-                    <i class="bi bi-search input-search-icon"></i>
-                    <div class="result" id="search-result">
-
-                    </div>
-                </div>
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="support.html">پشتیبانی</a>
+                <i class="bi bi-chevron-left"></i>
+                <span>نتایج جستجوی</span>
             </div>
-            <div class="support_container">
-                <div class="articles">
-                    <div class="articles_title">
-                        <p>شاید برای شما هم سوال باشد</p>
-                    </div>
-                    <section id="general-articles"></section>
-                </div>
-
-                <div class="articles_title">
-                    <p>با دیوار بیشتر آشنا شوید</p>
-                </div>
-                <div class="categories" id="categories-container"></div>
+            <div class="search-title">
+                <p>نتایج جستجوی</p>
+                <span></span>
             </div>
+            <section class="search-results" id="search-results"></section>
         </main>
         <!--!==========================================End Main==========================================!-->
         <!--!==========================================Footer==========================================!-->
@@ -181,10 +166,9 @@
         </div>
         <!--!==========================================End Login Modal==========================================!-->
 
-        
-        <script src="/js//shared.js" type="module"></script>
+        <script src="/js/shared.js" type="module"></script>
         <script src="/vendor/bootstrap/bootstrap.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="/js/support.js" type="module"></script>
+        <script src="/js/support/search.js" type="module"></script>
     </body>
 </html>
