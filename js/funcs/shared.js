@@ -113,8 +113,8 @@ const showPannelLinksToUser = async () => {
 
 const getAndShowPostCategories = async () => {
     const res = await fetch("https://divarapi.liara.run/v1/category/")
-    const categories = await res.json()
-    return categories
+    const data = await res.json()
+    return data.data.categories
 }
 
 const getAndShowArticleCategories = async () => {

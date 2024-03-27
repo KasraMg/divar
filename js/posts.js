@@ -90,7 +90,7 @@ window.addEventListener('load', async () => {
     };
 
     // Fetch and show post categories
-    getAndShowPostCategories().then(data => {
+    getAndShowPostCategories().then(categories => {
         const categoriesContainer = document.querySelector('#categories-container');
         const sidebarFilters = document.querySelector('#sidebar-filters')
 
@@ -106,9 +106,9 @@ window.addEventListener('load', async () => {
         };
  
         if (location.href.includes('categoryId')) {
-            const categoryInfoes = data.data.categories.filter(category => category._id == categoryId);
+            const categoryInfoes =categories.filter(category => category._id == categoryId);
             if (!categoryInfoes.length) {
-                const subCategory = findSubCategoryById(data.data.categories, categoryId);
+                const subCategory = findSubCategoryById(categories, categoryId);
                 console.log(subCategory);
                 if (subCategory) {
                     console.log(subCategory.filters);
@@ -175,8 +175,8 @@ window.addEventListener('load', async () => {
                         }
                     }
 
-                    data.data.categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
-                    const subCategory = findSubCategoryById(data.data.categories, filteredObjects[0].parent);
+                   categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
+                    const subCategory = findSubCategoryById(categories, filteredObjects[0].parent);
                     const subSubCategory = subCategory.subCategories.filter(subCategory => subCategory._id == categoryId)
                     console.log(subSubCategory);
                     subSubCategory[0].filters.map(filter => {
@@ -292,7 +292,7 @@ window.addEventListener('load', async () => {
             }
         } else {
             categoriesContainer.innerHTML = '';
-            data.data.categories.forEach(category => {
+           categories.forEach(category => {
                 categoriesContainer.insertAdjacentHTML('beforeend', `
                 <div class="sidebar__category-link" id="category-${category._id}" href="#">
                     <div onclick="categoryItemClickHandler('${category._id}')" class="sidebar__category-link_details">

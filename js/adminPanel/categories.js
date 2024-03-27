@@ -7,8 +7,8 @@ window.addEventListener('load', () => {
     let categoriesDatas;
 
     // posts
-    getAndShowPostCategories().then(data => {
-        categoriesDatas = data.data.categories;
+    getAndShowPostCategories().then(categories => {
+        categoriesDatas =  categories;
         renderCategories()
 
     });

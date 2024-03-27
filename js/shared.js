@@ -1,5 +1,5 @@
-import { getAllCitiesHandler, getAndShowHeaderCityTitle, getAndShowSocialMedia, showPannelLinksToUser } from './funcs/shared.js'
-import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage, addParamToUrl } from "./funcs/utils.js"
+import { getAllCitiesHandler, getAndShowHeaderCityTitle, getAndShowPostCategories, getAndShowSocialMedia, showPannelLinksToUser } from './funcs/shared.js'
+import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage, addParamToUrl, removeParameterFromURL } from "./funcs/utils.js"
 import { SubmitNumber, getMe, verifyNumber, requestNewCode, logout } from './funcs/auth.js'
 
 
@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
     getAndShowSocialMedia()
     showPannelLinksToUser()
     getAndShowHeaderCityTitle()
-    
+
     // city modal //
     let citySelect;
     let AllCitiesData;
@@ -54,10 +54,10 @@ window.addEventListener('load', () => {
 
     // Event listeners
     cityModalAcceptBtn?.addEventListener('click', () => {
-        saveIntoLocalStorage('cities', citySelect); 
+        saveIntoLocalStorage('cities', citySelect);
         console.log(citySelect);
-        let ids = citySelect.map(obj => obj.id).join('|'); 
-        addParamToUrl('city',ids)
+        let ids = citySelect.map(obj => obj.id).join('|');
+        addParamToUrl('city', ids)
         getAndShowHeaderCityTitle();
         hideModal('city-modal', 'city-modal--active');
     });
@@ -157,11 +157,11 @@ window.addEventListener('load', () => {
                     checkbox.checked = true;
                 }
             });
-        } 
+        }
 
         const checkboxShape = item.querySelector("div");
-        checkbox.checked = !checkbox.checked; 
-        if (!provinceId) { 
+        checkbox.checked = !checkbox.checked;
+        if (!provinceId) {
             if (checkbox.checked) {
                 updateCitySelectList(cityTitle, cityId);
                 checkbox.checked = false;
@@ -211,7 +211,7 @@ window.addEventListener('load', () => {
     // Function to update the selected cities
     function updateCitySelectList(cityTitle, cityId) {
         const index = citySelect.findIndex(item => item.id === cityId);
-        const isTitleRepeated = citySelect.some(item => item.title === cityTitle); 
+        const isTitleRepeated = citySelect.some(item => item.title === cityTitle);
         if (index == -1 && !isTitleRepeated) {
             citySelect.push({ title: cityTitle, id: cityId });
             addCityToModal(citySelect);
@@ -285,7 +285,7 @@ window.addEventListener('load', () => {
     const categoryModalOverlay = document.querySelector('.category_modal_overlay')
     const SearchBox = document.querySelector('.header__form-input')
     const searchBoxModalOverlay = document.querySelector('.searchbar__modal-overlay')
-     
+
     const loginModalOverlay = document.querySelector('.login_modal_overlay')
     cityModalBtn?.addEventListener('click', () => {
         showModal('city-modal', 'city-modal--active')
@@ -305,8 +305,8 @@ window.addEventListener('load', () => {
     categoryModalBtn?.addEventListener('click', () => {
         showModal('header__category-menu', 'header__category-menu--active')
     })
-    
-   
+
+
     loginDropdownLink?.addEventListener('click', () => {
         showModal('login-modal', 'login-modal--active')
         hideModal('header__category-menu', 'header__category-menu--active')
@@ -347,25 +347,26 @@ window.addEventListener('load', () => {
 
     const cities = getFromLocalStorage('cities')
     const ids = cities.map(item => item.id).join("|");
-  
+
 
     const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
-   
+
     const loginBtn = document.querySelector('.login_btn')
     const requestNewCodeBtn = document.querySelector('.req_new_code_btn')
     const globalSearchInput = document.querySelector('#global_search_input')
     const mostSearchedContainer = document.querySelector('#most_searched')
 
     const mostSearchedArr = ['خودرو سواری', 'فروش آپارتمان', 'موبایل', 'حیوانات', 'تلویزیون']
-    globalSearchInput?.addEventListener("keydown", event => { console.log(location);
+    globalSearchInput?.addEventListener("keydown", event => {
+        console.log(location);
         if (event.keyCode == 13) {
             event.preventDefault();
             if (event.target.value.length) {
-              if (location.pathname == '/posts.html') {
-                addParamToUrl('value',globalSearchInput.value.trim())
-              }else{ 
-                  location.href = `posts.html?city=${ids}&value=${globalSearchInput.value.trim()}`;
-              }
+                if (location.pathname == '/posts.html') {
+                    addParamToUrl('value', globalSearchInput.value.trim())
+                } else {
+                    location.href = `posts.html?city=${ids}&value=${globalSearchInput.value.trim()}`;
+                }
             }
         }
 
@@ -419,4 +420,67 @@ window.addEventListener('load', () => {
         })
     })
 
+
+    // category modal
+
+    const categoriesList = document.querySelector('#categories-list')
+    const allCategoriesPostsBtn = document.querySelector('#all-categories-posts')
+    const categoryresults = document.querySelector('#category-results')
+
+    allCategoriesPostsBtn.addEventListener('click', () => {
+        removeParameterFromURL('categoryId')
+    })
+
+
+
+    getAndShowPostCategories().then(categories => { 
+
+        categories.map(category => {
+            categoriesList.insertAdjacentHTML('beforeend', `
+        <li onmouseenter="showAcitveCategoryItems('${category._id}')" class="header__category-menu-item">
+                                            <div class="header__category-menu-link">
+                                                <div class="header__category-menu-link-right">
+                                                    <i class="header__category-menu-icon bi bi-house"></i>
+                                                   ${category.title}
+                                                </div>
+                                                <div class="header__category-menu-link-left">
+                                                    <i class="header__category-menu-arrow-icon bi bi-chevron-left"></i>
+                                                </div>
+                                            </div> 
+                                        </li>
+        `)
+        })
+ 
+        window.showAcitveCategoryItems = function (categoryId) {
+            categoryresults.innerHTML = ''
+            const category = categories.find(category => category._id == categoryId)
+            category.subCategories.map(subCategory => {
+                categoryresults.insertAdjacentHTML("beforeend", `
+            <div>
+                                             <ul class="header__category-dropdown-list">
+                                                 <div  onclick="categoryClickHandler('${subCategory._id}')"  class="header__category-dropdown-title" href="#">${subCategory.title}</div>
+                                              ${subCategory.subCategories.map(subSubCategory => (
+                    ` <li class="header__category-dropdown-item">
+                                                <div  onclick="categoryClickHandler('${subSubCategory._id}')" class="header__category-dropdown-link"
+                                                    href="#">${subSubCategory.title}</div>
+                                            </li>`
+                )).join('')} 
+                                             </ul>
+                                         </div>
+            `)
+            })
+        }
+
+        showAcitveCategoryItems(data.data.categories[0]._id)
+
+    })
+
 })
+
+
+
+window.categoryClickHandler = function (categoryId) {
+    addParamToUrl('categoryId', categoryId);
+}
+
+

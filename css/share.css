@@ -185,8 +185,7 @@ button {
   
 .header__category-menu section{
   box-shadow: 0 1px 6px 0 rgba(0, 0 ,0 , .08), 0 -8px 32px -4px rgba(0, 0 ,0 , .04), 0 16px 24px -6px rgba(0 ,0 ,0, .04);
-  border-radius: 0 .5rem .5rem 0;
-  width: 20rem; 
+  border-radius: 0 .5rem .5rem 0; 
   height: 50rem;
   position: relative;
   display: none;
@@ -201,10 +200,12 @@ button {
   transition: var(--transition);
 }
 .header__category-menu-right{
+    width: 22%;
   padding: 2.5rem 2rem;
 }
 .header__category-menu-btn{
   display: flex;
+  cursor: pointer;
   align-items: center;
   font-size: var(--font-size-sm);
   border: var(--border);
@@ -220,6 +221,8 @@ button {
 .haeder__category-menu-list{
   margin: 1rem 0;
   position: relative;
+  padding-right: 0;
+  padding-left:0 ;
 }
 .header__category-menu-item:hover .header__category-dropdown {
   visibility: visible;
@@ -228,6 +231,7 @@ button {
 .header__category-menu-link{
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: space-between;
   font-size: var(--font-size-sm);
   padding: 1rem .5rem;
@@ -246,26 +250,23 @@ button {
 .header__category-menu-arrow-icon {
   font-size: 1rem;
 }
-.header__category-dropdown{
-  position: absolute;
-  top: -6.85rem;
-  left: -92rem;
+.header__category-dropdown{ 
+ width:1055px;
   background-color: var(--white-color);
-  border-radius: .5rem 0 0 .5rem;
-  width: 90rem;
-  height: 50rem;
+  border-radius: .5rem 0 0 .5rem;  
   border-right: var(--border);
-  padding: 2rem;
-  box-shadow: 0 1px 6px 0 rgba(0, 0 ,0 , .08), 0 -8px 32px -4px rgba(0, 0 ,0 , .04), 0 16px 24px -6px rgba(0 ,0 ,0, .04);
+  margin: 2.7rem 0; 
+  display: grid;
+  grid-template-columns: auto auto auto;
   transition: var(--transition);
-  visibility: hidden;
-  opacity: 0;
+ 
 }
 .header__category-dropdown-list{
   margin: 2rem 0;
 }
 .header__category-dropdown-title{
   font-size: var(--font-size-sm);
+  cursor: pointer;
   color: var(--black-color);
   font-family: "iransans-medium";
   margin-bottom: 1rem;
@@ -277,6 +278,7 @@ button {
 
 .header__category-dropdown-link{
   display: block;
+  cursor: pointer;
   font-size: var(--font-size-sm);
   padding: .5rem 0;
 }
@@ -976,7 +978,7 @@ display: block !important;
 }
 .header__category-menu--active section{
   z-index: 99999;
-  display: block !important;
+  display: flex !important;
 }
 .header__searchbar-dropdown--active .overlay{
   opacity: 1 !important;
