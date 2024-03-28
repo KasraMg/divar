@@ -19,19 +19,19 @@
         <img class="nav__logo" src="/images/header/logo.svg" />
         <ul class="nav__menu-list">
           <li class="nav__menu-item">
-            <a class="nav__menu-link" href="#">ثبت آگهی</a>
+            <a class="nav__menu-link" href="/new.html">ثبت آگهی</a>
           </li>
           <li class="nav__menu-item">
-            <a class="nav__menu-link" href="#">درباره دیوار</a>
+            <a class="nav__menu-link" href="/about.html">درباره دیوار</a>
           </li>
           <li class="nav__menu-item">
-            <a class="nav__menu-link" href="#">دریافت برنامه</a>
+            <a class="nav__menu-link" href="/download.html">دریافت برنامه</a>
           </li>
           <li class="nav__menu-item">
-            <a class="nav__menu-link" href="#">بلاگ</a>
+            <a class="nav__menu-link" href="/contact-us.html">ارتباط با ما</a>
           </li>
           <li class="nav__menu-item">
-            <a class="nav__menu-link" href="#">پشتیبانی</a>
+            <a class="nav__menu-link" href="/support.html">پشتیبانی</a>
           </li>
         </ul>
       </nav>
@@ -49,21 +49,10 @@
         >
         <form class="main__form">
           <i class="main__icon-input bi bi-search"></i>
-          <input class="main__input" type="text" placeholder="جستجوی شهر" />
-
+          <input id="search-input" class="main__input" type="text" placeholder="جستجوی شهر" />
+ 
           <!-- add class active to show search result box -->
-          <ul class="search-result-cities">
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-            <li>مشهد</li>
-          </ul>
+          <ul class="search-result-cities"></ul>
         </form>
         <div class="main__cities">
           <span class="main__cities-title">شهر های پر بازدید</span>
@@ -161,6 +150,7 @@
       <!--!==========================================End socials==========================================!-->
     </section>
     <!--!==========================================End Wrapper==========================================!-->
-    <script src="/js//shared.js" type="module"></script> 
+    <script src="/js/shared.js" type="module"></script> 
+    <script src="/js/index.js" type="module"></script> 
   </body>
 </html>

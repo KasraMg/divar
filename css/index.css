@@ -90,12 +90,21 @@ body {
   margin: 3rem 0;
   display: block;
 }
-
+ .search-result-cities  img{
+  width: 70px;
+  height: 80px;
+  margin: 40px auto;
+}
+.empty{
+  margin-bottom: 7rem;
+}
 .search-result-cities {
   position: absolute;
+  text-align: center;
   top: 100%;
   background-color: #fff;
   left: 0;
+  padding: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -118,6 +127,7 @@ body {
   padding: 1.5rem 1.5rem;
   cursor: pointer;
   transition: 0.5s all;
+  text-align: right;
 }
 
 .search-result-cities li:hover {

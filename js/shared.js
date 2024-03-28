@@ -349,7 +349,7 @@ window.addEventListener('load', () => {
 
 
     const cities = getFromLocalStorage('cities')
-    const ids = cities.map(item => item.id).join("|");
+    const ids = cities?.map(item => item.id).join("|");
 
 
     const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
