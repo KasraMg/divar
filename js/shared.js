@@ -354,7 +354,7 @@ window.addEventListener('load', () => {
 
     const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
 
-    const loginBtn = document.querySelector('#login_btn')
+    const loginBtn = document.querySelector('.login_btn') 
     const requestNewCodeBtn = document.querySelector('.req_new_code_btn')
     const globalSearchInput = document.querySelector('#global_search_input')
     const mostSearchedContainer = document.querySelector('#most_searched')
