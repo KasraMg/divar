@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
     showPannelLinksToUser()
     getAndShowHeaderCityTitle()
 
-    // city modal //
+    // city modal handler //
     let citySelect;
     let AllCitiesData;
 
@@ -273,10 +273,10 @@ window.addEventListener('load', () => {
 
     })
 
-    // city modal //
+    // city modal handler //
 
 
-    // modals show //
+    // modals activity //
     const loginDropdownBtn = document.querySelector('#login-btn')
     const loginExitIcon = document.querySelector('.login-modal__icon') 
     const cityModalOverlay = document.querySelector('.city-modal__overlay')
@@ -324,8 +324,7 @@ window.addEventListener('load', () => {
         hideModal('header__searchbar-dropdown', 'header__searchbar-dropdown--active')
     })
     cityModalOverlay?.addEventListener('click', () => {
-        hideModal('city-modal', 'city-modal--active')
-
+        hideModal('city-modal', 'city-modal--active') 
         removeCitiesModalActive()
     })
     categoryModalOverlay?.addEventListener('click', () => {
@@ -339,23 +338,17 @@ window.addEventListener('load', () => {
         hideModal('login-modal', 'login-modal--active')
     })
 
-    // modals show //
+    // modals activity //
 
 
 
-
-
-
-
+ 
 
     const cities = getFromLocalStorage('cities')
     const ids = cities?.map(item => item.id).join("|");
 
 
-    const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
-
-    const loginBtn = document.querySelector('.login_btn') 
-    const requestNewCodeBtn = document.querySelector('.req_new_code_btn')
+   
     const globalSearchInput = document.querySelector('#global_search_input')
     const mostSearchedContainer = document.querySelector('#most_searched')
 
@@ -384,6 +377,7 @@ window.addEventListener('load', () => {
     })
 
 
+    //  red btn left side in header
     const createPostBtn = document.querySelector('.create_post_btn')
     createPostBtn?.addEventListener('click', () => {
         getMe().then(data => {
@@ -398,6 +392,10 @@ window.addEventListener('load', () => {
 
 
     // register functions
+    const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn') 
+    const loginBtn = document.querySelector('.login_btn') 
+    const requestNewCodeBtn = document.querySelector('.req_new_code_btn')
+    
     submitPhoneNumberBtn?.addEventListener('click', event => {
         event.preventDefault()
         SubmitNumber()
@@ -428,7 +426,7 @@ window.addEventListener('load', () => {
  
 
 
-    // category modal
+    // category modal hadnler
 
     const categoriesList = document.querySelector('#categories-list')
     const allCategoriesPostsBtn = document.querySelector('#all-categories-posts')
@@ -439,8 +437,7 @@ window.addEventListener('load', () => {
             removeParameterFromURL('categoryId')
         })
     
-    
-    
+     
         getAndShowPostCategories().then(categories => { 
     
             categories.map(category => {

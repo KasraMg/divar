@@ -25,6 +25,7 @@ window.addEventListener('load', () => {
         const data = postData.data.post
         console.log(data);
         postTitle.innerHTML = data.title
+        document.title=data.title
         postDiscription.innerHTML = data.description
         const token = getToken()
         let bookmarkStaus;

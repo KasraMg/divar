@@ -323,6 +323,7 @@ display: block !important;
 .sidebar__links {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     margin: 1rem 0;
 }
 .sidebar__link {

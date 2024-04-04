@@ -3,57 +3,67 @@ import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL
 
 window.addEventListener('load', async () => {
     const categoryId = getUrlParam('categoryId');
-    const city = getUrlParam('city');
+    const cityParam = getUrlParam('city');
     const searchValue = getUrlParam('value');
+    const cities = getFromLocalStorage('cities')
+
     const minPriceSelectbox = document.querySelector('#min-price-selectbox');
-    const maxPriceSelectbox = document.querySelector('#max-price-selectbox'); 
+    const maxPriceSelectbox = document.querySelector('#max-price-selectbox');
     let posts;
-    let backupPosts; 
+    let backupPosts;
     let appliedFilters = {};
-  
+
     if (searchValue) {
         const searchInput = document.querySelector('#global_search_input')
         searchInput.value = searchValue
     }
-    if (!city) {
-        addParamToUrl('city',301)
+    if (!cityParam) {
+        if (cities) {
+            addParamToUrl('city', cities[0].id)
+            document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم`
+        } else {
+            addParamToUrl('city', 301)
+            document.title = `دیوار :تهران مرجع انواع آگهی های نو و دست دوم`
+        }
+    } else { 
+        document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم`
     }
- 
+
     const exchangeControll = document.querySelector('#exchange_controll')
     const justPhotoControll = document.querySelector('#just_photo_controll')
 
     function applyFilters(posts) {
         let filteredPosts = backupPosts
         if (posts) {
-             filteredPosts = posts; 
+            filteredPosts = posts;
         }
-      
+
         // اعمال فیلترهای استاتیک
         for (const slug in appliedFilters) {
             filteredPosts = filteredPosts.filter(post => post.dynamicFields.some(fields => fields.slug === slug && fields.data === appliedFilters[slug]));
-        } 
+        }
         posts = filteredPosts;
 
         const minPrice = minPriceSelectbox.value;
         const maxPrice = maxPriceSelectbox.value;
-        if (maxPrice !== 'default' ) {
+        if (maxPrice !== 'default') {
             if (minPrice !== 'default') {
-                 filteredPosts =filteredPosts.filter(post => post.price >= minPrice && post.price <= maxPrice); 
+                filteredPosts = filteredPosts.filter(post => post.price >= minPrice && post.price <= maxPrice);
             } else {
-                 filteredPosts =filteredPosts.filter(post => post.price <= maxPrice); 
+                filteredPosts = filteredPosts.filter(post => post.price <= maxPrice);
             }
         } else {
             if (minPrice !== 'default') {
-                 filteredPosts =filteredPosts.filter(post => post.price >= minPrice); 
-            }  
+                filteredPosts = filteredPosts.filter(post => post.price >= minPrice);
+            }
         }
-        
+
         if (justPhotoControll.checked) {
-            filteredPosts = filteredPosts.filter(post => post.pics.length); 
-        } 
+            filteredPosts = filteredPosts.filter(post => post.pics.length);
+        }
         if (exchangeControll.checked) {
-            filteredPosts = filteredPosts.filter(post => post.exchange == true); 
-        }  
+            filteredPosts = filteredPosts.filter(post => post.exchange == true);
+        }
         generatePosts(filteredPosts);
     }
 
@@ -104,9 +114,9 @@ window.addEventListener('load', async () => {
         window.categoryItemClickHandler = (categoryId) => {
             addParamToUrl('categoryId', categoryId);
         };
- 
+
         if (location.href.includes('categoryId')) {
-            const categoryInfoes =categories.filter(category => category._id == categoryId);
+            const categoryInfoes = categories.filter(category => category._id == categoryId);
             if (!categoryInfoes.length) {
                 const subCategory = findSubCategoryById(categories, categoryId);
                 console.log(subCategory);
@@ -175,7 +185,7 @@ window.addEventListener('load', async () => {
                         }
                     }
 
-                   categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
+                    categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
                     const subCategory = findSubCategoryById(categories, filteredObjects[0].parent);
                     const subSubCategory = subCategory.subCategories.filter(subCategory => subCategory._id == categoryId)
                     console.log(subSubCategory);
@@ -292,7 +302,7 @@ window.addEventListener('load', async () => {
             }
         } else {
             categoriesContainer.innerHTML = '';
-           categories.forEach(category => {
+            categories.forEach(category => {
                 categoriesContainer.insertAdjacentHTML('beforeend', `
                 <div class="sidebar__category-link" id="category-${category._id}" href="#">
                     <div onclick="categoryItemClickHandler('${category._id}')" class="sidebar__category-link_details">
@@ -312,18 +322,18 @@ window.addEventListener('load', async () => {
         generatePosts(posts);
     });
 
- 
- 
 
 
 
-// Function to generate HTML for posts
-const generatePosts = (posts) => {
-    const postsContainer = document.querySelector('#posts-container');
-    postsContainer.innerHTML = '';
-    if (posts.length) {
-        posts.forEach(post => {
-            postsContainer.insertAdjacentHTML('beforeend', `
+
+
+    // Function to generate HTML for posts
+    const generatePosts = (posts) => {
+        const postsContainer = document.querySelector('#posts-container');
+        postsContainer.innerHTML = '';
+        if (posts.length) {
+            posts.forEach(post => {
+                postsContainer.insertAdjacentHTML('beforeend', `
                 <div class="col-4">
                     <a href="post.html?id=${post._id}" class="product-card">
                         <div class="product-card__right">
@@ -338,43 +348,43 @@ const generatePosts = (posts) => {
                         </div>
                         <div class="product-card__left"> 
                             ${post.pics.length ? (
-                                `<img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
-                            ) : (
-                                `<img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
-                            )}
+                        `<img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
+                    ) : (
+                        `<img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
+                    )}
                         </div>
                     </a>
                 </div>
             `);
-        });
-    } else {
-        postsContainer.innerHTML = '<p class="empty">آگهی یافت نشد</p>';
-    }
-};
+            });
+        } else {
+            postsContainer.innerHTML = '<p class="empty">آگهی یافت نشد</p>';
+        }
+    };
 
-// Event listener for min price selectbox
-minPriceSelectbox.addEventListener('change', event => {
-    applyFilters(posts)
-});
+    // Event listener for min price selectbox
+    minPriceSelectbox.addEventListener('change', event => {
+        applyFilters(posts)
+    });
 
-// Event listener for max price selectbox
-maxPriceSelectbox.addEventListener('change', event => {
-    applyFilters(posts)
-});
-
-
-// Event listener for just photo control
-justPhotoControll.addEventListener('click', () => {
-    applyFilters(posts)
-});
-
-// Event listener for exchange control
-exchangeControll.addEventListener('click', () => {
-    applyFilters(posts)
-});
+    // Event listener for max price selectbox
+    maxPriceSelectbox.addEventListener('change', event => {
+        applyFilters(posts)
+    });
 
 
- 
+    // Event listener for just photo control
+    justPhotoControll.addEventListener('click', () => {
+        applyFilters(posts)
+    });
+
+    // Event listener for exchange control
+    exchangeControll.addEventListener('click', () => {
+        applyFilters(posts)
+    });
+
+
+
 
 
 });

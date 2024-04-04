@@ -1,3 +1,5 @@
+const baseUrl = 'https://divarapi.liara.run/'
+
 const showSwal = (title, icon, buttons, callback) => {
   swal({
     title,
@@ -90,6 +92,7 @@ const hideModal = (id, className) => {
 };
 
 export {
+  baseUrl,
   showSwal,
   saveIntoLocalStorage,
   getFromLocalStorage,

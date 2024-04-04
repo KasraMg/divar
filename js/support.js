@@ -4,12 +4,12 @@ window.addEventListener('load', () => {
 
     getArticles().then(categories => {
         console.log(categories);
-        const generalArticles = document.querySelector('#general-articles')
+        const  popularArticles = document.querySelector('#popular-articles')
         const articlesContainer = document.querySelector('#categories-container')
         const popularCategory = categories.find(category => category.shortName === "popular_articles");
 
         popularCategory.articles.map(article => {
-            generalArticles.insertAdjacentHTML('beforeend', `
+             popularArticles.insertAdjacentHTML('beforeend', `
                 <a href="/support/article.html?id=${article._id}" class="article">
                             <p>${article.title}</p>
                             <span>${article.body.slice(0, 155)}...</span>
