@@ -134,6 +134,14 @@ body {
   background-color: #eee;
 }
 
+.main__cities-list p{
+  cursor: pointer;
+}
+.main__cities-list{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto 
+}
+
 /* !=======================================End Main Style!======================================= */
 
 /* !=======================================socials!======================================= */
