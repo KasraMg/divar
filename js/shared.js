@@ -1,8 +1,6 @@
 import { getAllCitiesHandler, getAndShowHeaderCityTitle, getAndShowPostCategories, getAndShowSocialMedia, showPannelLinksToUser } from './funcs/shared.js'
 import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage, addParamToUrl, removeParameterFromURL } from "./funcs/utils.js"
-import { SubmitNumber, getMe, verifyNumber, requestNewCode, logout } from './funcs/auth.js'
-
-
+import { submitNumber, getMe, verifyNumber, requestNewCode, logout } from './funcs/auth.js'
 
 
 window.addEventListener('load', () => {
@@ -11,8 +9,8 @@ window.addEventListener('load', () => {
     getAndShowHeaderCityTitle()
 
     // city modal handler //
-    let citySelect;
-    let AllCitiesData;
+    let citySelect = null;
+    let AllCitiesData = null;
 
 
     const addCityToModal = (cities) => {
@@ -76,9 +74,11 @@ window.addEventListener('load', () => {
         const cityitems = document.querySelectorAll(".city-item");
         cityitems.forEach(item => {
             const checkbox = item.querySelector("input");
+
             const checkboxShape = item.querySelector("div");
             checkbox.checked = false;
             checkboxShape.classList.remove('active');
+            console.log(checkboxShape)
         });
     }
 
@@ -110,7 +110,11 @@ window.addEventListener('load', () => {
 
                 cityModalList.innerHTML = '';
 
-                let isCheck = citySelect.some(selectedCity => selectedCity.title == `همه شهر های ${provinceName}`);
+                let isCheck = citySelect.some(selectedCity => {
+                    console.log(selectedCity.title)
+                    selectedCity.title == `همه شهر های ${provinceName}`
+                });
+
                 cityModalList.insertAdjacentHTML('beforeend', `
                 <li id="city_modal_all_province" class="city_modal_all_province">
                     <span>همه شهر ها</span>
@@ -119,7 +123,7 @@ window.addEventListener('load', () => {
                 <li class="city-modal__cities-item select-all-city city-item" id="city-${provinceName.replace(/ /g, '-')}-${provinceId}">
                     <span>همه شهر های ${provinceName} </span>
                     <div class="${isCheck && 'active'}"  id="checkboxShape"></div>
-                    <input  onclick="cityClickHandler('${provinceName.replace(/ /g, '-')}','${provinceId}')" checked="${isCheck && true}" type="checkbox">
+                    <input   onclick="cityItemClickHandler('${provinceName.replace(/ /g, '-')}','${provinceId}')" checked="${isCheck && true}" type="checkbox">
                 </li>
             `);
 
@@ -129,7 +133,7 @@ window.addEventListener('load', () => {
                     <li class="city-modal__cities-item city-item" id="city-${city.id}">
                         <span>${city.name}</span>
                         <div class="${isCheck && 'active'}" id="checkboxShape"></div>
-                        <input onclick="cityClickHandler('${city.id}',null)"  checked="${isCheck && true}" id="city-item-checkbox" type="checkbox">
+                        <input onclick="cityItemClickHandler('${city.id}',null)"  checked="${isCheck && true}" id="city-item-checkbox" type="checkbox">
                     </li>
                 `);
                 });
@@ -145,16 +149,16 @@ window.addEventListener('load', () => {
     }
 
     // Function to handle city item click
-    window.cityClickHandler = function (cityId, provinceId) {
+    window.cityItemClickHandler = function (cityId, provinceId) {
         const item = provinceId ? document.querySelector(`#city-${cityId}-${provinceId}`) : document.querySelector(`#city-${cityId}`);
         const checkbox = item.querySelector("input");
-        const cityTitle = item.querySelector("span").innerHTML;
-        const cityItemId = item.id
+        const cityTitle = item.querySelector("span").innerHTML; 
         if (!provinceId) {
             citySelect.map(city => {
-                if (city.title == cityTitle) {
+                if (city.title === cityTitle) {
                     const checkbox = item.querySelector("input");
                     checkbox.checked = true;
+
                 }
             });
         }
@@ -167,6 +171,10 @@ window.addEventListener('load', () => {
                 checkbox.checked = false;
                 checkboxShape.classList.add("active");
             } else {
+                const checkboxShapeSelectAllCity = document.querySelector('.select-all-city > div ')
+                const inputSelectAllCity = document.querySelector('.select-all-city input')
+                inputSelectAllCity.checked = false
+                checkboxShapeSelectAllCity.classList.remove("active");
                 checkboxShape.classList.remove("active");
                 checkbox.checked = true;
                 const newSelected = citySelect.filter(city => city.title !== cityTitle)
@@ -175,13 +183,8 @@ window.addEventListener('load', () => {
                 toggleCityModalButtons(citySelect)
             }
         } else {
-            checkboxShape.classList.toggle("active");
-            if (checkbox.checked) {
-                checkbox.checked = false;
-            } else {
-                checkbox.checked = true;
-            }
-
+            checkbox.checked = checkboxShape.classList.toggle("active"); 
+            checkbox.checked = !checkbox.checked
             let cities = AllCitiesData.data.cities.filter(city => city.province_id == provinceId);
 
             cities.map(city => {
@@ -191,6 +194,7 @@ window.addEventListener('load', () => {
                 const cityTitle = cityItem.querySelector("span").innerHTML;
 
                 cityCheckbox.checked = checkbox.checked;
+                console.log(cityCheckbox.checked)
                 if (checkbox.checked === false) {
                     updateCitySelectList(city.name, city.id)
                 } else {
@@ -262,7 +266,7 @@ window.addEventListener('load', () => {
                         <li class="city-modal__cities-item city-item" id="city-${city.id}">
                             <span>${city.name}</span>
                             <div class="${isCheck && 'active'}" id="checkboxShape"></div>
-                            <input onclick="cityClickHandler('${city.id}')" checked="${isCheck && true}" id="city-item-checkbox" type="checkbox">
+                            <input onclick="cityItemClickHandler('${city.id}')" checked="${isCheck && true}" id="city-item-checkbox" type="checkbox">
                         </li>
                     `);
             });
@@ -398,7 +402,7 @@ window.addEventListener('load', () => {
     
     submitPhoneNumberBtn?.addEventListener('click', event => {
         event.preventDefault()
-        SubmitNumber()
+        submitNumber()
     })
     loginBtn?.addEventListener('click', event => {
         event.preventDefault()
@@ -463,11 +467,11 @@ window.addEventListener('load', () => {
                     categoryresults.insertAdjacentHTML("beforeend", `
                 <div>
                                                  <ul class="header__category-dropdown-list">
-                                                     <div  onclick="categoryClickHandler('${subCategory._id}')"  class="header__category-dropdown-title" href="#">${subCategory.title}</div>
+                                                     <div  onclick="categoryClickHandler('${subCategory._id}')"  class="header__category-dropdown-title">${subCategory.title}</div>
                                                   ${subCategory.subCategories.map(subSubCategory => (
                         ` <li class="header__category-dropdown-item">
                                                     <div  onclick="categoryClickHandler('${subSubCategory._id}')" class="header__category-dropdown-link"
-                                                        href="#">${subSubCategory.title}</div>
+                                                        >${subSubCategory.title}</div>
                                                 </li>`
                     )).join('')} 
                                                  </ul>
@@ -480,16 +484,11 @@ window.addEventListener('load', () => {
     
         })
     
-        window.categoryClickHandler = function (categoryId) {
-            addParamToUrl('categoryId', categoryId);
+        window.categoryClickHandler = function (categoryId) { 
+            location.href=`posts.html?categoryId=${categoryId}`
         }
     
     }
     
     
 })
-
-
-
-
-

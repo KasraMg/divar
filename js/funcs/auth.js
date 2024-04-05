@@ -1,5 +1,5 @@
 
-import { saveIntoLocalStorage, getToken, hideModal, showSwal } from "./utils.js";
+import { saveIntoLocalStorage, getToken, hideModal, showSwal, baseUrl } from "./utils.js";
 
 const loginModalContainer = document.querySelector('.login-modal')
 const userNumberNotice = document.querySelector('.user_number_notice')
@@ -12,14 +12,14 @@ const requestBtnTimerContainer = document.querySelector('.request_timer')
 const requestBtnTimer = document.querySelector('.request_timer span')
 const requestCodeBtn = document.querySelector('.req_new_code_btn')
 
-let timer;
+let timer = null;
 
-const SubmitNumber = () => {
+const submitNumber = () => {
   const phoneRegex = RegExp(/^(09)[0-9]{9}$/)
   const phoneRegexResult = phoneRegex.test(userPhoneNumberInput.value) 
   if (phoneRegexResult) {
     step1LoginFormError.innerHTML = ""
-    fetch(`https://divarapi.liara.run/v1/auth/send`, {
+    fetch(`${baseUrl}/v1/auth/send`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const verifyNumber = () => {
       phone: userPhoneNumberInput.value,
       otp: userCodeInput.value
     }
-    fetch(`https://divarapi.liara.run/v1/auth/verify`, {
+    fetch(`${baseUrl}/v1/auth/verify`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const verifyNumber = () => {
   }
 } 
 const requestNewCode = () => {
-  fetch('https://divarapi.liara.run/v1/auth/send', {
+  fetch(`${baseUrl}/v1/auth/send`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ const getMe = async () => {
   if (!token) {
     return false;
   }
-  const res = await fetch(`https://divarapi.liara.run/v1/auth/me`, {
+  const res = await fetch(`${baseUrl}/v1/auth/me`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -146,4 +146,4 @@ changeNumberSpan?.addEventListener('click', () => {
 })
 
 
-export { SubmitNumber, getMe, verifyNumber, requestNewCode, logout };
+export { submitNumber, getMe, verifyNumber, requestNewCode, logout };

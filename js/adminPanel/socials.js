@@ -1,5 +1,7 @@
+import { baseUrl } from "../funcs/utils.js";
+
 window.addEventListener('load', async () => {
-    const res = await fetch(`https://divarapi.liara.run/v1/social/`);
+    const res = await fetch(`${baseUrl}/v1/social/`);
     const data = await res.json();
 
     const socialTable = document.querySelector('.social-table')

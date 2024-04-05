@@ -1,8 +1,8 @@
-import { getUrlParam } from "../funcs/utils.js"
+import { baseUrl, getUrlParam } from "../funcs/utils.js"
 
 window.addEventListener('load', async () => {
     const key = getUrlParam('key')
-    const res = await fetch(`https://divarapi.liara.run/v1/support/articles/search?s=${key}`)
+    const res = await fetch(`${baseUrl}/v1/support/articles/search?s=${key}`)
     const data = await res.json()
     console.log(data);
 

@@ -1,5 +1,5 @@
 import { getAndShowPostCategories, getCourseDetails, getUserBookmarks } from "./funcs/shared.js";
-import { getToken, getUrlParam, isLogin, showModal, showSwal } from "./funcs/utils.js";
+import { baseUrl, getToken, getUrlParam, isLogin, showModal, showSwal } from "./funcs/utils.js";
 
 
 
@@ -8,7 +8,7 @@ import { getToken, getUrlParam, isLogin, showModal, showSwal } from "./funcs/uti
 
 window.addEventListener('load', () => {
     const userLogin = isLogin()
-    
+
     getCourseDetails().then(postData => {
         const postTitle = document.querySelector('#post-title')
         const postInfoes = document.querySelector('#post-infoes-list')
@@ -21,42 +21,53 @@ window.addEventListener('load', () => {
         const phoneInfoBtn = document.querySelector('#phone-info-btn')
         const noteTextarea = document.querySelector('#note-textarea')
         const noteTrashIcon = document.querySelector('#note-trash-icon')
+        const categoryBreadcrumb = document.querySelector('#category-breadcrumb')
+        const subCategoryBreadcrumb = document.querySelector('#subCategory-breadcrumb')
+        const subSubCategoryBreadcrumb = document.querySelector('#subSubCategory-breadcrumb')
+        const postTitleBreadcrumb = document.querySelector('#post-title-breadcrumb')
 
+
+
+
+        let bookmarkStatus = null;
+        let noteId = null;
+
+        console.log(postData);
         const data = postData.data.post
-        console.log(data);
         postTitle.innerHTML = data.title
-        document.title=data.title
+        document.title = data.title
         postDiscription.innerHTML = data.description
+        categoryBreadcrumb.href =`/posts.html?categoryId=${data.breadcrumbs.category._id}`
+        categoryBreadcrumb.innerHTML = data.breadcrumbs.category.title
+        subCategoryBreadcrumb.innerHTML = data.breadcrumbs.subCategory.title 
+        subCategoryBreadcrumb.href =`/posts.html?categoryId=${data.breadcrumbs.subCategory._id}`
+        subSubCategoryBreadcrumb.innerHTML = data.breadcrumbs.subSubCategory.title 
+        subSubCategoryBreadcrumb.href =`/posts.html?categoryId=${data.breadcrumbs.subSubCategory._id}`
+        postTitleBreadcrumb.innerHTML = data.title
+
+
         const token = getToken()
-        let bookmarkStaus;
         shareIcon.addEventListener("click", async () => {
             await navigator.share({ title: data.title, url: location.href });
         });
 
-        const checkBookmark = () => { 
-            if (userLogin) {
-                const icon = bookmarkIconBtn.querySelector('.bi')
-            getUserBookmarks(token).then(bookmarksData => {
-                bookmarksData.data.bookmarks.some(bookmark => {
-                    if (bookmark.post._id == data._id) {
-                        bookmarkStaus = true
-                        icon.style.color = 'red'
-                        return true
-                    } else {
-                        bookmarkStaus = false
-                        icon.style.color = 'gray'
-                    }
-                })
-            })
-            } 
-            
+        const bookmarkIcon = bookmarkIconBtn.querySelector('.bi')
+        if (userLogin) {
+            if (data.bookmarked) {
+                bookmarkIcon.style.color = 'red'
+                bookmarkStatus = true
+            } else {
+                bookmarkIcon.style.color = 'gray'
+                bookmarkStatus = false
+            }
+
         }
-        checkBookmark()
+
         bookmarkIconBtn.addEventListener("click", () => {
             const id = getUrlParam('id')
             if (userLogin) {
-                if (bookmarkStaus) {
-                    fetch(`https://divarapi.liara.run/v1/bookmark/${id}`, {
+                if (bookmarkStatus) {
+                    fetch(`${baseUrl}/v1/bookmark/${id}`, {
                         method: 'DELETE',
                         headers: {
                             "Content-Type": "application/json",
@@ -65,11 +76,12 @@ window.addEventListener('load', () => {
                     }).then(res => {
                         console.log(res);
                         if (res.status == 200) {
-                            checkBookmark()
+                            bookmarkIcon.style.color = 'gray'
+                            bookmarkStatus = false
                         }
                     })
                 } else {
-                    fetch(`https://divarapi.liara.run/v1/bookmark/${id}`, {
+                    fetch(`${baseUrl}/v1/bookmark/${id}`, {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json",
@@ -78,15 +90,16 @@ window.addEventListener('load', () => {
                     }).then(res => {
                         console.log(res);
                         if (res.status == 201) {
-                            checkBookmark()
+                            bookmarkIcon.style.color = 'red'
+                            bookmarkStatus = true
                         }
                     })
                 }
-    
-            }else{
+
+            } else {
                 showModal('login-modal', 'login-modal--active')
             }
-           
+
         })
 
         postInfoes.insertAdjacentHTML('beforeend', `
@@ -108,12 +121,12 @@ window.addEventListener('load', () => {
             data.pics.map(pic => {
                 mainSlider.insertAdjacentHTML("beforeend", `
                     <div class="swiper-slide">
-                        <img src="https://divarapi.liara.run/${pic.path}" />
+                        <img src="${baseUrl}/${pic.path}" />
                     </div>`
                 );
                 secondSlider.insertAdjacentHTML("beforeend", `
                     <div class="swiper-slide">
-                        <img src="https://divarapi.liara.run/${pic.path}" />
+                        <img src="${baseUrl}/${pic.path}" />
                     </div>`
                 );
             });
@@ -127,36 +140,68 @@ window.addEventListener('load', () => {
 
 
 
-        noteTextarea.addEventListener('keyup', (event) => {
-            if (event.target.value.length) {
-                noteTrashIcon.style.display = 'block'
-            } else {
-                noteTrashIcon.style.display = 'none'
-            }
-        })
-        noteTextarea.addEventListener('blur', (event) => {
-            console.log(event.target.value);
-            const noteData={
-                postId: data._id,
-                content: event.target.value
-            }
-            fetch('https://divarapi.liara.run/v1/note/',{
-                method:'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                    
-                },
-                body:JSON.stringify(noteData)
-            }).then(res=>{
-                console.log(res);
+        if (data.note) {
+            noteTextarea.value = data.note.content
+            noteId = data.note._id
+        }
+        if (userLogin) {
+            noteTextarea.addEventListener('keyup', (event) => {
+                if (event.target.value.length) {
+                    noteTrashIcon.style.display = 'block'
+                } else {
+                    noteTrashIcon.style.display = 'none'
+                }
             })
-        })
+            noteTextarea.addEventListener('blur', (event) => {
+                console.log(event.target.value);
+                if (data.note || noteId) {
+                    fetch(`${baseUrl}/v1/note/${noteId}`, {
+                        method: 'PUT',
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
 
-        noteTrashIcon.addEventListener('click', () => {
-            noteTextarea.value = ''
-            noteTrashIcon.style.display = 'none'
-        })
+                        },
+                        body: JSON.stringify({ content: event.target.value })
+                    }).then(res => {
+                        console.log(res);
+                    })
+                } else {
+                    const noteData = {
+                        postId: data._id,
+                        content: event.target.value
+                    }
+                    console.log(noteData);
+                    fetch(`${baseUrl}/v1/note/`, {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+
+                        },
+                        body: JSON.stringify(noteData)
+                    }).then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            noteId = data.data.note._id
+                            console.log(noteId);
+                        })
+                }
+
+            })
+
+            noteTrashIcon.addEventListener('click', () => {
+                noteTextarea.value = ''
+                noteTrashIcon.style.display = 'none'
+            })
+        } else {
+            noteTextarea.addEventListener('keydown', (event) => {
+                event.preventDefault();
+                showModal('login-modal', 'login-modal--active')
+            })
+
+        }
+
 
 
 

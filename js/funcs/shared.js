@@ -1,10 +1,12 @@
 
 import { getMe } from "../funcs/auth.js"
-import { getFromLocalStorage, getUrlParam, isLogin, saveIntoLocalStorage, showModal } from "./utils.js";
+import { baseUrl, getFromLocalStorage, getToken, getUrlParam, isLogin, saveIntoLocalStorage, showModal } from "./utils.js";
+
+const token = getToken()
 
 const getAndShowSocialMedia = async () => {
     const SocialMediaContainer = document.querySelector('#footer__social-media')
-    const res = await fetch(`https://divarapi.liara.run/v1/social/`);
+    const res = await fetch(`${baseUrl}/v1/social/`);
     const social = await res.json();
     social.data.socials.map(data => {
         SocialMediaContainer?.insertAdjacentHTML("beforeend", `
@@ -19,13 +21,13 @@ const getAndShowSocialMedia = async () => {
 
 const showPannelLinksToUser = async () => {
     const dropDown = document.querySelector(".header_dropdown_menu");
-    const isUserLogin = isLogin(); 
+    const isUserLogin = isLogin();
     if (dropDown) {
         if (isUserLogin) {
-            getMe().then((data) => { 
+            getMe().then((data) => {
                 console.log(data);
-                    dropDown.innerHTML = ''
-                    dropDown.insertAdjacentHTML('beforeend', ` 
+                dropDown.innerHTML = ''
+                dropDown.insertAdjacentHTML('beforeend', ` 
                         <li class="header__left-dropdown-item header_dropdown-item_account">
                             <div class="header__left-dropdown-link login_dropdown_link"> 
                                <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
@@ -61,7 +63,7 @@ const showPannelLinksToUser = async () => {
                         </p>
                     </li> 
                       `)
-               
+
             });
         } else {
             dropDown.insertAdjacentHTML('beforeend', ` 
@@ -91,22 +93,22 @@ const showPannelLinksToUser = async () => {
                 </div>
             </li> 
           `);
-          dropDown.addEventListener('click',()=>{
-            showModal('login-modal', 'login-modal--active')
-          })
+            dropDown.addEventListener('click', () => {
+                showModal('login-modal', 'login-modal--active')
+            })
         }
     }
-    
+
 };
 
 const getAndShowPostCategories = async () => {
-    const res = await fetch("https://divarapi.liara.run/v1/category/")
+    const res = await fetch(`${baseUrl}/v1/category/`)
     const data = await res.json()
     return data.data.categories
 }
 
 const getAndShowArticleCategories = async () => {
-    const res = await fetch("https://divarapi.liara.run/v1/support/categories")
+    const res = await fetch(`${baseUrl}/v1/support/categories`)
     const categories = await res.json()
     return categories
 }
@@ -114,22 +116,22 @@ const getAndShowArticleCategories = async () => {
 const getAndShowPosts = async () => {
     const cityId = getUrlParam("city");
     const categoryId = getUrlParam('categoryId');
-    const searchValue = getUrlParam('value') 
+    const searchValue = getUrlParam('value')
 
-    let url = `https://divarapi.liara.run/v1/post/?city=${cityId}`;
+    let url = `${baseUrl}/v1/post/?city=${cityId}`;
     if (categoryId) {
         url += `&categoryId=${categoryId};`
     }
     if (searchValue) {
         url += `&search=${searchValue};`
-    } 
+    }
     const res = await fetch(url);
     const posts = await res.json();
     return posts;
 };
 
 const getAllCitiesHandler = async () => {
-    const res = await fetch(`https://divarapi.liara.run/v1/location/`);
+    const res = await fetch(`${baseUrl}/v1/location/`);
     const cities = await res.json();
     return cities
 }
@@ -154,21 +156,29 @@ const getAndShowHeaderCityTitle = () => {
 }
 
 const getArticles = async () => {
-    const res = await fetch('https://divarapi.liara.run/v1/support/category-articles')
+    const res = await fetch(`${baseUrl}/v1/support/category-articles`)
     const data = await res.json()
     return data.data.categories
 }
 
 const getCourseDetails = async () => {
     const productId = getUrlParam('id')
-    const res = await fetch(`https://divarapi.liara.run/v1/post/${productId}`)
+    let headers = {
+        "Content-Type": "application/json"
+    };
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
+    const res = await fetch(`${baseUrl}/v1/post/${productId}`, { 
+        headers
+    })
     const data = await res.json()
     return data
 
 }
 
 const getUserBookmarks = async (token) => {
-    const res = await fetch(`https://divarapi.liara.run/v1/user/bookmarks`, {
+    const res = await fetch(`${baseUrl}/v1/user/bookmarks`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -179,14 +189,14 @@ const getUserBookmarks = async (token) => {
 }
 
 const getArticlesByCategory = async (categoryId) => {
-    const res = await fetch(`https://divarapi.liara.run/v1/support/categories/${categoryId}/articles`)
+    const res = await fetch(`${baseUrl}/v1/support/categories/${categoryId}/articles`)
     const data = await res.json()
     return data.data.articles
 }
 
 const getArticleById = async (articleId) => {
-    const res = await fetch(`https://divarapi.liara.run/v1/support/articles/${articleId}`)
-    const data = await res.json() 
+    const res = await fetch(`${baseUrl}/v1/support/articles/${articleId}`)
+    const data = await res.json()
     return data.data.article
 }
 

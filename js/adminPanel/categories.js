@@ -1,4 +1,5 @@
 import { getAndShowPostCategories, getAndShowArticleCategories } from "../funcs/shared.js"
+import { baseUrl } from "../funcs/utils.js"
 
 window.addEventListener('load', () => {
     const postTable = document.querySelector('.post-categories-table')
@@ -101,7 +102,7 @@ window.addEventListener('load', () => {
         </tr>
             <tr>
                             <td>${category.name}</td> 
-                            <td><img height="30px" src="https://divarapi.liara.run/${category.pic?.path}"></img></td> 
+                            <td><img height="30px" src="${baseUrl}/${category.pic?.path}"></img></td> 
                             <td><button class="edit-btn">ویرایش</button></td>
                             <td><button class="delete-btn">حذف</button></td>
                         </tr>

@@ -1,5 +1,5 @@
 import { getAndShowPostCategories, getAndShowPosts } from "./funcs/shared.js";
-import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, saveIntoLocalStorage } from "./funcs/utils.js";
+import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, baseUrl } from "./funcs/utils.js";
 
 window.addEventListener('load', async () => {
     const categoryId = getUrlParam('categoryId');
@@ -7,10 +7,9 @@ window.addEventListener('load', async () => {
     const searchValue = getUrlParam('value');
     const cities = getFromLocalStorage('cities')
 
-    const minPriceSelectbox = document.querySelector('#min-price-selectbox');
-    const maxPriceSelectbox = document.querySelector('#max-price-selectbox');
-    let posts;
-    let backupPosts;
+
+    let posts = null;
+    let backupPosts = null;
     let appliedFilters = {};
 
     if (searchValue) {
@@ -19,18 +18,22 @@ window.addEventListener('load', async () => {
     }
     if (!cityParam) {
         if (cities) {
-            addParamToUrl('city', cities[0].id)
+            let ids = cities.map(obj => obj.id).join('|');
+            addParamToUrl('city', ids)
             document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم`
         } else {
             addParamToUrl('city', 301)
             document.title = `دیوار :تهران مرجع انواع آگهی های نو و دست دوم`
         }
-    } else { 
+    } else {
         document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم`
     }
 
-    const exchangeControll = document.querySelector('#exchange_controll')
-    const justPhotoControll = document.querySelector('#just_photo_controll')
+
+    const minPriceSelectbox = document.querySelector('#min-price-selectbox');
+    const maxPriceSelectbox = document.querySelector('#max-price-selectbox');
+    const exchangeControllBtn = document.querySelector('#exchange_controll')
+    const justPhotoControllBtn = document.querySelector('#just_photo_controll')
 
     function applyFilters(posts) {
         let filteredPosts = backupPosts
@@ -58,10 +61,10 @@ window.addEventListener('load', async () => {
             }
         }
 
-        if (justPhotoControll.checked) {
+        if (justPhotoControllBtn.checked) {
             filteredPosts = filteredPosts.filter(post => post.pics.length);
         }
-        if (exchangeControll.checked) {
+        if (exchangeControllBtn.checked) {
             filteredPosts = filteredPosts.filter(post => post.exchange == true);
         }
         generatePosts(filteredPosts);
@@ -99,10 +102,47 @@ window.addEventListener('load', async () => {
         applyFilters();
     };
 
+    const filtersGenerator = (filter) => {
+        const sidebarFilters = document.querySelector('#sidebar-filters') 
+        sidebarFilters.insertAdjacentHTML("beforebegin", `
+        ${filter.type == 'checkbox' ? (
+                `  <div class="sidebar__filter">
+           <label class="switch">  
+           <input id="exchange_controll" class="icon-controll" type="checkbox">
+               <span class="slider round"></span>
+             </label>
+             <p>${filter.name}</p>
+         </div>
+           `
+            ) : ''}
+        ${filter.type == "selectbox" ? (
+                `  
+           <div class="accordion accordion-flush" id="accordionFlushExample">
+                           <div class="accordion-item">
+                             <h2 class="accordion-header" id="accordion-${filter.name}">
+                               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-${filter.slug}" aria-expanded="false" aria-controls="accordion-${filter.name}">
+                                  <span class="sidebar__filter-title">${filter.name}</span>
+                               </button>
+                             </h2>
+                             <div id="accordion-${filter.slug}" class="accordion-collapse collapse" aria-labelledby="accordion-${filter.name}" data-bs-parent="#accordionFlushExample" style="">
+                               <div class="accordion-body">  
+                               <select onchange="selectboxFilterHandler(event.target.value,'${filter.slug}')"   class="selectbox" id="">
+                               ${filter.options.map(option => (
+                    `   <option value="${option}">${option}</option>`
+                ))} 
+                           </select>
+                               </div>
+                             </div>
+                           </div>  
+                           </div>  
+           `
+            ) : ''}
+           `)
+    }
+
     // Fetch and show post categories
     getAndShowPostCategories().then(categories => {
         const categoriesContainer = document.querySelector('#categories-container');
-        const sidebarFilters = document.querySelector('#sidebar-filters')
 
         // تابعی برای بازگشت به تمام دسته‌بندی‌ها
         window.backToAllCategories = () => {
@@ -123,40 +163,7 @@ window.addEventListener('load', async () => {
                 if (subCategory) {
                     console.log(subCategory.filters);
                     subCategory.filters.map(filter => {
-                        sidebarFilters.insertAdjacentHTML("beforebegin", `
-                 ${filter.type == 'checkbox' ? (
-                                `  <div class="sidebar__filter">
-                    <label class="switch">  
-                    <input id="exchange_controll" class="icon-controll" type="checkbox">
-                        <span class="slider round"></span>
-                      </label>
-                      <p>${filter.name}</p>
-                  </div>
-                    `
-                            ) : ''}
-                 ${filter.type == "selectbox" ? (
-                                `  
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    <div class="accordion-item">
-                                      <h2 class="accordion-header" id="accordion-${filter.name}">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-${filter.slug}" aria-expanded="false" aria-controls="accordion-${filter.name}">
-                                           <span class="sidebar__filter-title">${filter.name}</span>
-                                        </button>
-                                      </h2>
-                                      <div id="accordion-${filter.slug}" class="accordion-collapse collapse" aria-labelledby="accordion-${filter.name}" data-bs-parent="#accordionFlushExample" style="">
-                                        <div class="accordion-body">  
-                                        <select onchange="selectboxFilterHandler(event.target.value,'${filter.slug}')"   class="selectbox" id="">
-                                        ${filter.options.map(option => (
-                                    `   <option value="${option}">${option}</option>`
-                                ))} 
-                                    </select>
-                                        </div>
-                                      </div>
-                                    </div>  
-                                    </div>  
-                    `
-                            ) : ''}
-                    `)
+                        filtersGenerator(filter)
                     })
 
                     categoriesContainer.insertAdjacentHTML('beforeend', `
@@ -190,40 +197,7 @@ window.addEventListener('load', async () => {
                     const subSubCategory = subCategory.subCategories.filter(subCategory => subCategory._id == categoryId)
                     console.log(subSubCategory);
                     subSubCategory[0].filters.map(filter => {
-                        sidebarFilters.insertAdjacentHTML("beforebegin", `
-                 ${filter.type == 'checkbox' ? (
-                                `  <div class="sidebar__filter">
-                    <label class="switch">  
-                    <input id="exchange_controll" class="icon-controll" type="checkbox">
-                        <span class="slider round"></span>
-                      </label>
-                      <p>${filter.name}</p>
-                  </div>
-                    `
-                            ) : ''}
-                 ${filter.type == "selectbox" ? (
-                                `  
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    <div class="accordion-item">
-                                      <h2 class="accordion-header" id="accordion-${filter.name}">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-${filter.slug}" aria-expanded="false" aria-controls="accordion-${filter.name}">
-                                           <span class="sidebar__filter-title">${filter.name}</span>
-                                        </button>
-                                      </h2>
-                                      <div id="accordion-${filter.slug}" class="accordion-collapse collapse" aria-labelledby="accordion-${filter.name}" data-bs-parent="#accordionFlushExample" style="">
-                                        <div class="accordion-body">  
-                                        <select onchange="selectboxFilterHandler(event.target.value,'${filter.slug}')"   class="selectbox" id="">
-                                        ${filter.options.map(option => (
-                                    `   <option value="${option}">${option}</option>`
-                                ))} 
-                                    </select>
-                                        </div>
-                                      </div>
-                                    </div>  
-                                    </div>  
-                    `
-                            ) : ''}
-                    `)
+                        filtersGenerator(filter)
                     })
 
                     categoriesContainer.insertAdjacentHTML('beforeend', `
@@ -245,41 +219,7 @@ window.addEventListener('load', async () => {
             } else {
                 console.log(categoryInfoes[0]);
                 categoryInfoes[0].filters?.map(filter => {
-
-                    sidebarFilters.insertAdjacentHTML("beforebegin", `
-             ${filter.type == 'checkbox' ? (
-                            `  <div class="sidebar__filter">
-                <label class="switch">  
-                <input id="exchange_controll" class="icon-controll" type="checkbox">
-                    <span class="slider round"></span>
-                  </label>
-                  <p>${filter.name}</p>
-              </div>
-                `
-                        ) : ''}
-             ${filter.type == "selectbox" ? (
-                            `  
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                  <h2 class="accordion-header" id="accordion-${filter.name}">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-${filter.slug}" aria-expanded="false" aria-controls="accordion-${filter.name}">
-                                       <span class="sidebar__filter-title">${filter.name}</span>
-                                    </button>
-                                  </h2>
-                                  <div id="accordion-${filter.slug}" class="accordion-collapse collapse" aria-labelledby="accordion-${filter.name}" data-bs-parent="#accordionFlushExample" style="">
-                                    <div class="accordion-body">  
-                                    <select onchange="selectboxFilterHandler(event.target.value,'${filter.slug}')"   class="selectbox" id="">
-                                    ${filter.options.map(option => (
-                                `   <option value="${option}">${option}</option>`
-                            ))} 
-                                </select>
-                                    </div>
-                                  </div>
-                                </div>  
-                                </div>  
-                `
-                        ) : ''}
-                `)
+                    filtersGenerator(filter)
                 })
 
                 categoryInfoes.forEach(category => {
@@ -322,11 +262,7 @@ window.addEventListener('load', async () => {
         generatePosts(posts);
     });
 
-
-
-
-
-
+ 
     // Function to generate HTML for posts
     const generatePosts = (posts) => {
         const postsContainer = document.querySelector('#posts-container');
@@ -348,7 +284,7 @@ window.addEventListener('load', async () => {
                         </div>
                         <div class="product-card__left"> 
                             ${post.pics.length ? (
-                        `<img class="product-card__img img-fluid" src="https://divarapi.liara.run/${post.pics[0].path}"></img>`
+                        `<img class="product-card__img img-fluid" src="${baseUrl}/${post.pics[0].path}"></img>`
                     ) : (
                         `<img class="product-card__img img-fluid" src="/images/main/noPicture.PNG"></img>`
                     )}
@@ -374,17 +310,12 @@ window.addEventListener('load', async () => {
 
 
     // Event listener for just photo control
-    justPhotoControll.addEventListener('click', () => {
+    justPhotoControllBtn.addEventListener('click', () => {
         applyFilters(posts)
     });
 
     // Event listener for exchange control
-    exchangeControll.addEventListener('click', () => {
+    exchangeControllBtn.addEventListener('click', () => {
         applyFilters(posts)
-    });
-
-
-
-
-
+    }); 
 });

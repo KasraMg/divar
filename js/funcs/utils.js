@@ -1,4 +1,4 @@
-const baseUrl = 'https://divarapi.liara.run/'
+const baseUrl = 'https://divarapi.liara.run'
 
 const showSwal = (title, icon, buttons, callback) => {
   swal({

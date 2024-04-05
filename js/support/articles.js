@@ -1,5 +1,5 @@
 import { getArticles } from "../funcs/shared.js"
-import { getUrlParam } from "../funcs/utils.js"
+import { baseUrl, getUrlParam } from "../funcs/utils.js"
 
 window.addEventListener('load', async () => {
 
@@ -16,7 +16,7 @@ window.addEventListener('load', async () => {
         document.title = category.name
         categoryInfo.insertAdjacentHTML('beforeend', `
         <img class="category-info-icon"
-        src="https://divarapi.liara.run/${category.pic.path}"
+        src="${baseUrl}/${category.pic.path}"
         alt>
     <p class="category-info-title">${category.name}</p>
         `)

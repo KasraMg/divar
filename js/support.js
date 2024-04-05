@@ -1,4 +1,5 @@
 import { getArticles } from "./funcs/shared.js"
+import { baseUrl } from "./funcs/utils.js";
 
 window.addEventListener('load', () => {
 
@@ -24,7 +25,7 @@ window.addEventListener('load', () => {
         categories.map(category => {
             articlesContainer.insertAdjacentHTML('beforeend', `
             <a href="/support/articles.html?id=${category._id}">
-            <img src="https://divarapi.liara.run/${category.pic.path}" width="64" height="64" alt="">
+            <img src="${baseUrl}/${category.pic.path}" width="64" height="64" alt="">
             <div>
                 <p>${category.name}</p>
                 <span>نحوه انجام پرداخت، استفاده از کیف پول، افزایش بازدید، استفاده از </span>
