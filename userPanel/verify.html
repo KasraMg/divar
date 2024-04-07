@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main</title>
+    <title>صفحه حساب شخصی شما در سایت دیوار</title>
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://support-faq.divarcdn.com/web/2024/03/favicon-32x32.png" />
     <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.css" />
     <link
       rel="stylesheet"
@@ -59,7 +61,7 @@
                 </div>
                 <div class="sidebar__user-left">
                   <div class="sidebar__user-text">کاربر دیوار</div>
-                  <div class="sidebar__user-phone">تلفن : 09023555555</div>
+                  <p id="sidebar-phone-number" class="sidebar__user-phone"></p>
                 </div>
               </div>
               <ul class="sidebar__menu-list">
@@ -96,13 +98,7 @@
                     بازدید های اخیر
                   </a>
                 </li>
-              </ul>
-              <a class="sidebar__business sidebar__link-item" href="#">
-                <i
-                  class="sidebar__business-icon sidebar__link-icon bi bi-shop"
-                ></i>
-                دیوار برای کسب و کارها
-              </a>
+              </ul> 
               <a class="sidebar__logout sidebar__link-item" href="#">
                 <i
                   class="sidebar__logout-icon sidebar__link-icon bi bi-box-arrow-right"
@@ -111,9 +107,7 @@
               </a>
               <div class="sidebar__links">
                 <a class="sidebar__link" href="#">درباره دیوار</a>
-                <a class="sidebar__link" href="#">دریافت برنامه</a>
-                <a class="sidebar__link" href="#">بلاگ دیوار</a>
-                <a class="sidebar__link" href="#">کسب و کارها</a>
+                <a class="sidebar__link" href="#">دریافت برنامه</a> 
                 <a class="sidebar__link" href="#">پشتیبانی و قوانین</a>
               </div>
               <div class="sidebar__social">
@@ -136,9 +130,9 @@
                   تأیید هویت برای افزایش اعتماد کاربران و سلامت تعاملات انجام
                   می‌شود. اطلاعات شناسایی شما در هیچ صفحه‌ای نمایش داده نمی‌شود.
                 </p>
-                <p class="verify__notic">
-                  حساب شما در دیوار با شمارهٔ 0902355555 فعال است.
-                </p>
+                <div class="verify__notic">
+                <p>حساب شما در دیوار با شمارهٔ <span id="phone-number"></span> فعال است.</p>
+                </div>
               </div>
               <div class="verify__nationality">
                 <span class="verify__nationality-title">ملیت</span>
@@ -147,21 +141,11 @@
                 >
                 <div class="verify__nationality-select">
                   <div class="verify__nationality-select-wrapper">
-                    <span class="verify__nationality-select-name">ایرانی</span>
-                    <i
-                      class="verify__nationality-select-icon bi bi-chevron-down"
-                    ></i>
-                  </div>
-                  <ul class="verify__nationality-dropdown">
-                    <li
-                      class="verify__nationality-dropdown-item verify__nationality-dropdown-item--active"
-                    >
-                      ایرانی
-                    </li>
-                    <li class="verify__nationality-dropdown-item">
-                      اتباع خارجی
-                    </li>
-                  </ul>
+                    <select id="">
+                      <option value="ایرانی">ایرانی</option>
+                      <option value="اتباع خارجی">اتباع خارجی</option>
+                    </select>
+                  </div> 
                 </div>
               </div>
               <div class="verify__national-code">
@@ -173,9 +157,14 @@
                   <input
                     class="verify__national-input"
                     type="text"
+                    id="verify-input"
                     placeholder="مثال : 127777777"
                   />
-                  <button class="verify__national-btn" type="button">
+                  <span id="verify-error" class="error">
+                    کد ملی وارد شده اشتباه است
+                    <i class="bi bi-x-circle"></i>
+                  </span>
+                  <button class="verify__national-btn" id="verify-btn" type="button">
                     ثبت
                   </button>
                 </form>
@@ -221,6 +210,8 @@
   </div>
     <!--!==========================================End city Modal==========================================!-->
     <script src="/js/shared.js" type="module"></script> 
+    <script src="/js/userPanel/shared.js" type="module"></script>  
+    <script src="/js/userPanel/verify.js" type="module"></script>
     <script src="/vendor/bootstrap/bootstrap.js"></script> 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </body>

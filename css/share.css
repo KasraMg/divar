@@ -1012,7 +1012,7 @@ display: block !important;
 /* باید به sidebar__menu-link اد بشه */
 .sidebar__menu-link--active,
 .sidebar__menu-link--active * {
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
 }
 
 .sidebar__menu-link--active:hover,

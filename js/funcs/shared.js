@@ -29,13 +29,13 @@ const showPannelLinksToUser = async () => {
                 dropDown.innerHTML = ''
                 dropDown.insertAdjacentHTML('beforeend', ` 
                         <li class="header__left-dropdown-item header_dropdown-item_account">
-                            <div class="header__left-dropdown-link login_dropdown_link"> 
+                            <a href="/userPanel/posts.html" class="header__left-dropdown-link login_dropdown_link"> 
                                <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
                                <div> 
                                <span>کاربر دیوار </span>
-                               <p> تلفن ${data.data.user.phone}</p> 
+                               <p> تلفن ${data.phone}</p> 
                                </div>
-                            </div>
+                            </a>
                           
                         </li>
                         <li class="header__left-dropdown-item">

@@ -1,5 +1,5 @@
 import { getAllCitiesHandler, getAndShowHeaderCityTitle, getAndShowPostCategories, getAndShowSocialMedia, showPannelLinksToUser } from './funcs/shared.js'
-import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage, addParamToUrl, removeParameterFromURL } from "./funcs/utils.js"
+import { hideModal, showModal, saveIntoLocalStorage, getFromLocalStorage, addParamToUrl, removeParameterFromURL, isLogin } from "./funcs/utils.js"
 import { submitNumber, getMe, verifyNumber, requestNewCode, logout } from './funcs/auth.js'
 
 
@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
     // city modal handler //
     let citySelect = null;
     let AllCitiesData = null;
-
+    const userLogin = isLogin()
 
     const addCityToModal = (cities) => {
         const citySelectedContainer = document.querySelector('#city-selected');
@@ -384,14 +384,12 @@ window.addEventListener('load', () => {
     //  red btn left side in header
     const createPostBtn = document.querySelector('.create_post_btn')
     createPostBtn?.addEventListener('click', () => {
-        getMe().then(data => {
-            if (data.status === 200) {
-                location.href = '/new.html'
-            } else {
-                showModal('login-modal', 'login-modal--active')
-                hideModal('header__category-menu', 'header__category-menu--active')
-            }
-        })
+        if (userLogin) {
+            location.href = '/new.html'
+        }else{
+            showModal('login-modal', 'login-modal--active')
+            hideModal('header__category-menu', 'header__category-menu--active')
+        } 
     })
 
 

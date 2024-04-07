@@ -26,7 +26,7 @@ window.addEventListener('load', async () => {
             document.title = `دیوار :تهران مرجع انواع آگهی های نو و دست دوم`
         }
     } else {
-        document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم`
+        document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم` 
     }
 
 

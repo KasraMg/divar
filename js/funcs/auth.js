@@ -138,7 +138,7 @@ const getMe = async () => {
   });
   const data = await res.json();
 
-  return data;
+  return data.data.user;
 };
 changeNumberSpan?.addEventListener('click', () => {
   loginModalContainer.classList.remove('active_step_2')

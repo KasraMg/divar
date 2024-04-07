@@ -43,13 +43,13 @@
 }
 
 .sidebar__menu-list {
-    padding: 1.5rem 0;
+    padding:0 0 1.5rem 0;
 }
 
 .sidebar__menu-link {
     display: flex;
     align-items: center;
-    padding: 1.8rem 0;
+    padding: 1.5rem 0;
     font-size: 16px;
     color: var(--black-color);
 }
@@ -68,16 +68,14 @@
     padding: 2.5rem 0;
 }
 
-.sidebar__logout {
-    border-top: none;
-}
+ 
 
 .sidebar__link-icon {
     margin-left: 1rem;
 }
 
 .sidebar__links {
-    margin: 1rem 0;
+    margin: 2rem 0;
     width: 100%;
     display: grid;
     font-size: var(--font-size-sm);
