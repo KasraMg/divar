@@ -110,7 +110,7 @@ const requestNewCode = () => {
 }
 const logout = () => {
   showSwal(
-    "آیا از Logout اطمینان دارید؟",
+    "آیا از خروج اطمینان دارید؟",
     "success",
     ["نه", "آره"],
     (result) => {

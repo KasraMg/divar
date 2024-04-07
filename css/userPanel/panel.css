@@ -109,9 +109,9 @@ white-space: nowrap;
 }
 
 .empty {
-    flex-direction: column;
-    display: flex;
+    flex-direction: column; 
     align-items: center;
+    display: none;
     justify-content: center;
 }
 

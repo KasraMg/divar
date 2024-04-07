@@ -19,6 +19,7 @@
     width: 80px;
     border-radius: 4px;
     height: 80px;
+    object-fit: cover;
 }
 .post-info p:nth-child(2){
     margin-top: .5rem; 
@@ -69,11 +70,14 @@
  .reject{
     color: red;
  }
- .controll{
+ .waiting{
+    color: orange;
+ }
+ .controll-btn{
     font-size: 12px;
     cursor: pointer;
     line-height: 20px;
-    margin-top:3rem;
+    margin-top:2rem;
     margin-right: auto;
     display: block;
     border: 1px solid var(--primary-color);
@@ -85,6 +89,6 @@
     transition: color .36s ease,background-color .36s ease,box-shadow .36s ease,border-color .36s ease,transform .36s ease;
     color: var(--primary-color);
  }
- .controll:hover {
+ .controll-btn:hover {
     background-color: rgba(166,38,38,.04);
 }
