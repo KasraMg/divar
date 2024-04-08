@@ -1,4 +1,4 @@
-import { baseUrl, getToken } from "../funcs/utils.js"
+import { baseUrl, calculateTimeDifference, getToken } from "../funcs/utils.js"
 
 window.addEventListener('load', () => {
     const token = getToken()
@@ -14,6 +14,8 @@ window.addEventListener('load', () => {
             console.log(data);
             if (data.data.posts.length) {
                 data.data.posts.map(post => {
+                    const date = calculateTimeDifference(post.createdAt)
+                    console.log(date);
                     postsContainer.insertAdjacentHTML('beforeend', `
                 <div class="post">
                 <div class="post-info">
@@ -26,8 +28,8 @@ src="${baseUrl}/${post.pics[0].path}"
                         )}
                    
                     <div>
-                        <a class="title" href>${post.title}</a>
-                        <p>۱ ساعت پیش در شهرک طالقانی</p> 
+                        <a class="title" href>${post.title}</a> 
+                        <p>${date} در تهران</p> 
                     </div>
                 </div>
                 <div class="post-status">
@@ -42,7 +44,7 @@ src="${baseUrl}/${post.pics[0].path}"
                 })
 
             } else {
-                emptyContainer.style.display='flex'
+                emptyContainer.style.display = 'flex'
             }
         })
 })

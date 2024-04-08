@@ -6,7 +6,7 @@ window.addEventListener('load', async () => {
     const cityParam = getUrlParam('city');
     const searchValue = getUrlParam('value');
     const cities = getFromLocalStorage('cities')
-
+    let cityIds = cities.map(obj => obj.id).join('|');
 
     let posts = null;
     let backupPosts = null;
@@ -17,19 +17,15 @@ window.addEventListener('load', async () => {
         searchInput.value = searchValue
     }
     if (!cityParam) {
-        if (cities) {
-            let ids = cities.map(obj => obj.id).join('|');
-            addParamToUrl('city', ids)
+        if (cities) { 
             document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم`
-        } else {
-            addParamToUrl('city', 301)
+        } else { 
             document.title = `دیوار :تهران مرجع انواع آگهی های نو و دست دوم`
         }
     } else {
         document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم` 
-    }
-
-
+    } 
+    
     const minPriceSelectbox = document.querySelector('#min-price-selectbox');
     const maxPriceSelectbox = document.querySelector('#max-price-selectbox');
     const exchangeControllBtn = document.querySelector('#exchange_controll')
@@ -256,7 +252,7 @@ window.addEventListener('load', async () => {
     });
 
     // Fetch and show posts
-    getAndShowPosts().then(data => {
+    getAndShowPosts(cityIds).then(data => {
         posts = data.data.posts;
         backupPosts = data.data.posts;
         generatePosts(posts);

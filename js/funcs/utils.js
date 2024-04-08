@@ -56,6 +56,36 @@ const removeParameterFromURL = (param)=> {
   location.reload()
 }
 
+function convertToPersianDate(createdAt) {
+  const gregorianDate = new Date(createdAt);
+  const persianMonths = [
+      'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+      'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+  ];
+  const persianDate = {
+      year: gregorianDate.getFullYear() - 621,
+      month: persianMonths[gregorianDate.getMonth()],
+      day: gregorianDate.getDate()
+  };
+  return `${persianDate.year}/${persianDate.month}/${persianDate.day}`;
+}
+function calculateTimeDifference(createdDate) {
+  const currentTime = new Date();
+  const createDate = new Date(createdDate);
+  
+  const timeDiff = Math.abs(currentTime - createDate);
+  const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+  
+  if (hours < 24) {
+      return `${hours} ساعت پیش `;
+  } else {
+      const days = Math.floor(hours / 24);
+      return `${days} روز پیش`;
+  }
+}
+
+ 
+
 const paginateItems = (array, itemsPerPage, paginateParentElem, currentPage) => {
   paginateParentElem.innerHTML = ''
   let endIndex = itemsPerPage * currentPage
@@ -101,7 +131,9 @@ export {
   getUrlParam,
   removeParameterFromURL,
   searchInArray,
+  calculateTimeDifference,
   paginateItems,
+  convertToPersianDate,
   addParamToUrl,
   showModal,
   hideModal, 

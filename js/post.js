@@ -1,5 +1,5 @@
 import { getAndShowPostCategories, getCourseDetails, getUserBookmarks } from "./funcs/shared.js";
-import { baseUrl, getToken, getUrlParam, isLogin, showModal, showSwal } from "./funcs/utils.js";
+import { baseUrl, getFromLocalStorage, getToken, getUrlParam, isLogin, saveIntoLocalStorage, showModal, showSwal } from "./funcs/utils.js";
 
 
 
@@ -10,6 +10,24 @@ window.addEventListener('load', () => {
     const userLogin = isLogin()
 
     getCourseDetails().then(postData => {
+
+        const resentSeen = getFromLocalStorage('recent-seen')
+        const producResentStatus=  resentSeen?.some(resent=>resent ===postData.data.post._id)
+      
+        if (!producResentStatus && resentSeen) {
+            saveIntoLocalStorage('recent-seen',[...resentSeen,postData.data.post._id])
+        }else{
+            if (resentSeen) {
+                if (!producResentStatus) {
+                    saveIntoLocalStorage('recent-seen',[...resentSeen,postData.data.post._id])  
+                } 
+            }else{
+                saveIntoLocalStorage('recent-seen',[postData.data.post._id])
+            }
+            
+        }
+
+
         const postTitle = document.querySelector('#post-title')
         const postInfoes = document.querySelector('#post-infoes-list')
         const postDiscription = document.querySelector('#post-description')

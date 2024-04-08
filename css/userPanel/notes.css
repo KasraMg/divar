@@ -1,29 +1,29 @@
 @import url(/css/userPanel/panel.css);
 
 
-.cards{
+.posts{
     display: grid;
     gap: 20px;
     justify-content: center;
 }
-.card div{
+.post div{
     display: flex;
     gap: 20px;
 }
-.card div div{
+.post div div{
     flex-direction: column;
     gap: 0px;
 }
-.card img{
+.post img{
     width: 80px;
     border-radius: 4px;
     height: 80px;
 }
-.card p:nth-child(3){
+.post p:nth-child(3){
     margin-top: 2rem;
     font-size: 1.2rem;
 }
-.card{
+.post{
     font-size: 1.5rem;
     padding: 1.6rem;
     border: 1px solid rgb(0 0 0 / 11%);
@@ -38,10 +38,10 @@
     color: black;
     font-size: 1.8rem;
 }
-.card i:hover{
+.post i:hover{
     color: black;
 }
-.card i{
+.post i{
     position: absolute;
     bottom: 15px;
     cursor: pointer;

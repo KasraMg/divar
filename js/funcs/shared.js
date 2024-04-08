@@ -113,12 +113,11 @@ const getAndShowArticleCategories = async () => {
     return categories
 }
 
-const getAndShowPosts = async () => {
-    const cityId = getUrlParam("city");
+const getAndShowPosts = async (cityIds) => { 
     const categoryId = getUrlParam('categoryId');
     const searchValue = getUrlParam('value')
 
-    let url = `${baseUrl}/v1/post/?city=${cityId}`;
+    let url = `${baseUrl}/v1/post/?city=${cityIds}`;
     if (categoryId) {
         url += `&categoryId=${categoryId};`
     }
