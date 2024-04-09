@@ -100,6 +100,9 @@ white-space: nowrap;
     margin: 0 2rem;
 }
 
+.sidebar__logout{
+    cursor: pointer;
+}
 /* *====================End Sidebar====================* */
 
  

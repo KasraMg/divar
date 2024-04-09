@@ -1,5 +1,5 @@
 import { getAndShowPostCategories, getCourseDetails, getUserBookmarks } from "./funcs/shared.js";
-import { baseUrl, getFromLocalStorage, getToken, getUrlParam, isLogin, saveIntoLocalStorage, showModal, showSwal } from "./funcs/utils.js";
+import { baseUrl, calculateTimeDifference, getFromLocalStorage, getToken, getUrlParam, isLogin, saveIntoLocalStorage, showModal, showSwal } from "./funcs/utils.js";
 
 
 
@@ -12,19 +12,19 @@ window.addEventListener('load', () => {
     getCourseDetails().then(postData => {
 
         const resentSeen = getFromLocalStorage('recent-seen')
-        const producResentStatus=  resentSeen?.some(resent=>resent ===postData.data.post._id)
-      
+        const producResentStatus = resentSeen?.some(resent => resent === postData.data.post._id)
+
         if (!producResentStatus && resentSeen) {
-            saveIntoLocalStorage('recent-seen',[...resentSeen,postData.data.post._id])
-        }else{
+            saveIntoLocalStorage('recent-seen', [...resentSeen, postData.data.post._id])
+        } else {
             if (resentSeen) {
                 if (!producResentStatus) {
-                    saveIntoLocalStorage('recent-seen',[...resentSeen,postData.data.post._id])  
-                } 
-            }else{
-                saveIntoLocalStorage('recent-seen',[postData.data.post._id])
+                    saveIntoLocalStorage('recent-seen', [...resentSeen, postData.data.post._id])
+                }
+            } else {
+                saveIntoLocalStorage('recent-seen', [postData.data.post._id])
             }
-            
+
         }
 
 
@@ -39,10 +39,8 @@ window.addEventListener('load', () => {
         const phoneInfoBtn = document.querySelector('#phone-info-btn')
         const noteTextarea = document.querySelector('#note-textarea')
         const noteTrashIcon = document.querySelector('#note-trash-icon')
-        const categoryBreadcrumb = document.querySelector('#category-breadcrumb')
-        const subCategoryBreadcrumb = document.querySelector('#subCategory-breadcrumb')
-        const subSubCategoryBreadcrumb = document.querySelector('#subSubCategory-breadcrumb')
-        const postTitleBreadcrumb = document.querySelector('#post-title-breadcrumb')
+        const breadcrumb = document.querySelector('#breadcrumb')
+        const postLocation = document.querySelector('#post-location')
 
 
 
@@ -54,14 +52,26 @@ window.addEventListener('load', () => {
         const data = postData.data.post
         postTitle.innerHTML = data.title
         document.title = data.title
+        const date = calculateTimeDifference(data.createdAt)
+        postLocation.innerHTML = `${date} در ${data.city.name}، ${data.neighborhood.name}`
+
         postDiscription.innerHTML = data.description
-        categoryBreadcrumb.href =`/posts.html?categoryId=${data.breadcrumbs.category._id}`
-        categoryBreadcrumb.innerHTML = data.breadcrumbs.category.title
-        subCategoryBreadcrumb.innerHTML = data.breadcrumbs.subCategory.title 
-        subCategoryBreadcrumb.href =`/posts.html?categoryId=${data.breadcrumbs.subCategory._id}`
-        subSubCategoryBreadcrumb.innerHTML = data.breadcrumbs.subSubCategory.title 
-        subSubCategoryBreadcrumb.href =`/posts.html?categoryId=${data.breadcrumbs.subSubCategory._id}`
-        postTitleBreadcrumb.innerHTML = data.title
+
+        breadcrumb.insertAdjacentHTML('beforeend', `
+        <li class="main__breadcrumb-item">
+        <a href='/posts.html?categoryId=${data.breadcrumbs.category._id}' id="category-breadcrumb">${data.breadcrumbs.category.title}</a>
+        <i class="main__breadcrumb-icon bi bi-chevron-left"></i>
+        </li>
+        <li class="main__breadcrumb-item">
+        <a href='/posts.html?categoryId=${data.breadcrumbs.subCategory._id}' id="category-breadcrumb">${data.breadcrumbs.subCategory.title}</a>
+        <i class="main__breadcrumb-icon bi bi-chevron-left"></i>
+        </li>
+        <li class="main__breadcrumb-item">
+        <a href='/posts.html?categoryId=${data.breadcrumbs.subSubCategory._id}' id="category-breadcrumb">${data.breadcrumbs.subSubCategory.title}</a>
+        <i class="main__breadcrumb-icon bi bi-chevron-left"></i>
+        </li>
+        <li class="main__breadcrumb-item">${data.title}</li>
+        `)
 
 
         const token = getToken()
@@ -177,7 +187,7 @@ window.addEventListener('load', () => {
                         method: 'PUT',
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}` 
+                            Authorization: `Bearer ${token}`
                         },
                         body: JSON.stringify({ content: event.target.value })
                     }).then(res => {

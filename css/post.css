@@ -263,7 +263,7 @@
      padding-right: 0;
  }
 
- .main__breadcrumb-link {
+ .main__breadcrumb-item {
      display: flex;
      align-items: center;
      font-size: var(--font-size-sm);
