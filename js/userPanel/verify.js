@@ -11,8 +11,7 @@ window.addEventListener('load', () => {
 
     const token = getToken()
 
-    getMe().then(data => {
-        console.log(data);
+    getMe().then(data => { 
         if (data.verified) {
             verifyContainer.innerHTML = ''
             verifyContainer.insertAdjacentHTML('beforeend', `

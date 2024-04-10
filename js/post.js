@@ -1,4 +1,4 @@
-import { getAndShowPostCategories, getCourseDetails, getUserBookmarks } from "./funcs/shared.js";
+import { getAndShowPostCategories, getPostDetails, getUserBookmarks } from "./funcs/shared.js";
 import { baseUrl, calculateTimeDifference, getFromLocalStorage, getToken, getUrlParam, isLogin, saveIntoLocalStorage, showModal, showSwal } from "./funcs/utils.js";
 
 
@@ -9,7 +9,7 @@ import { baseUrl, calculateTimeDifference, getFromLocalStorage, getToken, getUrl
 window.addEventListener('load', () => {
     const userLogin = isLogin()
 
-    getCourseDetails().then(postData => {
+    getPostDetails().then(postData => {
 
         const resentSeen = getFromLocalStorage('recent-seen')
         const producResentStatus = resentSeen?.some(resent => resent === postData.data.post._id)
@@ -208,8 +208,7 @@ window.addEventListener('load', () => {
                         },
                         body: JSON.stringify(noteData)
                     }).then(res => res.json())
-                        .then(data => {
-                            console.log(data);
+                        .then(data => { 
                             noteId = data.data.note._id
                             console.log(noteId);
                         })

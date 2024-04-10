@@ -24,8 +24,7 @@ const showPannelLinksToUser = async () => {
     const isUserLogin = isLogin();
     if (dropDown) {
         if (isUserLogin) {
-            getMe().then((data) => {
-                console.log(data);
+            getMe().then((data) => { 
                 dropDown.innerHTML = ''
                 dropDown.insertAdjacentHTML('beforeend', ` 
                         <li class="header__left-dropdown-item header_dropdown-item_account">
@@ -160,15 +159,15 @@ const getArticles = async () => {
     return data.data.categories
 }
 
-const getCourseDetails = async () => {
-    const productId = getUrlParam('id')
+const getPostDetails = async () => {
+    const postId = getUrlParam('id')
     let headers = {
         "Content-Type": "application/json"
     };
     if (token) {
         headers.Authorization = `Bearer ${token}`;
     }
-    const res = await fetch(`${baseUrl}/v1/post/${productId}`, { 
+    const res = await fetch(`${baseUrl}/v1/post/${postId}`, { 
         headers
     })
     const data = await res.json()
@@ -211,5 +210,5 @@ export {
     getAndShowArticleCategories,
     getAllCitiesHandler,
     getAndShowHeaderCityTitle,
-    getCourseDetails
+    getPostDetails
 };

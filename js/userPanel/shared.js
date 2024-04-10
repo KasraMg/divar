@@ -6,8 +6,7 @@ window.addEventListener('load', () => {
     const userLogin = isLogin()
 
     if (userLogin) {
-        getMe().then(data=>{
-            console.log(data);
+        getMe().then(data=>{ 
             sidebarPhoneNumber.innerHTML=`تلفن : ${data.phone} `
         })
     } else {

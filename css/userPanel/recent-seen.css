@@ -1,36 +1,39 @@
 @import url(/css/userPanel/share.css);
 
 
-.cards{
-    display: grid;
-    gap: 5px;
+.posts{ 
+    gap:20px;
+    flex-wrap: wrap;
     row-gap: 20px;
-    grid-template-columns: auto auto auto;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto auto; 
 }
-.card div{
+.post div{
     display: flex;
     gap: 20px;
 }
-.card div div{
+.post div div{
     flex-direction: column;
     gap: 0px;
 }
-.card img{
+.post p{
+    font-size: 1.1rem;
+}
+.post img{
     width: 80px;
     border-radius: 4px;
     height: 80px;
 }
-.card p:nth-child(3){
+.post p:nth-child(3){
     margin-top: 2rem;
     font-size: 1.2rem;
 }
-.card{
+.post{
     font-size: 1.5rem;
     padding: 1.6rem;
     border: 1px solid rgb(0 0 0 / 11%);
     border-radius: 4px;
-    width: 100%;
+    width: 100%; 
     padding-bottom: 2rem;
     position: relative;
 }
@@ -40,12 +43,18 @@
     color: black;
     font-size: 1.5rem;
 }
-.card i:hover{
+.post i:hover{
     color: black;
 }
-.card i{
+.post i:nth-child(3){
     position: absolute;
     bottom: 15px;
     cursor: pointer;
     left: 15px;
+}
+.post i:nth-child(2){
+    position: absolute;
+    bottom: 15px;
+    cursor: pointer;
+    left: 45px;
 }

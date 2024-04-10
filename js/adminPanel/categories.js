@@ -90,8 +90,7 @@ window.addEventListener('load', () => {
     })
 
     // articles
-    getAndShowArticleCategories().then(data => {
-        console.log(data);
+    getAndShowArticleCategories().then(data => { 
         data.data.categories.map(category => {
             articleTable.insertAdjacentHTML("beforeend", `
             <tr>

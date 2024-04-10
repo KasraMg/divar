@@ -103,7 +103,7 @@ button {
 
 /* !=======================================Header Style!======================================= */
 .header {
-    padding: 0.8rem 3rem;
+  padding: 0.8rem 6rem;
     background-color: var(--white-color);
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px 0px;
     position: fixed;

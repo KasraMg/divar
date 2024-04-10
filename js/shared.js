@@ -416,7 +416,7 @@ window.addEventListener('load', () => {
     getMe().then(data => { 
         if (data) {
             const logoutBtn = document.querySelector(".logout-link")
-            console.log(logoutBtn);; 
+             
             logoutBtn?.addEventListener("click", (event) => {
                 event.preventDefault();
                 logout()

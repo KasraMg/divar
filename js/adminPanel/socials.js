@@ -5,8 +5,7 @@ window.addEventListener('load', async () => {
     const data = await res.json();
 
     const socialTable = document.querySelector('.social-table')
-    console.log(data);
-
+    
     data.data.socials.map(social=>{
         socialTable.insertAdjacentHTML('beforeend',`
         <tr>

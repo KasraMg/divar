@@ -6,7 +6,7 @@ window.addEventListener('load', async () => {
     const postsContainer = document.querySelector('#posts-container')
     const emptyContainer = document.querySelector('.empty')
 
-    const bookmarkGenerator = (bookmark) => {
+    const postGenerator = (bookmark) => {
         const date = calculateTimeDifference(bookmark.post.createdAt)
         console.log(date);
         console.log(bookmark);
@@ -51,7 +51,7 @@ src="${baseUrl}/${bookmark.post.pics[0].path}"
 
     if (data.data.bookmarks.length) {
         data.data.bookmarks.map(bookmark => {
-            bookmarkGenerator(bookmark)
+            postGenerator(bookmark)
         })
 
     } else {
@@ -70,7 +70,7 @@ src="${baseUrl}/${bookmark.post.pics[0].path}"
                 }).then(res => {
                     if (res.status === 200) {
                         const newBookmarks = data.data.bookmarks.filter(bookmark => bookmark.post._id !== postId)
-                        bookmarkGenerator(newBookmarks)
+                        postGenerator(newBookmarks)
                     }
                 }
                 )

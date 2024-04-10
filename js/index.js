@@ -26,8 +26,7 @@ window.addEventListener('load', () => {
             } else {
                 searchResult.classList.remove('active')
             }
-        })
-        console.log(data);
+        }) 
         const popularCities = data.data.cities.filter(city => city.popular)
         console.log(popularCities);
         popularCities.map(city => {
