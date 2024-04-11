@@ -19,7 +19,7 @@ window.addEventListener('load', async () => {
             src="${baseUrl}/${post.pics[0].path}"
             alt>`
                 ) : (
-                    '<img src=/images/main/noPicture.PNG">'
+                    '<img src="/images/main/noPicture.PNG">'
                 )}
                      <div>
                     <a class="title" href>${post.title}</a>

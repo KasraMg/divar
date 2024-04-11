@@ -1,8 +1,7 @@
 @import url(/css/userPanel/share.css);
 
-.post {
-    font-size: 1.5rem;
-
+* {
+    font-size: 1.5rem; 
 }
 
 .publish {
@@ -14,8 +13,12 @@
     color: red;
     font-weight: 800;
 }
+.pending {
+    color: orange;
+    font-weight: 800;
+}
 
-.status {
+.post-status-description {
     margin-top: 30px;
 }
 
@@ -82,7 +85,7 @@
     width: 50%;
 }
 
-.date {
+.location {
     font-size: 1.7rem;
 }
 
@@ -179,7 +182,7 @@
     margin-top: 20px;
 }
 
-#map {
+#preview-map {
     height: 85%;
     margin-top: 20px;
 }
@@ -189,7 +192,7 @@
     display: none !important;
 }
 
-.category-title {
+.category-title-box {
     padding: 5px;
     font-weight: 600;
     border: 1px solid rgb(0 0 0 / 11%);
@@ -317,8 +320,9 @@ input:checked+.slider:before {
 }
 
 .uploader-box:hover .bi-image {
-color: black;
+    color: black;
 }
+
 .uploader-box .bi-image {
     font-size: 2rem;
 }
@@ -329,7 +333,8 @@ color: black;
     right: 33px;
     color: #be3737;
 }
-.uploader-box input{
+
+.uploader-box input {
     position: absolute;
     top: 0;
     right: 0;
@@ -338,49 +343,74 @@ color: black;
     cursor: pointer;
     opacity: 0;
 }
-#pills-edit .group input{
+
+#pills-edit .group input {
     padding: 1rem;
     width: 100%;
-    border: 1px solid  rgba(0, 0, 0, 0.319);
+    border: 1px solid rgba(0, 0, 0, 0.319);
     border-radius: 5px;
 }
-#pills-edit textarea{
+
+#pills-edit textarea {
     padding: 2rem 1.5rem;
-    border-radius:5px;
+    border-radius: 5px;
     color: black;
 }
-#pills-edit .group{
+
+#pills-edit .group {
     display: grid;
 }
-#pills-edit .group p:last-child{
+
+#pills-edit .group p:last-child {
     margin-top: 10px;
 }
-.edit-post-title span{
+
+.edit-post-title span {
     font-size: 13px;
     line-height: 2rem;
     margin-bottom: 10px;
 }
-.edit-post-title button{
-background-color: var(--primary-color);
-border: 0;
-margin-top: 2rem;
-width: max-content;
-margin-right: auto;
-border-radius: 5px;
-color: white;   
-margin-bottom: 4rem;
-font-weight: 500;
-padding: 1.2rem 1.5rem;
+
+.edit-post-title button {
+    background-color: var(--primary-color);
+    border: 0;
+    margin-top: 2rem;
+    width: max-content;
+    margin-right: auto;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 4rem;
+    font-weight: 500;
+    padding: 1.2rem 1.5rem;
+}
+.post__info-item a{
+    color: #a62626;
+}
+.post__info-value {
+    color: var(--black-color);
 }
 
+.post__info-list {
+    margin-top: 2rem;
+    padding-right: 0;
+}
 
+.post__info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    border-bottom: var(--border);
+    padding: 1.5rem 0;
+}
 
 .select {
     position: relative;
     direction: rtl;
     min-width: 200px;
-  }
-  .select svg {
+}
+
+.select svg {
     position: absolute;
     left: 12px;
     top: calc(50% - 3px);
@@ -392,8 +422,9 @@ padding: 1.2rem 1.5rem;
     stroke-linecap: round;
     stroke-linejoin: round;
     pointer-events: none;
-  }
-  .select select {
+}
+
+.select select {
     -webkit-appearance: none;
     padding: 15px 12px 15px 12px;
     width: 100%;
@@ -405,29 +436,37 @@ padding: 1.2rem 1.5rem;
     font-family: inherit;
     font-size: 16px;
     transition: all 150ms ease;
-  }
-  .select select:required:invalid {
+}
+
+.select select:required:invalid {
     color: #5a667f;
-  }
-  .select select option {
+}
+
+.select select option {
     color: #223254;
-  }
-  .select select option[value=""][disabled] {
+}
+
+.select select option[value=""][disabled] {
     display: none;
-  }
-  .select select:focus {
+}
+
+.select select:focus {
     outline: none;
     border-color: #07f;
-    box-shadow: 0 0 0 2px rgba(0,119,255,0.2);
-  }
-  .select select:hover + svg {
+    box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
+}
+
+.select select:hover+svg {
     stroke: #07f;
-  }
-  .sprites {
+}
+
+.sprites {
     position: absolute;
     width: 0;
     height: 0;
     pointer-events: none;
     user-select: none;
-  }
-  
+}
+.leaflet-control-attribution{
+    display: none;
+}

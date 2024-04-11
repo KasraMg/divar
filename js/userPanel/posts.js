@@ -7,14 +7,15 @@ window.addEventListener('load', () => {
     const emptyContainer = document.querySelector('.empty')
 
 
-   
+
 
     fetch(`${baseUrl}/v1/user/posts`, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
     }).then(res => res.json())
-        .then(data => { 
+        .then(data => {
+            console.log(data);
             if (data.data.posts.length) {
                 data.data.posts.map(post => {
                     const date = calculateTimeDifference(post.createdAt)
@@ -27,7 +28,7 @@ window.addEventListener('load', () => {
 src="${baseUrl}/${post.pics[0].path}"
     alt>`
                         ) : (
-                            '<img src=/images/main/noPicture.PNG">'
+                            '<img src="/images/main/noPicture.PNG">'
                         )}
                    
                     <div>
@@ -40,7 +41,7 @@ src="${baseUrl}/${post.pics[0].path}"
                         <p>وضعیت آگهی: </p>
                         <p class="waiting">در صف انتشار</p>
                     </div>
-                    <a class="controll-btn" href="post/post.html">مدیریت اگهی</a>
+                    <a class="controll-btn" href="/userPanel/posts/preview.html?id=${post._id}">مدیریت اگهی</a>
                 </div>
             </div>
                 `)

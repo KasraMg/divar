@@ -9,7 +9,7 @@
         <link rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="/css/share.css" />
-        <link rel="stylesheet" href="/css/userPanel/postManagment.css">
+        <link rel="stylesheet" href="/css/userPanel/preview.css">
         <link rel="stylesheet"
             href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
             integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -22,7 +22,7 @@
             <div class="container-fluid">
                 <div class="header__wrapper">
                     <div class="header__right">
-                          <a class="header__logo-link" href="/posts.html">
+                        <a class="header__logo-link" href="/posts.html">
                             <img class="header__logo-img"
                                 src="/images/header/logo.svg" alt="logo">
                         </a>
@@ -113,9 +113,9 @@
                                         بازدید های اخیر
                                     </a>
                                 </li>
-                            </ul> 
+                            </ul>
                             <p class="sidebar__logout sidebar__link-item"
-                               id="logput-btn">
+                                id="logput-btn">
                                 <i
                                     class="sidebar__logout-icon sidebar__link-icon bi bi-box-arrow-right"></i>
                                 خروج
@@ -144,10 +144,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-9 post">
-                        <p class="publish">منتشر شده</p>
-                        <p class="status">آگهی منتشر شده و در لیست آگهی‌های
-                            دیوار قرار گرفته است.</p>
+                    <div class="col-9">
+                        <div id="post-status" class="post-status"></div>
+                           
                         <button class="delete-btn">حذف اگهی</button>
                         <ul class="nav nav-pills mb-3" id="pills-tab"
                             role="tablist">
@@ -171,65 +170,32 @@
                         </ul>
 
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active"
+                            <div class="tab-pane fade "
                                 id="pills-details" role="tabpanel"
                                 aria-labelledby="pills-details-tab">
 
                                 <div class="details">
-                                    <p class="title">فروش مغازه</p>
-                                    <p class="date">۲ روز پیش در مشهد، گوهرشاد</p>
-                                    <div class="link">
-                                        <p>لینک آگهی</p>
-                                        <div>
-                                            <a href="divar.ir/v/QZVvB8zZ">divar.ir/v/QZVvB8zZ</a>
-                                            <i class="bi bi-copy"></i>
-                                        </div>
-                                    </div>
-                                    <section>
-                                        <div>
-                                            <p>متراژ</p>
-                                            <p>۵۰۰</p>
-                                        </div>
-                                        <div>
-                                            <p>ساخت</p>
-                                            <p>۱۴۰۲</p>
-                                        </div>
-                                        <div>
-                                            <p>اتاق</p>
-                                            <p>2</p>
-                                        </div>
-                                    </section>
-                                    <div class="groups">
-                                        <div class="group">
-                                            <p> دسته‌بندی</p>
-                                            <p>فروش مغازه و غرفه</p>
-                                        </div>
-                                        <div class="group">
-                                            <p> قیمت کل</p>
-                                            <p>۱۲۳٬۳۳۳٬۳۳۳ تومان</p>
-                                        </div>
-                                        <div class="group">
-                                            <p> قیمت هر متر</p>
-                                            <p>۲۴۶٬۰۰۰ تومان</p>
-                                        </div>
-                                    </div>
+                                    <p id="post-title" class="title"></p>
+                                    <p id="post-location" class="location"></p>
+                                    <ul class="post__info-list"
+                                        id="post-infoes-list"></ul>
                                     <div class="description">
                                         <p>توضیحات</p>
-                                        <p>توضیحات از این قراره که چی بگم والا</p>
+                                        <p id="post-description"></p>
                                     </div>
                                 </div>
                                 <div class="map-container">
-                                    <div id="map"></div>
+                                    <div id="preview-map"></div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade"
+                            <div class="tab-pane fade show active"
                                 id="pills-edit"
                                 role="tabpanel"
                                 aria-labelledby="pills-edit-tab">
 
-                                <div class="category-title">
-                                    <p>مغازه و غرفه</p>
+                                <div class="category-title-box">
+                                    <p id="category-title"></p>
                                 </div>
 
                                 <div>
@@ -262,7 +228,7 @@
                                     <span>تعداد عکس‌های انتخاب شده نباید بیشتر
                                         از ۲۰ باشد.</span>
                                 </div>
-                                <div class="groups">
+                                <div class="groups" id="dynamic-fields">
                                     <div class="group">
                                         <p class="edit-title">متراژ</p>
                                         <input type="text" value="500">
@@ -454,8 +420,8 @@
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
                 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
                 crossorigin></script>
-            <script src="/js/panel/posts/postManagment.js"></script>
-            <script src="/js/shared.js" type="module"></script> 
+            <script src="/js/userPanel/posts/preview.js" type="module"></script>
+            <script src="/js/shared.js" type="module"></script>
             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         </body>
     </html>

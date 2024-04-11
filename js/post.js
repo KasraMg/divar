@@ -9,20 +9,20 @@ import { baseUrl, calculateTimeDifference, getFromLocalStorage, getToken, getUrl
 window.addEventListener('load', () => {
     const userLogin = isLogin()
 
-    getPostDetails().then(postData => {
+    getPostDetails().then(data => {
 
         const resentSeen = getFromLocalStorage('recent-seen')
-        const producResentStatus = resentSeen?.some(resent => resent === postData.data.post._id)
+        const producResentStatus = resentSeen?.some(resent => resent === data._id)
 
         if (!producResentStatus && resentSeen) {
-            saveIntoLocalStorage('recent-seen', [...resentSeen, postData.data.post._id])
+            saveIntoLocalStorage('recent-seen', [...resentSeen, data._id])
         } else {
             if (resentSeen) {
                 if (!producResentStatus) {
-                    saveIntoLocalStorage('recent-seen', [...resentSeen, postData.data.post._id])
+                    saveIntoLocalStorage('recent-seen', [...resentSeen, data._id])
                 }
             } else {
-                saveIntoLocalStorage('recent-seen', [postData.data.post._id])
+                saveIntoLocalStorage('recent-seen', [data._id])
             }
 
         }
@@ -48,8 +48,7 @@ window.addEventListener('load', () => {
         let bookmarkStatus = null;
         let noteId = null;
 
-        console.log(postData);
-        const data = postData.data.post
+        console.log(data); 
         postTitle.innerHTML = data.title
         document.title = data.title
         const date = calculateTimeDifference(data.createdAt)
