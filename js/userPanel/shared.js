@@ -1,6 +1,8 @@
 import { getMe } from "../funcs/auth.js"
 import { isLogin } from "../funcs/utils.js"
 
+ 
+
 window.addEventListener('load', () => {
     const sidebarPhoneNumber = document.querySelector('#sidebar-phone-number')
     const userLogin = isLogin()

@@ -152,7 +152,7 @@ window.addEventListener('load', () => {
     window.cityItemClickHandler = function (cityId, provinceId) {
         const item = provinceId ? document.querySelector(`#city-${cityId}-${provinceId}`) : document.querySelector(`#city-${cityId}`);
         const checkbox = item.querySelector("input");
-        const cityTitle = item.querySelector("span").innerHTML; 
+        const cityTitle = item.querySelector("span").innerHTML;
         if (!provinceId) {
             citySelect.map(city => {
                 if (city.title === cityTitle) {
@@ -183,7 +183,7 @@ window.addEventListener('load', () => {
                 toggleCityModalButtons(citySelect)
             }
         } else {
-            checkbox.checked = checkboxShape.classList.toggle("active"); 
+            checkbox.checked = checkboxShape.classList.toggle("active");
             checkbox.checked = !checkbox.checked
             let cities = AllCitiesData.data.cities.filter(city => city.province_id == provinceId);
 
@@ -282,7 +282,7 @@ window.addEventListener('load', () => {
 
     // modals activity //
     const loginDropdownBtn = document.querySelector('#login-btn')
-    const loginExitIcon = document.querySelector('.login-modal__icon') 
+    const loginExitIcon = document.querySelector('.login-modal__icon')
     const cityModalOverlay = document.querySelector('.city-modal__overlay')
     const cityModalBtn = document.querySelector('.header__city')
     const cityModalCloseBtn = document.querySelector('.city-modal__close')
@@ -328,7 +328,7 @@ window.addEventListener('load', () => {
         hideModal('header__searchbar-dropdown', 'header__searchbar-dropdown--active')
     })
     cityModalOverlay?.addEventListener('click', () => {
-        hideModal('city-modal', 'city-modal--active') 
+        hideModal('city-modal', 'city-modal--active')
         removeCitiesModalActive()
     })
     categoryModalOverlay?.addEventListener('click', () => {
@@ -338,7 +338,7 @@ window.addEventListener('load', () => {
     loginModalOverlay?.addEventListener('click', () => {
         hideModal('login-modal', 'login-modal--active')
     })
-    loginExitIcon?.addEventListener('click',()=>{
+    loginExitIcon?.addEventListener('click', () => {
         hideModal('login-modal', 'login-modal--active')
     })
 
@@ -346,13 +346,13 @@ window.addEventListener('load', () => {
 
 
 
- 
+
 
     const cities = getFromLocalStorage('cities')
     const ids = cities?.map(item => item.id).join("|");
 
 
-   
+
     const globalSearchInput = document.querySelector('#global_search_input')
     const mostSearchedContainer = document.querySelector('#most_searched')
 
@@ -372,6 +372,7 @@ window.addEventListener('load', () => {
 
     });
 
+ 
     mostSearchedArr.map(value => {
         mostSearchedContainer?.insertAdjacentHTML('beforeend', `
         <li class="header__searchbar-dropdown-item">
@@ -379,25 +380,24 @@ window.addEventListener('load', () => {
     </li>
         `)
     })
-
-
+ 
     //  red btn left side in header
     const createPostBtn = document.querySelector('.create_post_btn')
     createPostBtn?.addEventListener('click', () => {
         if (userLogin) {
             location.href = '/new.html'
-        }else{
+        } else {
             showModal('login-modal', 'login-modal--active')
             hideModal('header__category-menu', 'header__category-menu--active')
-        } 
+        }
     })
 
 
     // register functions
-    const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn') 
-    const loginBtn = document.querySelector('.login_btn') 
+    const submitPhoneNumberBtn = document.querySelector('.submit_phone_number_btn')
+    const loginBtn = document.querySelector('.login_btn')
     const requestNewCodeBtn = document.querySelector('.req_new_code_btn')
-    
+
     submitPhoneNumberBtn?.addEventListener('click', event => {
         event.preventDefault()
         submitNumber()
@@ -413,10 +413,10 @@ window.addEventListener('load', () => {
 
     })
 
-    getMe().then(data => { 
+    getMe().then(data => {
         if (data) {
             const logoutBtn = document.querySelector(".logout-link")
-             
+
             logoutBtn?.addEventListener("click", (event) => {
                 event.preventDefault();
                 logout()
@@ -426,7 +426,7 @@ window.addEventListener('load', () => {
 
 
 
- 
+
 
 
     // category modal hadnler
@@ -439,10 +439,10 @@ window.addEventListener('load', () => {
         allCategoriesPostsBtn.addEventListener('click', () => {
             removeParameterFromURL('categoryId')
         })
-    
-     
-        getAndShowPostCategories().then(categories => { 
-    
+
+
+        getAndShowPostCategories().then(categories => {
+
             categories.map(category => {
                 categoriesList.insertAdjacentHTML('beforeend', `
             <li onmouseenter="showAcitveCategoryItems('${category._id}')" class="header__category-menu-item">
@@ -458,7 +458,7 @@ window.addEventListener('load', () => {
                                             </li>
             `)
             })
-     
+
             window.showAcitveCategoryItems = function (categoryId) {
                 categoryresults.innerHTML = ''
                 const category = categories.find(category => category._id == categoryId)
@@ -478,16 +478,16 @@ window.addEventListener('load', () => {
                 `)
                 })
             }
-    
+
             showAcitveCategoryItems(categories[0]._id)
-    
+
         })
-    
-        window.categoryClickHandler = function (categoryId) { 
-            location.href=`posts.html?categoryId=${categoryId}`
+
+        window.categoryClickHandler = function (categoryId) {
+            location.href = `posts.html?categoryId=${categoryId}`
         }
-    
+
     }
-    
-    
+
+
 })

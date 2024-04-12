@@ -2,7 +2,10 @@ import { getAllCitiesHandler } from "./funcs/shared.js"
 import { saveIntoLocalStorage } from "./funcs/utils.js"
 
 window.addEventListener('load', () => {
+    const loading = document.querySelector('#loading-container')
+   
     getAllCitiesHandler().then(data => {
+        loading.style.display='none'
         const searchInput = document.querySelector('#search-input')
         const searchResult = document.querySelector('.search-result-cities')
         const popularCitiesContainer = document.querySelector('#popular-cities')

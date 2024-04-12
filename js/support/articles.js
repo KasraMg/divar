@@ -6,10 +6,11 @@ window.addEventListener('load', async () => {
     const breadcrumbSpan = document.querySelector('#breadcrumb span')
     const categoryInfo = document.querySelector('#category-info')
     const articles = document.querySelector('#articles')
-
+    const loading = document.querySelector('#loading-container')
     const categoryId = getUrlParam('id')
 
     getArticles().then(data => {
+        loading.style.display='none'
         const category = data.find(category => category._id == categoryId)
         console.log(category);
         breadcrumbSpan.innerHTML = category.name

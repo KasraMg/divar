@@ -481,7 +481,16 @@ display: block !important;
     left: 10px;
     cursor: pointer;
 }
- 
+ .header__form .bi{
+    position: absolute;
+    color: black;
+    cursor: pointer;
+    display: none;
+    z-index: 99999999;
+    top: 9px;
+    font-size: 1.5rem;
+    left: 10px;
+ }
 /* ==========End Main Products========== */
 
 /* !=======================================End Main Style!======================================= */

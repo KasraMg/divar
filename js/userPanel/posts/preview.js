@@ -10,6 +10,9 @@ window.addEventListener('load', () => {
     const postDiscription = document.querySelector('#post-description')
     const categoryTitle = document.querySelector('#category-title')
     const dynamicFields = document.querySelector('#dynamic-fields')
+    const postTitleInput = document.querySelector('#post-title-input')
+    const postDescriptionInput = document.querySelector('#post-description-input')
+    const postImages = document.querySelector('#post-images')
 
     getPostDetails().then(data => {
         console.log(data);
@@ -67,9 +70,12 @@ window.addEventListener('load', () => {
         }).addTo(map);
 
 
+
+        // edit post
+
         categoryTitle.innerHTML = data.category.title
-
-
+        postTitleInput.value = data.title
+        postDescriptionInput.innerHTML = data.description
         let icon = null;
         let iconStatus = true
 
@@ -114,54 +120,69 @@ window.addEventListener('load', () => {
             editMapMarker.getElement().style.pointerEvents = 'none';
         });
 
-        data.dynamicFields.map(field => {
 
-        })
-        dynamicFields.insertAdjacentHTML('beforeend', `
-        ${field.type == 'selectbox' && (
-                `
-        <div class="group">
-                <p class="edit-title">تعداد اتاق</p>
-                <label class="select" for="slct">
-                    <select id="slct"
-                        required="required">
-                        <option value
-                            disabled="disabled"
-                            selected="selected">دو</option>
-                        <option value="#">سه</option>
-                        <option value="#">چهار</option>
-                        <option value="#">پنج</option>
-                    </select>
-                    <svg>
-                        <use
-                            xlink:href="#select-arrow-down"></use>
+
+
+        data.category.productFields.map(field => {
+            let prevUserSelect = data.dynamicFields.find(productField => productField.slug === field.slug)
+            let filteredOptions = field.options.filter(option => option !== prevUserSelect.data)
+
+            dynamicFields.insertAdjacentHTML('beforeend', `
+            ${field.type == 'selectbox' && (
+                    `
+            <div class="group">
+                    <p class="edit-title">${field.name}</p>
+                    <label class="select" for="slct">
+                     
+                        <select id="slct"
+                            required="required"> 
+                            <option value="${prevUserSelect.data}">${prevUserSelect.data}</option> 
+                                ${filteredOptions.map(option => (
+                        ` <option value="${option}">${option}</option>`
+                    ))} 
+                        </select>
+                        <svg>
+                            <use
+                                xlink:href="#select-arrow-down"></use>
+                        </svg>
+                    </label>
+                    <svg class="sprites">
+                        <symbol id="select-arrow-down"
+                            viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
                     </svg>
-                </label>
-                <svg class="sprites">
-                    <symbol id="select-arrow-down"
-                        viewbox="0 0 10 6">
-                        <polyline points="1 1 5 5 9 1"></polyline>
-                    </symbol>
-                </svg>
-            </div>
-`
-            ).join()}
-        
-        `)
+                </div>
+    `
+                )}
+            
+            `)
+        })
+
+
+        uploader.addEventListener('change', (event) => {
+            console.log(event.target.files[0]);
+            if (event.target.files && event.target.files.length > 0) {
+                let file = event.target.files[0];
+                if (file.type === 'image/png' || file.type === 'image/jpeg') {
+                    let reader = new FileReader();
+                    reader.onloadend = function () {
+                        let base64String = reader.result; 
+                        postImages.insertAdjacentHTML('beforeend', `
+                            <img src="${base64String}" alt="" />
+                        `); 
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Invalid file type. Please upload a .png or .jpg file.');
+                }
+            }
+        });
+
+
     })
 
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 })

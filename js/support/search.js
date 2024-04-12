@@ -1,10 +1,11 @@
 import { baseUrl, getUrlParam } from "../funcs/utils.js"
 
 window.addEventListener('load', async () => {
+    const loading = document.querySelector('#loading-container')
     const key = getUrlParam('key')
     const res = await fetch(`${baseUrl}/v1/support/articles/search?s=${key}`)
     const data = await res.json() 
-
+    loading.style.display='none'
     const searchResults = document.querySelector('#search-results')
     const searchTitleSpan = document.querySelector('.search-title span')
     searchTitleSpan.innerHTML=`«${key}»`

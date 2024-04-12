@@ -11,10 +11,11 @@ const changeNumberSpan = document.querySelector('.login-change-number')
 const requestBtnTimerContainer = document.querySelector('.request_timer')
 const requestBtnTimer = document.querySelector('.request_timer span')
 const requestCodeBtn = document.querySelector('.req_new_code_btn')
-
+const loading = document.querySelector('#loading-container')
 let timer = null;
 
 const submitNumber = () => {
+  loading.classList.add('active-login-loader')
   const phoneRegex = RegExp(/^(09)[0-9]{9}$/)
   const phoneRegexResult = phoneRegex.test(userPhoneNumberInput.value) 
   if (phoneRegexResult) {
@@ -26,6 +27,7 @@ const submitNumber = () => {
       },
       body: JSON.stringify({ phone: userPhoneNumberInput.value.trim() }),
     }).then(res => {
+       loading.classList.remove('active-login-loader')
       if (res.status == 200) {
         loginModalContainer.classList.add('active_step_2')
         userNumberNotice.innerHTML = userPhoneNumberInput.value 
@@ -52,6 +54,7 @@ const submitNumber = () => {
 
 }; 
 const verifyNumber = () => {
+  loading.classList.add('active-login-loader')
   const codeRegex = RegExp(/^\d+/)
   const codeRegexResult = codeRegex.test(userCodeInput.value)
 
@@ -69,6 +72,7 @@ const verifyNumber = () => {
       body: JSON.stringify(datas),
     }).then(res => res.json())
       .then(data => { 
+         loading.classList.remove('active-login-loader')
         if (data.status == 400) {
           step2LoginFormError.innerHTML = "کد منقضی یا نامعتبر است"
         } else if (data.status == 201 || data.status == 200) {
@@ -82,6 +86,7 @@ const verifyNumber = () => {
   }
 } 
 const requestNewCode = () => {
+  loading.classList.add('active-login-loader')
   fetch(`${baseUrl}/v1/auth/send`, {
     method: 'POST',
     headers: {
@@ -89,6 +94,7 @@ const requestNewCode = () => {
     },
     body: JSON.stringify({ phone: userPhoneNumberInput.value.trim() }),
   }).then(res => { 
+     loading.classList.remove('active-login-loader')
     if (res.status == 200) { 
       requestBtnTimer.textContent = '30';
       requestCodeBtn.style.display = 'none';

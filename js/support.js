@@ -2,8 +2,9 @@ import { getArticles } from "./funcs/shared.js"
 import { baseUrl } from "./funcs/utils.js";
 
 window.addEventListener('load', () => {
-
+    const loading = document.querySelector('#loading-container')
     getArticles().then(categories => {
+        loading.style.display='none'
         console.log(categories);
         const  popularArticles = document.querySelector('#popular-articles')
         const articlesContainer = document.querySelector('#categories-container')

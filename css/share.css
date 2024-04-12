@@ -304,14 +304,13 @@ button {
   border-top: var(--border);
   border-radius: 0 0 0.3rem 0.3rem;
   padding: 2rem 0;
-  z-index: 99999;
-  position: relative;
-  width: 100%;
+  z-index: 99999; 
+  position: relative; 
 }
 .header__searchbar-dropdown {
   position: absolute;
   top: 3.8rem;
-
+  width: -webkit-fill-available !important;
   opacity: 0;
   visibility: hidden;
 }
@@ -1071,3 +1070,40 @@ display: block !important;
 .swal-footer{
   text-align: center;
 }
+
+  /* !=======================================Loading!======================================= */
+  #loading {
+    margin: 0 auto;
+    margin-top: 270px;
+    width: 36px;
+    height: 36px;
+    position: relative;
+    z-index: 99999;
+    border: 3px solid rgb(222 3 3);
+    border-radius: 50%;
+    border-top-color: #e6e6e6;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+  #loading-container{
+    position: fixed; 
+    top: 65px;
+    z-index: 99999;
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+  }
+  .active-login-loader{
+    display: block !important;
+    background: transparent !important;
+  }
+  
+  @keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+   /* !=======================================Loading!======================================= */
+
+   

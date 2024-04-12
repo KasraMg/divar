@@ -401,7 +401,17 @@
  .post__tag:hover {
      background-color: rgba(0, 0, 0, 0.08);
  }
+ .header__form .bi{
+    position: absolute;
+    color: black;
+    cursor: pointer;
+    display: none;
+    top: 9px;
+    font-size: 1.5rem;
+    left: 10px;
+    z-index: 99999999;
 
+ }
  .swiper {
      width: 100%;
      height: 100%;
@@ -677,3 +687,6 @@
  }
 
  /* !=======================================End Swiper Style!======================================= */
+
+
+

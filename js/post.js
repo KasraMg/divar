@@ -8,9 +8,9 @@ import { baseUrl, calculateTimeDifference, getFromLocalStorage, getToken, getUrl
 
 window.addEventListener('load', () => {
     const userLogin = isLogin()
-
+    const loading = document.querySelector('#loading-container')
     getPostDetails().then(data => {
-
+        loading.style.display='none'
         const resentSeen = getFromLocalStorage('recent-seen')
         const producResentStatus = resentSeen?.some(resent => resent === data._id)
 

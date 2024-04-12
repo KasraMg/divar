@@ -1,5 +1,5 @@
 import { getAndShowPostCategories, getAndShowPosts } from "./funcs/shared.js";
-import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, baseUrl } from "./funcs/utils.js";
+import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, baseUrl, calculateTimeDifference } from "./funcs/utils.js";
 
 window.addEventListener('load', async () => {
     const categoryId = getUrlParam('categoryId');
@@ -12,10 +12,19 @@ window.addEventListener('load', async () => {
     let backupPosts = null;
     let appliedFilters = {};
 
+    
+    const removeSearchValueIcon = document.querySelector('#remove-search-value-icon')
+
     if (searchValue) {
         const searchInput = document.querySelector('#global_search_input')
-        searchInput.value = searchValue
+        searchInput.value = searchValue 
+        removeSearchValueIcon.style.display='block'
     }
+
+    removeSearchValueIcon.addEventListener('click',()=>{
+        removeParameterFromURL('value')
+    })
+
     if (!cityParam) {
         if (cities) { 
             document.title = `دیوار ${cities[0].title}: مرجع انواع آگهی های نو و دست دوم`
@@ -30,6 +39,7 @@ window.addEventListener('load', async () => {
     const maxPriceSelectbox = document.querySelector('#max-price-selectbox');
     const exchangeControllBtn = document.querySelector('#exchange_controll')
     const justPhotoControllBtn = document.querySelector('#just_photo_controll')
+    const loading = document.querySelector('#loading-container')
 
     function applyFilters(posts) {
         let filteredPosts = backupPosts
@@ -139,7 +149,7 @@ window.addEventListener('load', async () => {
     // Fetch and show post categories
     getAndShowPostCategories().then(categories => {
         const categoriesContainer = document.querySelector('#categories-container');
-
+        loading.style.display='none'
         // تابعی برای بازگشت به تمام دسته‌بندی‌ها
         window.backToAllCategories = () => {
             removeParameterFromURL('categoryId');
@@ -265,6 +275,7 @@ window.addEventListener('load', async () => {
         postsContainer.innerHTML = '';
         if (posts.length) {
             posts.forEach(post => {
+                const date = calculateTimeDifference(post.createdAt)
                 postsContainer.insertAdjacentHTML('beforeend', `
                 <div class="col-4">
                     <a href="post.html?id=${post._id}" class="product-card">
@@ -275,7 +286,7 @@ window.addEventListener('load', async () => {
                             <div class="product-card__right-bottom">
                                 <span class="product-card__condition">${post.dynamicFields[0].data}</span>
                                 <span class="product-card__price">${post.price == 0 ? "توافقی" : post.price.toLocaleString() + "تومان"} </span>
-                                <span class="product-card__time">لحظاتی پیش</span>
+                                <span class="product-card__time">${date}</span>
                             </div>
                         </div>
                         <div class="product-card__left"> 

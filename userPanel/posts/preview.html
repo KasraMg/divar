@@ -28,7 +28,8 @@
                         </a>
                         <button class="header__city">
                             <i class="header__city-icon bi bi-geo-alt"></i>
-                            <span class="header__city-title">اصفهان</span>
+                            <span class="header__city-title"
+                                id="header-city-title"></span>
                         </button>
                     </div>
                     <div class="header__left">
@@ -60,89 +61,71 @@
                     <div class="col-3">
                         <div class="sidebar">
                             <div class="sidebar__user">
-                                <div class="sidebar__user-right">
-                                    <i class="sidebar__user-icon bi bi-person"></i>
-                                </div>
-                                <div class="sidebar__user-left">
-                                    <div class="sidebar__user-text">کاربر دیوار</div>
-                                    <p class="sidebar__user-phone">تلفن :
-                                        09023555555</p>
-                                </div>
+                              <div class="sidebar__user-right">
+                                <i class="sidebar__user-icon bi bi-person"></i>
+                              </div>
+                              <div class="sidebar__user-left">
+                                <div class="sidebar__user-text">کاربر دیوار</div>
+                                <p id="sidebar-phone-number" class="sidebar__user-phone"></p>
+                              </div>
                             </div>
                             <ul class="sidebar__menu-list">
-                                <li class="sidebar__menu-item">
-                                    <a
-                                        class="sidebar__menu-link"
-                                        href="/panel/verify.html">
-                                        <i
-                                            class="sidebar__menu-icon bi bi-patch-check"></i>
-                                        تایید هویت
-                                    </a>
-                                </li>
-                                <li class="sidebar__menu-item">
-                                    <a class="sidebar__menu-link"
-                                        href="/panel/posts.html">
-                                        <i
-                                            class="sidebar__menu-icon bi bi-journal"></i>
-                                        آگهی های من
-                                    </a>
-                                </li>
-                                <li class="sidebar__menu-item">
-                                    <a class="sidebar__menu-link"
-                                        href="/panel/bookmarks.html">
-                                        <i
-                                            class="sidebar__menu-icon bi bi-bookmark"></i>
-                                        نشان ها
-                                    </a>
-                                </li>
-
-                                <li class="sidebar__menu-item">
-                                    <a
-                                        class="sidebar__menu-link sidebar__menu-link--active"
-                                        href="/panel/notes.html">
-                                        <i
-                                            class="sidebar__menu-icon bi bi-journal"></i>
-                                        یادداشت ها
-                                    </a>
-                                </li>
-                                <li class="sidebar__menu-item">
-                                    <a class="sidebar__menu-link"
-                                        href="/panel/recent-seen.html">
-                                        <i
-                                            class="sidebar__menu-icon bi bi-clock-history"></i>
-                                        بازدید های اخیر
-                                    </a>
-                                </li>
+                              <li class="sidebar__menu-item">
+                                <a
+                                  class="sidebar__menu-link"
+                                  href="verify.html">
+                                  <i class="sidebar__menu-icon bi bi-patch-check"></i>
+                                  تایید هویت
+                                </a>
+                              </li>
+                              <li class="sidebar__menu-item">
+                                <a class="sidebar__menu-link  sidebar__menu-link--active"
+                                  href="posts.html">
+                                  <i class="sidebar__menu-icon bi bi-journal"></i>
+                                  آگهی های من
+                                </a>
+                              </li>
+                              <li class="sidebar__menu-item">
+                                <a class="sidebar__menu-link" href="bookmarks.html">
+                                  <i class="sidebar__menu-icon bi bi-bookmark"></i>
+                                  نشان ها
+                                </a>
+                              </li>
+                              <li class="sidebar__menu-item">
+                                <a class="sidebar__menu-link" href="notes.html">
+                                  <i class="sidebar__menu-icon bi bi-journal"></i>
+                                  یادداشت ها
+                                </a>
+                              </li>
+                              <li class="sidebar__menu-item">
+                                <a class="sidebar__menu-link" href="recent-seen.html">
+                                  <i class="sidebar__menu-icon bi bi-clock-history"></i>
+                                  بازدید های اخیر
+                                </a>
+                              </li>
                             </ul>
-                            <p class="sidebar__logout sidebar__link-item"
-                                id="logput-btn">
-                                <i
-                                    class="sidebar__logout-icon sidebar__link-icon bi bi-box-arrow-right"></i>
-                                خروج
+                            <p class="sidebar__logout sidebar__link-item"  id="logout-btn">
+                              <i
+                                class="sidebar__logout-icon sidebar__link-icon bi bi-box-arrow-right"></i>
+                              خروج
                             </p>
                             <div class="sidebar__links">
-                                <a class="sidebar__link" href="#">درباره دیوار</a>
-                                <a class="sidebar__link" href="#">دریافت برنامه</a>
-                                <a class="sidebar__link" href="#">بلاگ دیوار</a>
-                                <a class="sidebar__link" href="#">کسب و کارها</a>
-                                <a class="sidebar__link" href="#">پشتیبانی و
-                                    قوانین</a>
+                              <a class="sidebar__link" href="#">درباره دیوار</a>
+                              <a class="sidebar__link" href="#">دریافت برنامه</a>
+                              <a class="sidebar__link" href="#">پشتیبانی و قوانین</a>
                             </div>
                             <div class="sidebar__social">
-                                <a class="sidebar__social-link" href="#">
-                                    <i
-                                        class="sidebar__social-icon bi bi-twitter"></i>
-                                </a>
-                                <a class="sidebar__social-link" href="#">
-                                    <i
-                                        class="sidebar__social-icon bi bi-instagram"></i>
-                                </a>
-                                <a class="sidebar__social-link" href="#">
-                                    <i
-                                        class="sidebar__social-icon bi bi-linkedin"></i>
-                                </a>
+                              <a class="sidebar__social-link" href="#">
+                                <i class="sidebar__social-icon bi bi-twitter"></i>
+                              </a>
+                              <a class="sidebar__social-link" href="#">
+                                <i class="sidebar__social-icon bi bi-instagram"></i>
+                              </a>
+                              <a class="sidebar__social-link" href="#">
+                                <i class="sidebar__social-icon bi bi-linkedin"></i>
+                              </a>
                             </div>
-                        </div>
+                          </div>
                     </div>
                     <div class="col-9">
                         <div id="post-status" class="post-status"></div>
@@ -220,81 +203,24 @@
                                     <span>عکس‌هایی مربوط به آگهی اضافه کنید.</span>
                                     <span>در صورت نداشتن عکس ، آگهی را بدون عکس
                                         ثبت کنید</span>
+                                   <div class="post-images" id="post-images">
                                     <div class="uploader-box">
                                         <i class="bi bi-image"></i>
                                         <i class="bi bi-plus-circle-fill"></i>
-                                        <input type="file">
+                                        <input id="uploader" type="file">
                                     </div>
+                                   </div>
                                     <span>تعداد عکس‌های انتخاب شده نباید بیشتر
                                         از ۲۰ باشد.</span>
                                 </div>
-                                <div class="groups" id="dynamic-fields">
-                                    <div class="group">
-                                        <p class="edit-title">متراژ</p>
-                                        <input type="text" value="500">
-                                        <p>500 متر</p>
-                                    </div>
-                                    <div class="group">
-                                        <p class="edit-title">قیمت کل</p>
-                                        <input type="text" value="12232443">
-                                        <p>122,342,443 تومان</p>
-                                    </div>
-                                    <div class="group">
-                                        <p class="edit-title">تعداد اتاق</p>
-                                        <label class="select" for="slct">
-                                            <select id="slct"
-                                                required="required">
-                                                <option value
-                                                    disabled="disabled"
-                                                    selected="selected">دو</option>
-                                                <option value="#">سه</option>
-                                                <option value="#">چهار</option>
-                                                <option value="#">پنج</option>
-                                            </select>
-                                            <svg>
-                                                <use
-                                                    xlink:href="#select-arrow-down"></use>
-                                            </svg>
-                                        </label>
-                                        <svg class="sprites">
-                                            <symbol id="select-arrow-down"
-                                                viewbox="0 0 10 6">
-                                                <polyline points="1 1 5 5 9 1"></polyline>
-                                            </symbol>
-                                        </svg>
-                                    </div>
-                                    <div class="group">
-                                        <p class="edit-title">سال ساخت</p>
-                                        <label class="select" for="slct">
-                                            <select id="slct"
-                                                required="required">
-                                                <option value
-                                                    disabled="disabled"
-                                                    selected="selected">1402</option>
-                                                <option value="#">1401</option>
-                                                <option value="#">1400</option>
-                                                <option value="#">1399</option>
-                                            </select>
-                                            <svg>
-                                                <use
-                                                    xlink:href="#select-arrow-down"></use>
-                                            </svg>
-                                        </label>
-                                        <svg class="sprites">
-                                            <symbol id="select-arrow-down"
-                                                viewbox="0 0 10 6">
-                                                <polyline points="1 1 5 5 9 1"></polyline>
-                                            </symbol>
-                                        </svg>
-                                    </div>
-                                </div>
+                                <div class="groups" id="dynamic-fields"></div>
 
                                 <div class="groups">
                                     <div class="group edit-post-title">
                                         <p class="edit-title">عنوان آگهی</p>
                                         <span>در عنوان آگهی به موارد مهمی مانند
                                             نوع ملک و متراژ اشاره کنید. </span>
-                                        <input type="text" value="فروش مغازه">
+                                        <input id="post-title-input" type="text" value="فروش مغازه">
                                     </div>
 
                                     <div class="group edit-post-title">
@@ -303,7 +229,7 @@
                                             شرایط فروش، جزئیات و ویژگی‌های قابل
                                             توجه، دسترسی‌های محلی و موقعیت
                                             قرارگیری ملک اشاره کنید.</span>
-                                        <textarea id cols="30" rows="8"
+                                        <textarea id="post-description-input" id cols="30" rows="8"
                                             placeholder="فروش مغازه">
                                         </textarea>
                                         <button>ثبت تغییرات</button>
@@ -331,50 +257,43 @@
                                 <div class="city-modal__selected-item">
                                     <span class="city-modal__selected-text">اصفهان</span>
                                     <button class="city-modal__selected-btn">
-                                        <i
-                                            class="city-modal__selected-icon bi bi-x"></i>
+                                        <i class="city-modal__selected-icon bi bi-x"></i>
                                     </button>
                                 </div>
                                 <div class="city-modal__selected-item">
                                     <span class="city-modal__selected-text">اصفهان</span>
                                     <button class="city-modal__selected-btn">
-                                        <i
-                                            class="city-modal__selected-icon bi bi-x"></i>
+                                        <i class="city-modal__selected-icon bi bi-x"></i>
                                     </button>
                                 </div>
                                 <div class="city-modal__selected-item">
                                     <span class="city-modal__selected-text">اصفهان</span>
                                     <button class="city-modal__selected-btn">
-                                        <i
-                                            class="city-modal__selected-icon bi bi-x"></i>
+                                        <i class="city-modal__selected-icon bi bi-x"></i>
                                     </button>
                                 </div>
                                 <div class="city-modal__selected-item">
                                     <span class="city-modal__selected-text">اصفهان</span>
                                     <button class="city-modal__selected-btn">
-                                        <i
-                                            class="city-modal__selected-icon bi bi-x"></i>
+                                        <i class="city-modal__selected-icon bi bi-x"></i>
                                     </button>
                                 </div>
                                 <div class="city-modal__selected-item">
                                     <span class="city-modal__selected-text">اصفهان</span>
                                     <button class="city-modal__selected-btn">
-                                        <i
-                                            class="city-modal__selected-icon bi bi-x"></i>
+                                        <i class="city-modal__selected-icon bi bi-x"></i>
                                     </button>
                                 </div>
                                 <div class="city-modal__selected-item">
                                     <span class="city-modal__selected-text">اصفهان</span>
                                     <button class="city-modal__selected-btn">
-                                        <i
-                                            class="city-modal__selected-icon bi bi-x"></i>
+                                        <i class="city-modal__selected-icon bi bi-x"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="city-modal__searchbar">
                                 <form class="city-modal__form">
-                                    <input class="city-modal__input" type="text"
-                                        placeholder="جستجو در شهرها">
+                                    <input class="city-modal__input" type="text" placeholder="جستجو در شهرها">
                                     <i class="city-modal__icon bi bi-search"></i>
                                 </form>
                             </div>
@@ -384,29 +303,24 @@
                         <ul class="city-modal__cities-list">
                             <li class="city-modal__cities-item">
                                 اصفهان
-                                <i
-                                    class="city-modal__cities-icon bi bi-chevron-left"></i>
+                                <i class="city-modal__cities-icon bi bi-chevron-left"></i>
                             </li>
                             <li class="city-modal__cities-item">
                                 اصفهان
-                                <i
-                                    class="city-modal__cities-icon bi bi-chevron-left"></i>
+                                <i class="city-modal__cities-icon bi bi-chevron-left"></i>
                             </li>
                             <li class="city-modal__cities-item">
                                 اصفهان
-                                <i
-                                    class="city-modal__cities-icon bi bi-chevron-left"></i>
+                                <i class="city-modal__cities-icon bi bi-chevron-left"></i>
                             </li>
-
+                            
                         </ul>
-
+                   
                     </div>
                     <div class="city-modal__footer">
                         <div class="city-modal__footer-wrapper">
-                            <button
-                                class="city-modal__btn-footer city-modal__close">انصراف</button>
-                            <button
-                                class="city-modal__btn-footer city-modal__accept--active">تایید</button>
+                            <button class="city-modal__btn-footer city-modal__close">انصراف</button>
+                            <button class="city-modal__btn-footer city-modal__accept--active">تایید</button>
                         </div>
                     </div>
                 </section>
@@ -422,6 +336,7 @@
                 crossorigin></script>
             <script src="/js/userPanel/posts/preview.js" type="module"></script>
             <script src="/js/shared.js" type="module"></script>
+            <script src="/js/userPanel/shared.js" type="module"></script>
             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         </body>
     </html>

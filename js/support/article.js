@@ -3,7 +3,7 @@ import { getUrlParam } from "../funcs/utils.js"
 
 window.addEventListener('load', async () => {
     const articleId = getUrlParam('id')
-
+    const loading = document.querySelector('#loading-container')
     const breadcumbSpan = document.querySelector('#breadcumb span')
     const articleTitle = document.querySelector('#article-title')
     const articleBody = document.querySelector('#article-body')
@@ -11,6 +11,7 @@ window.addEventListener('load', async () => {
 
 
     getArticleById(articleId).then(article => {
+        loading.style.display='none'
         document.title = article.title
         breadcumbSpan.innerHTML = article.title
         articleTitle.innerHTML = article.title

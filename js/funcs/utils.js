@@ -121,6 +121,7 @@ const hideModal = (id, className) => {
   element?.classList.remove(`${className}`)
 };
 
+ 
 export {
   baseUrl,
   showSwal,

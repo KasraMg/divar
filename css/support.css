@@ -68,7 +68,7 @@
 .articles_title p {
     padding: 0 20px;
     color: black;
-    z-index: 99;
+    z-index: 2;
     width: max-content;
     position: relative;
     margin: 0 auto;

@@ -175,3 +175,9 @@ body {
   margin: 0 2rem;
 }
  
+#loading-container{
+  top: 0 !important;
+}
+#loading{
+  margin-top: 300px !important;
+}
