@@ -177,7 +177,8 @@
 }
 
 #edit-map {
-    height: 400px;
+    height: 400px; 
+    width: 100%;
     margin-bottom: 20px;
     margin-top: 20px;
 }
@@ -483,4 +484,4 @@ input:checked+.slider:before {
     height: 103px;
     margin-top: 3rem;
     margin-bottom: 2rem;
-}
+} 
