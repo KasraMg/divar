@@ -1,5 +1,5 @@
 import { getPostDetails } from "../../../../utlis/shared.js";
-import { calculateTimeDifference } from "../../../../utlis/utils.js"; 
+import { baseUrl, calculateTimeDifference, getToken, showSwal } from "../../../../utlis/utils.js";
 
 
 window.addEventListener('load', () => {
@@ -13,17 +13,30 @@ window.addEventListener('load', () => {
     const postTitleInput = document.querySelector('#post-title-input')
     const postDescriptionInput = document.querySelector('#post-description-input')
     const postImages = document.querySelector('#post-images')
-     
-const editNavItem = document.querySelector('#edit-nav-item')
+    const editNavItem = document.querySelector('#edit-nav-item')
+    const saveChangesBtn = document.querySelector('#save-changes-btn')
+    const citySelectbox = document.querySelector('#city-selectbox')
+    const postPriceInput = document.querySelector('#post-price-input')
+    const exchangeCheckbox = document.querySelector('#exchange-checkbox')
+    let mapView = null;
+    let pics = [];
+    let dynamicFieldsData = {}
 
-
-    getPostDetails().then(data => { 
-        console.log(data);
+    getPostDetails().then(data => {
+     console.log(data.dynamicFields);
         postTitle.innerHTML = data.title
         document.title = data.title
         const date = calculateTimeDifference(data.createdAt)
         postLocation.innerHTML = `${date} در ${data.city.name}، ${data.neighborhood.name}`
         postDiscription.innerHTML = data.description
+        citySelectbox.innerHTML = `<option>${data.neighborhood.name}</option>`
+        pics = data.pics
+        data.dynamicFields.forEach(item => {
+            dynamicFieldsData[item.slug] = item.data;
+        });
+        console.log(dynamicFieldsData);
+
+        mapView = { x: data.map.x, y: data.map.y };
 
         postInfoes.insertAdjacentHTML('beforeend', `
         <li class="post__info-item">
@@ -65,7 +78,6 @@ const editNavItem = document.querySelector('#edit-nav-item')
             `)
         }
 
-
         var map = L.map('preview-map').setView([data.map.x, data.map.y], 13);
         var marker = L.marker([data.map.x, data.map.y]).addTo(map);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -79,10 +91,13 @@ const editNavItem = document.querySelector('#edit-nav-item')
         categoryTitle.innerHTML = data.category.title
         postTitleInput.value = data.title
         postDescriptionInput.innerHTML = data.description
+        postPriceInput.value = data.price
+        data.exchange ? exchangeCheckbox.checked = true : exchangeCheckbox.checked = false
 
-        
        
-        editNavItem.addEventListener("click",()=>{ 
+
+
+        editNavItem.addEventListener("click", () => {
             let icon = null;
             let iconStatus = true
             var editMap = L.map('edit-map').setView([data.map.x, data.map.y], 13);
@@ -96,7 +111,7 @@ const editNavItem = document.querySelector('#edit-nav-item')
                 iconSize: [30, 30]
             });
             icon = firstIcon
-    
+
             const iconControll = document.querySelector('.icon-controll')
             iconControll.addEventListener('click', () => {
                 if (iconStatus) {
@@ -111,24 +126,28 @@ const editNavItem = document.querySelector('#edit-nav-item')
                 }
             });
             var editMapMarker = L.marker([data.map.x, data.map.y], { icon: icon }).addTo(editMap);
-    
-    
+
+
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19
             }).addTo(editMap);
-    
+
             editMap.on('move', () => {
                 const center = editMap.getSize().divideBy(2);
                 const targetPoint = editMap.containerPointToLayerPoint(center);
                 const targetLatLng = editMap.layerPointToLatLng(targetPoint);
                 editMapMarker.setLatLng(targetLatLng);
                 editMapMarker.getElement().style.pointerEvents = 'none';
+                mapView = {
+                    x: targetLatLng.lat,
+                    y: targetLatLng.lng
+                };
             });
-    
+
 
         })
 
- 
+
 
         data.category.productFields.map(field => {
             let prevUserSelect = data.dynamicFields.find(productField => productField.slug === field.slug)
@@ -139,9 +158,9 @@ const editNavItem = document.querySelector('#edit-nav-item')
                     `
             <div class="group">
                     <p class="edit-title">${field.name}</p>
-                    <label class="select" for="slct">
-                     
-                        <select id="slct"
+                    <label> 
+                        <select
+                        onchange="fieldChangeHandler('${field.slug}', event.target.value)"
                             required="required"> 
                             <option value="${prevUserSelect.data}">${prevUserSelect.data}</option> 
                                 ${filteredOptions.map(option => (
@@ -166,34 +185,76 @@ const editNavItem = document.querySelector('#edit-nav-item')
             `)
         })
 
+        window.fieldChangeHandler = function (slug, data) {  
+            dynamicFieldsData[slug] = data; 
+                console.log(dynamicFieldsData);
+        }
 
         uploader.addEventListener('change', (event) => {
             console.log(event.target.files[0]);
+            if (pics[0].path) {
+                pics = []
+                pics.push(event.target.files[0])
+            } else {
+                pics.push(event.target.files[0])
+            }
+            console.log(pics);
+
             if (event.target.files && event.target.files.length > 0) {
                 let file = event.target.files[0];
                 if (file.type === 'image/png' || file.type === 'image/jpeg') {
                     let reader = new FileReader();
                     reader.onloadend = function () {
-                        let base64String = reader.result; 
+                        let base64String = reader.result;
                         postImages.insertAdjacentHTML('beforeend', `
                             <img src="${base64String}" alt="" />
-                        `); 
+                        `);
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    alert('Invalid file type. Please upload a .png or .jpg file.');
+                    showSwal('تایپ فایل وارد شده اشتباه است. لطفا فایل با تایپ های .png یا .jpg وارد کنید', "error", "اوکی", () => null)
                 }
             }
         });
 
 
+
+
+        saveChangesBtn.addEventListener('click', async() => {
+            
+            const token = getToken()
+            const formData = new FormData();
+         
+            formData.append("city", data.city.name);
+            formData.append("neighborhood", data.neighborhood.name);
+            formData.append("title", postTitleInput.value);
+            formData.append("price", postPriceInput.value);
+            formData.append("exchange", exchangeCheckbox.checked);
+            formData.append("description", postDescriptionInput.value);
+            formData.append("map", mapView); 
+            formData.append("categoryFields", dynamicFieldsData);
+            console.log(formData);
+
+           const res = await fetch(`${baseUrl}/v1/post/661e625380c3b094b1557331`,{
+                method:'PUT',
+                headers: { 
+                    Authorization: `Bearer ${token}`,
+                   'Content-Type': 'multipart/form-data',
+                   'accept': '/',
+                },
+                  body:formData  
+            })
+            const dataa=await res.json() 
+            console.log(dataa);
+        })
+ 
+
     })
+
+
+
+}) 
 
  
 
-
-})
-
-
-
-
+ 

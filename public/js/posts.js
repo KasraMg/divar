@@ -161,11 +161,10 @@ window.addEventListener('load', async () => {
             addParamToUrl('categoryId', categoryId);
         };
 
-        if (location.href.includes('categoryId')) {
+        if (categoryId) {
             const categoryInfoes = categories.filter(category => category._id == categoryId);
             if (!categoryInfoes.length) {
                 const subCategory = findSubCategoryById(categories, categoryId);
-                console.log(subCategory);
                 if (subCategory) {
                     console.log(subCategory.filters);
                     subCategory.filters.map(filter => {
@@ -187,11 +186,13 @@ window.addEventListener('load', async () => {
                         </ul> 
                     </div>
                 `);
-                } else {
-                    const filteredObjects = [];
+                } 
+                else {
+                    let filteredObjects = null;
                     function findObjects(categoryObj, categoryId) {
                         if (categoryObj._id === categoryId) {
-                            filteredObjects.push(categoryObj);
+                            console.log(categoryObj);
+                            filteredObjects = categoryObj
                         }
                         if (categoryObj.subCategories) {
                             categoryObj.subCategories.forEach(subObj => findObjects(subObj, categoryId));
@@ -199,10 +200,11 @@ window.addEventListener('load', async () => {
                     }
 
                     categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
-                    const subCategory = findSubCategoryById(categories, filteredObjects[0].parent);
-                    const subSubCategory = subCategory.subCategories.filter(subCategory => subCategory._id == categoryId)
-                    console.log(subSubCategory);
-                    subSubCategory[0].filters.map(filter => {
+                     console.log(categories);
+                    const subCategory = findSubCategoryById(categories, filteredObjects.parent);
+                    console.log(filteredObjects);
+                    console.log(subCategory);
+                    filteredObjects.filters.map(filter => {
                         filtersGenerator(filter)
                     })
 
@@ -263,6 +265,7 @@ window.addEventListener('load', async () => {
 
     // Fetch and show posts
     getAndShowPosts(cityIds).then(data => {
+        console.log(data);
         posts = data;
         backupPosts = data;
         generatePosts(posts);
@@ -310,10 +313,10 @@ window.addEventListener('load', async () => {
             `);
         }
     };
-  
+
 
     // Event listener for min price selectbox
-    minPriceSelectbox.addEventListener('change', event => { 
+    minPriceSelectbox.addEventListener('change', event => {
         applyFilters(posts)
     });
 

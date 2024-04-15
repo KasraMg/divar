@@ -48,6 +48,7 @@ const submitNumber = () => {
       }
     })
   } else {
+    loading.classList.remove('active-login-loader')
     step1LoginFormError.innerHTML = "لطفا یک شماره موبایل معتبر وارد نمایید."
   }
 
@@ -82,6 +83,7 @@ const verifyNumber = () => {
         }
       })
   } else {
+    loading.classList.remove('active-login-loader')
     step2LoginFormError.innerHTML = "کد نامعتبر است"
   }
 } 

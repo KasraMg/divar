@@ -62,15 +62,22 @@ const removeParameterFromURL = (param) => {
 function calculateTimeDifference(createdDate) {
   const currentTime = new Date();
   const createDate = new Date(createdDate);
-
   const timeDiff = Math.abs(currentTime - createDate);
-  const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+  const seconds = Math.floor(timeDiff / 1000);
 
-  if (hours < 24) {
-    return `${hours} ساعت پیش `;
+  if (seconds < 60) {
+    return "همین الان";
+  } else if (seconds < 3600) {
+    const minutes = Math.floor(seconds / 60);
+    return `${minutes} دقیقه پیش`;
   } else {
-    const days = Math.floor(hours / 24);
-    return `${days} روز پیش`;
+    const hours = Math.floor(seconds / 3600);
+    if (hours < 24) {
+      return `${hours} ساعت پیش`;
+    } else {
+      const days = Math.floor(hours / 24);
+      return `${days} روز پیش`;
+    }
   }
 }
 

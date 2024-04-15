@@ -48,73 +48,37 @@
     <!--!===========================================Main==========================================!-->
     <main class="main">
       <div class="container">
-        <p class="new_title">ثبت آگهی</p>
-        <p class="select_category_title">انتخاب دسته‌بندی</p>
+        <p class="new_title">چه چیزی آگهی می‌کنید؟</p>
+        <p class="select_category_title">با جستجو در کادر زیر، دستهٔ آگهی را انتخاب کنید.</p>
         <div class="search_box">
           <i class="bi bi-search"></i>
-          <input type="text" placeholder="جستجو در دسته‌ها">
-          <div class="result active">
+          <input type="text" id="search-input" placeholder="جستجو در دسته‌ها">
+          <i id="remove-icon" class="bi bi-x remove-icon"></i>
+          <div class="result" id="result-container">
             <p>فروش خانه و ویلا</p>
             <p>فروش خانه و ویلا</p>
             <p>فروش خانه و ویلا</p>
           </div>
         </div>
-        <div class="guide">
+        <div id="show-categoies" class="box active">
+          <div> 
+            <p>دیدن تمام دسته‌های دیوار</p>
+          </div>
+          <i class="bi bi-chevron-left"></i> 
+        </div>
+        
+        <div id="categories-container">
+           <div class="guide" id="guide-container">
           <p>نمایش راهنمای دسته‌بندی</p>
           <label class="switch">
-            <input class="icon-controll"
-              type="checkbox">
+            <input id="description-checkbox" class="icon-controll" type="checkbox">
             <span class="slider round"></span>
           </label>
         </div>
 
-        <section>
-          <div class="box">
-            <div>
-              <i class="bi bi-house-door"></i>
-              <p>املاک</p>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-            <span>اجارهٔ مسکونی، فروش مسکونی، فروش دفاتر اداری و تجاری، اجارهٔ
-              دفاتر اداری و تجاری، پرو‌ژه‌های ساخت و ساز، اجارهٔ کوتاه مدت</span>
-          </div>
-          <div class="box">
-            <div>
-              <i class="bi bi-house-door"></i>
-              <p>املاک</p>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-            <span>اجارهٔ مسکونی، فروش مسکونی، فروش دفاتر اداری و تجاری، اجارهٔ
-              دفاتر اداری و تجاری، پرو‌ژه‌های ساخت و ساز، اجارهٔ کوتاه مدت</span>
-          </div>
-          <div class="box">
-            <div>
-              <i class="bi bi-house-door"></i>
-              <p>املاک</p>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-            <span>اجارهٔ مسکونی، فروش مسکونی، فروش دفاتر اداری و تجاری، اجارهٔ
-              دفاتر اداری و تجاری، پرو‌ژه‌های ساخت و ساز، اجارهٔ کوتاه مدت</span>
-          </div>
-          <div class="box">
-            <div>
-              <i class="bi bi-house-door"></i>
-              <p>املاک</p>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-            <span>اجارهٔ مسکونی، فروش مسکونی، فروش دفاتر اداری و تجاری، اجارهٔ
-              دفاتر اداری و تجاری، پرو‌ژه‌های ساخت و ساز، اجارهٔ کوتاه مدت</span>
-          </div>
-          <div class="box">
-            <div>
-              <i class="bi bi-house-door"></i>
-              <p>املاک</p>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-            <span>اجارهٔ مسکونی، فروش مسکونی، فروش دفاتر اداری و تجاری، اجارهٔ
-              دفاتر اداری و تجاری، پرو‌ژه‌های ساخت و ساز، اجارهٔ کوتاه مدت</span>
-          </div>
-        </section>
+        <section id="categories"></section>
+        </div>
+       
       </div>
     </main>
     <!--!==========================================End Main==========================================!-->
