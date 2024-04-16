@@ -37,8 +37,7 @@
     position: absolute;
     box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.151);
     top: 41px;
-    visibility: hidden;  
-    padding: 1rem 1rem;
+    visibility: hidden;   
   }
 
   .search_box {
@@ -94,10 +93,10 @@
   .slider:before {
     position: absolute;
     content: "";
-    height: 19px;
+    height: 21px;
     width: 21px;
     left: 2px;
-    bottom: 3px;
+    bottom: 2px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
@@ -112,9 +111,9 @@
   }
 
   input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(27px);
+    -ms-transform: translateX(27px);
+    transform: translateX(27px);
   }
 
   .slider.round {
@@ -152,10 +151,10 @@
 
   .box {
     justify-content: space-between;
-    align-items: center;
-    padding: 1.4rem 0;
+    align-items: center; 
+    padding-bottom: .5rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.197);
-    margin-top: 2rem;
+    margin-top: .5rem;
     display: flex;
     cursor: pointer;
     flex-wrap: wrap;
@@ -171,6 +170,9 @@
   #show-categoies.active{
 display: flex;
   }
+  .details div p{
+    margin-top: 9px;
+  }
   .details div{
     display: flex; 
      gap: 15px;
@@ -182,8 +184,10 @@ display: flex;
   }
   .back{
     display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.197);
     gap: 20px;
     color: black;
+    padding: .5rem 0;
     cursor: pointer;
   }
 
@@ -219,4 +223,7 @@ display: flex;
     cursor: pointer;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+  .show-categoies{
+    margin-top: 1rem;
   }

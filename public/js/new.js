@@ -30,8 +30,7 @@ window.addEventListener('load', async () => {
  
 
     const generateItem = (categoriesData, title, id) => {
-        categories.innerHTML = ''
-        console.log(id);
+        categories.innerHTML = '' 
         if (title) {
             categories.insertAdjacentHTML('beforeend', `
                 <div class="back" onclick="${id ? `itemClickHandler('${id}')` : `backToAllCategories()`}">
@@ -73,7 +72,7 @@ window.addEventListener('load', async () => {
             if (subcategory) {
                 generateItem(subcategory.subCategories, subcategory.title, subcategory.parent)
             } else {
-                location.href = `/pages/new/registerPost.html?categoryId=${categoryId}`
+                location.href = `/pages/new/registerPost.html?subCategoryId=${categoryId}`
             }
         }
 
@@ -104,7 +103,7 @@ window.addEventListener('load', async () => {
                 searchResultContainer.innerHTML = '' 
                 filteredResult.map(result => {
                     searchResultContainer.insertAdjacentHTML("beforeend", ` 
-                        <a href="/pages/new/registerPost.html?id=${result._id}" class="search-result">
+                        <a href="/pages/new/registerPost.html?subCategoryId=${result._id}" class="search-result">
                         <p>${result.title}</p> 
                         <i class="bi bi-chevron-left"></i> 
                         </a> 

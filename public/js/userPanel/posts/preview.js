@@ -59,7 +59,7 @@ window.addEventListener('load', () => {
                                     <span class="post__info-value">${field.data}</span>
                         </li>
     `)
-        })
+        }) 
 
         if (data.status == "published") {
             postStatus.insertAdjacentHTML('beforeend', ` 
@@ -223,8 +223,7 @@ window.addEventListener('load', () => {
         saveChangesBtn.addEventListener('click', async() => {
             
             const token = getToken()
-            const formData = new FormData();
-         
+            const formData = new FormData(); 
             formData.append("city", data.city.name);
             formData.append("neighborhood", data.neighborhood.name);
             formData.append("title", postTitleInput.value);
@@ -233,14 +232,13 @@ window.addEventListener('load', () => {
             formData.append("description", postDescriptionInput.value);
             formData.append("map", mapView); 
             formData.append("categoryFields", dynamicFieldsData);
-            console.log(formData);
+            formData.append("pics", pics);
+           
 
            const res = await fetch(`${baseUrl}/v1/post/661e625380c3b094b1557331`,{
                 method:'PUT',
                 headers: { 
-                    Authorization: `Bearer ${token}`,
-                   'Content-Type': 'multipart/form-data',
-                   'accept': '/',
+                    Authorization: `Bearer ${token}` 
                 },
                   body:formData  
             })
