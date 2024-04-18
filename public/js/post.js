@@ -25,8 +25,7 @@ window.addEventListener('load', async() => {
                 saveIntoLocalStorage('recent-seen', [data._id])
             }
 
-        }
-
+        } 
 
         const postTitle = document.querySelector('#post-title')
         const postInfoes = document.querySelector('#post-infoes-list')
@@ -229,13 +228,7 @@ window.addEventListener('load', async() => {
 
 
 
-
-
-
-
-
-
-
+ 
 
 
         // Initialize Swiper

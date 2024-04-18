@@ -137,16 +137,17 @@ const getAllCitiesHandler = async () => {
 const getAndShowHeaderCityTitle = () => {
     const headerCityModalTitle = document.querySelector('#header-city-title')
     const cities = getFromLocalStorage('cities')
+    const newCities = cities.filter(city=>city.id !== 0)
     if (headerCityModalTitle) {
-        if (!cities) {
+        if (!newCities) {
             saveIntoLocalStorage('cities', [{ title: 'تهران', id: 301 }])
-            const cities = getFromLocalStorage('cities')
-            headerCityModalTitle.innerHTML = cities[0].title
+            const newCities = getFromLocalStorage('cities')
+            headerCityModalTitle.innerHTML = newCities[0].title
         } else {
             if (cities.length == 1) {
-                headerCityModalTitle.innerHTML = cities[0].title
+                headerCityModalTitle.innerHTML = newCities[0].title
             } else {
-                headerCityModalTitle.innerHTML = `${cities.length} شهر`
+                headerCityModalTitle.innerHTML = `${newCities.length} شهر`
             }
         }
     }

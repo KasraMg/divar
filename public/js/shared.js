@@ -11,11 +11,12 @@ window.addEventListener('load', async () => {
     // city modal handler //
     let citySelect = null;
     let AllCitiesData = null;
-    const userLogin = await isLogin() 
+    const userLogin = await isLogin()
     const addCityToModal = (cities) => {
         const citySelectedContainer = document.querySelector('#city-selected');
         citySelectedContainer.innerHTML = '';
-        cities.forEach(city => {
+        const newCities = cities.filter(city => city.id !== 0)
+        newCities.forEach(city => {
             citySelectedContainer.insertAdjacentHTML("beforeend", ` 
                 <div class="city-modal__selected-item">   
                     <span class="city-modal__selected-text">${city.title}</span>   
@@ -31,6 +32,7 @@ window.addEventListener('load', async () => {
     // Function to remove a city from the modal
     window.removeCityFromModal = function (cityId) {
         const prevItem = document.querySelector(`#city-${cityId}`);
+        console.log(prevItem);
         if (prevItem) {
             const checkbox = prevItem.querySelector("input");
             const checkboxShape = prevItem.querySelector("div");
@@ -109,10 +111,7 @@ window.addEventListener('load', async () => {
 
                 cityModalList.innerHTML = '';
 
-                let isCheck = citySelect.some(selectedCity => {
-                    console.log(selectedCity.title)
-                    selectedCity.title == `همه شهر های ${provinceName}`
-                });
+                let isCheck = citySelect.some(selectedCity => selectedCity.title.trim() === `همه شهر های ${provinceName}`);
 
                 cityModalList.insertAdjacentHTML('beforeend', `
                 <li id="city_modal_all_province" class="city_modal_all_province">
@@ -122,7 +121,7 @@ window.addEventListener('load', async () => {
                 <li class="city-modal__cities-item select-all-city city-item" id="city-${provinceName.replace(/ /g, '-')}-${provinceId}">
                     <span>همه شهر های ${provinceName} </span>
                     <div class="${isCheck && 'active'}"  id="checkboxShape"></div>
-                    <input   onclick="cityItemClickHandler('${provinceName.replace(/ /g, '-')}','${provinceId}')" checked="${isCheck && true}" type="checkbox">
+                    <input onclick="cityItemClickHandler('${provinceName.replace(/ /g, '-')}','${provinceId}')" checked="${isCheck && true}" type="checkbox">
                 </li>
             `);
 
@@ -132,7 +131,7 @@ window.addEventListener('load', async () => {
                     <li class="city-modal__cities-item city-item" id="city-${city.id}">
                         <span>${city.name}</span>
                         <div class="${isCheck && 'active'}" id="checkboxShape"></div>
-                        <input onclick="cityItemClickHandler('${city.id}',null)"  checked="${isCheck && true}" id="city-item-checkbox" type="checkbox">
+                        <input onclick="cityItemClickHandler('${city.id}')"  checked="${isCheck && true}" id="city-item-checkbox" type="checkbox">
                     </li>
                 `);
                 });
@@ -148,43 +147,52 @@ window.addEventListener('load', async () => {
     }
 
     // Function to handle city item click
-    window.cityItemClickHandler = function (cityId, provinceId) {
+    window.cityItemClickHandler = function (cityId, provinceId) { 
         const item = provinceId ? document.querySelector(`#city-${cityId}-${provinceId}`) : document.querySelector(`#city-${cityId}`);
         const checkbox = item.querySelector("input");
         const cityTitle = item.querySelector("span").innerHTML;
-        if (!provinceId) {
+        const checkboxShape = item.querySelector("div");
+        if (!provinceId) { 
             citySelect.map(city => {
                 if (city.title === cityTitle) {
-                    const checkbox = item.querySelector("input");
                     checkbox.checked = true;
-
+                }else{
+                    checkbox.checked = false;
                 }
             });
-        }
-
-        const checkboxShape = item.querySelector("div");
-        checkbox.checked = !checkbox.checked;
-        if (!provinceId) {
+            
+            checkbox.checked = !checkbox.checked; 
             if (checkbox.checked) {
                 updateCitySelectList(cityTitle, cityId);
-                checkbox.checked = false;
                 checkboxShape.classList.add("active");
             } else {
-                const checkboxShapeSelectAllCity = document.querySelector('.select-all-city > div ')
-                const inputSelectAllCity = document.querySelector('.select-all-city input')
-                inputSelectAllCity.checked = false
-                checkboxShapeSelectAllCity.classList.remove("active");
-                checkboxShape.classList.remove("active");
-                checkbox.checked = true;
-                const newSelected = citySelect.filter(city => city.title !== cityTitle)
-                citySelect = newSelected
+                alert('hi')
+                const allCityItemCheckbox = document.querySelector('.select-all-city > div ')
+                const allCityItemInput = document.querySelector('.select-all-city input')
+                const allCityItemSpan = document.querySelector('.select-all-city span')
+                const newSelected = citySelect.filter(city => city.title !== allCityItemSpan.innerHTML && city.title !== cityTitle);
+                citySelect = newSelected;
+                allCityItemInput.checked = false
+                allCityItemCheckbox.classList.remove("active");
+                checkboxShape.classList.remove("active"); 
                 addCityToModal(citySelect);
                 toggleCityModalButtons(citySelect)
+
             }
+            
         } else {
+
             checkbox.checked = checkboxShape.classList.toggle("active");
             checkbox.checked = !checkbox.checked
             let cities = AllCitiesData.cities.filter(city => city.province_id == provinceId);
+
+            if (!checkbox.checked) {
+                updateCitySelectList(cityTitle, 0)
+            } else {
+                const newSelected = citySelect.filter(selectedCity => selectedCity.title !== cityTitle);
+                citySelect = newSelected
+            }
+            console.log(citySelect);
 
             cities.map(city => {
                 const cityItem = document.querySelector(`#city-${city.id}`);
@@ -192,8 +200,7 @@ window.addEventListener('load', async () => {
                 const cityCheckboxShape = cityItem.querySelector("div");
                 const cityTitle = cityItem.querySelector("span").innerHTML;
 
-                cityCheckbox.checked = checkbox.checked;
-                console.log(cityCheckbox.checked)
+                cityCheckbox.checked = checkbox.checked; 
                 if (checkbox.checked === false) {
                     updateCitySelectList(city.name, city.id)
                 } else {
@@ -213,13 +220,17 @@ window.addEventListener('load', async () => {
 
     // Function to update the selected cities
     function updateCitySelectList(cityTitle, cityId) {
-        const index = citySelect.findIndex(item => item.id === cityId);
-        const isTitleRepeated = citySelect.some(item => item.title === cityTitle);
-        if (index == -1 && !isTitleRepeated) {
+        if (cityId !== 0) { 
+            const isTitleRepeated = citySelect.some(item => item.title === cityTitle);
+            if (!isTitleRepeated) {
+                citySelect.push({ title: cityTitle, id: cityId });
+                addCityToModal(citySelect);
+            }
+            toggleCityModalButtons(citySelect);
+        } else {
             citySelect.push({ title: cityTitle, id: cityId });
-            addCityToModal(citySelect);
         }
-        toggleCityModalButtons(citySelect);
+
     }
 
     // Function to toggle the visibility of modal buttons
@@ -236,21 +247,7 @@ window.addEventListener('load', async () => {
         }
     }
 
-    // Function to select active cities
-    const activeCitiesSelected = () => {
-        const cityitems = document.querySelectorAll(".city-item");
-        cityitems.forEach(item => {
-            const cityTitle = item.querySelector("span");
-            citySelect.map(city => {
-                if (city.title == cityTitle.innerHTML) {
-                    const checkboxShape = item.querySelector("div");
-                    const checkbox = item.querySelector("input");
-                    checkbox.checked = true;
-                    checkboxShape.classList.add('active');
-                }
-            });
-        });
-    }
+ 
 
     const cityModalSearchInput = document.querySelector('#city-modal-search-input')
 
@@ -297,8 +294,7 @@ window.addEventListener('load', async () => {
         const cities = getFromLocalStorage('cities')
         deleteAllSelectedBtn.style.display = 'block'
         citySelect = cities
-        addCityToModal(citySelect)
-        activeCitiesSelected()
+        addCityToModal(citySelect) 
     })
 
     cityModalCloseBtn?.addEventListener('click', () => {
