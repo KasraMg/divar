@@ -15,7 +15,7 @@ window.addEventListener('load', async () => {
     const subCategoryTitle = document.querySelector('#subCategory-title')
     const subCategoryDetails = data.data.categories.find(category => category._id == id)
     console.log(subCategoryDetails);
-    subCategoryTitle.innerHTML = subCategoryDetails.titleر
+    subCategoryTitle.innerHTML = subCategoryDetails.title
     const citySelect = document.querySelector('#city-select');
     const neighborhoodSelect = document.querySelector('#neighborhood-select');
 
@@ -93,12 +93,12 @@ window.addEventListener('load', async () => {
         };
     });
 
-    subCategoryDetails.productFields.map(field => {  
+    subCategoryDetails.productFields.map(field => {
         dynamicFields.insertAdjacentHTML('beforeend', `
             ${field.type == 'selectbox' && (
                 `
             <div class="group">
-                    <p class="edit-title">${field.name}</p>
+                    <p class="field-title">${field.name}</p>
                     <label> 
                         <select  onchange="fieldChangeHandler('${field.slug}', event.target.value)"
                             required="required">  
