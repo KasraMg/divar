@@ -64,7 +64,8 @@ function calculateTimeDifference(createdDate) {
   const createDate = new Date(createdDate);
   const timeDiff = Math.abs(currentTime - createDate);
   const seconds = Math.floor(timeDiff / 1000);
-
+console.log(createdDate);
+  console.log(seconds);
   if (seconds < 60) {
     return "همین الان";
   } else if (seconds < 3600) {

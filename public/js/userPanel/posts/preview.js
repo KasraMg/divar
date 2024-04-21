@@ -11,7 +11,7 @@ window.addEventListener('load', async () => {
     const categoryTitle = document.querySelector('#category-title')
     const dynamicFields = document.querySelector('#dynamic-fields')
     const postTitleInput = document.querySelector('#post-title-input')
-    const postDescriptionInput = document.querySelector('#post-description-input')
+    const postDescriptionInput = document.querySelector('#post-description-textarea')
     const postImages = document.querySelector('#post-images')
     const editNavItem = document.querySelector('#edit-nav-item')
     const saveChangesBtn = document.querySelector('#save-changes-btn')
@@ -36,8 +36,8 @@ window.addEventListener('load', async () => {
         }
     })
     const data = await res.json()
-   
-    const generateDatas = (data) => { 
+
+    const generateDatas = (data) => {
         loading.style.display = 'none'
         postTitle.innerHTML = data.title
         document.title = data.title
@@ -168,13 +168,13 @@ window.addEventListener('load', async () => {
         data.category.productFields.map(field => {
             let prevUserSelect = data.dynamicFields.find(productField => productField.slug === field.slug)
             let filteredOptions = field.options.filter(option => option !== prevUserSelect.data)
-
+            console.log(data.dynamicFields);
             dynamicFields.insertAdjacentHTML('beforeend', `
-            ${field.type == 'selectbox' && (
+            ${field.type == 'selectbox' ? (
                     `
             <div class="group">
                     <p class="edit-title">${field.name}</p>
-                    <label> 
+                    <div class="field-box"> 
                         <select
                         onchange="fieldChangeHandler('${field.slug}', event.target.value)"
                             required="required"> 
@@ -187,7 +187,7 @@ window.addEventListener('load', async () => {
                             <use
                                 xlink:href="#select-arrow-down"></use>
                         </svg>
-                    </label>
+                    </div>
                     <svg class="sprites">
                         <symbol id="select-arrow-down"
                             viewbox="0 0 10 6">
@@ -196,8 +196,16 @@ window.addEventListener('load', async () => {
                     </svg>
                 </div>
         `
-                )}
-            
+                ) : ""}
+                ${field.type == 'checkbox' ? (
+                    `
+                    <div class="group exchange-group">
+                    <input  onchange="fieldChangeHandler('${field.slug}', event.target.checked)" class="exchange-checkbox" id="exchange-checkbox" type="checkbox">
+                    <p>${field.name}</p>
+                </div>
+
+                    `
+                ) : ""}
             `)
         })
 
@@ -259,7 +267,7 @@ window.addEventListener('load', async () => {
     }
 
     generateDatas(data.data.post)
- 
+
 
 })
 

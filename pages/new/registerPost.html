@@ -67,54 +67,65 @@
             </div>
             <div class="groups">
                 <div class="group">
-                    <p class="title">شهر</p> 
+                    <p class="field-title">شهر</p> 
                         <select id="city-select" required="required"></select> 
                     </label> 
                 </div>
                 <div class="group">
-                    <p class="title">محله</p> 
+                    <p class="field-title">محله</p> 
                         <select id="neighborhood-select" required="required">  </select> 
                 </div>
             </div>
             <div>
-                <p class="title">موقعیت مکانی آگهی</p>
+                <p class="field-title">موقعیت مکانی آگهی</p>
                 <div id="map"></div>
             </div>
             <div class="uploader">
-                <p class="title">عکس آگهی</p>
-                <p>افزودنِ عکس بازدید آگهی شما را تا سه برابر افزایش می‌دهد.</p>
-
-                <div class="uploader-box">
-                    <i class="bi bi-image"></i>
-                    <i class="bi bi-plus-circle-fill"></i>
-                    <input type="file">
+                <p class="field-title">عکس آگهی</p>
+                <span>عکس‌هایی مربوط به آگهی اضافه کنید.</span>
+                <span>در صورت نداشتن عکس ، آگهی را بدون عکس
+                    ثبت کنید</span>
+                <div class="post-images" id="post-images">
+                    <div class="uploader-box">
+                        <i class="bi bi-image"></i>
+                        <i class="bi bi-plus-circle-fill"></i>
+                        <input id="uploader" type="file">
+                    </div>
                 </div>
                 <span>تعداد عکس‌های انتخاب شده نباید بیشتر
-                    از 10 باشد.</span>
+                    از ۲۰ باشد.</span>
             </div>
             <div class="groups" id="dynamic-fields"></div>
+            
             <div class="groups">
-                <div class="group">
-                    <p class="title">عنوان آگهی</p>
-                    <span>در عنوان آگهی به موارد مهمی مانند
-                        نوع ملک و متراژ اشاره کنید. </span>
-                    <input type="text" value="فروش مغازه">
+                <div class="group exchange-group">
+                    <input class="exchange-checkbox" id="exchange-checkbox" type="checkbox">
+                    <p> مایلم معاوضه کنم</p>
+                </div>
+                <div class="group edit-post-title">
+                    <p class="field-title">قیمت</p>
+                    <input id="post-price-input" type="number">
                 </div>
 
                 <div class="group">
-                    <p class="title">توضیحات آگهی</p>
+                    <p class="field-title">عنوان آگهی</p>
+                    <span>در عنوان آگهی به موارد مهمی مانند
+                        نوع ملک و متراژ اشاره کنید. </span>
+                    <input id="post-title-input" type="text">
+                </div>
+
+                <div class="group">
+                    <p class="field-title">توضیحات آگهی</p>
                     <span>در توضیحات آگهی به مواردی مانند
                         شرایط فروش، جزئیات و ویژگی‌های قابل
                         توجه، دسترسی‌های محلی و موقعیت
                         قرارگیری ملک اشاره کنید.</span>
-                    <textarea id cols="30" rows="8"
-                        placeholder="فروش مغازه">
-                    </textarea>
+                    <textarea  id="post-description-textarea" id cols="30" rows="8"></textarea>
                 </div>
             </div>
             <div class="post_controll">
                 <button>انصراف</button>
-                <button>ارسال آگهی</button>
+                <button id="register-btn">ارسال آگهی</button>
             </div>
         </main>
         <!--!==========================================End Main==========================================!-->

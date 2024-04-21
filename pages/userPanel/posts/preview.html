@@ -198,13 +198,13 @@
                                 </div>
                                 <div class="group">
                                     <p class="edit-title">شهر</p>
-                                    <label>
+                                    <div class="field-box">
                                         <select id="city-selectbox"
                                             required="required" disabled></select>
                                         <svg> <use
                                                 xlink:href="#select-arrow-down"></use>
                                         </svg>
-                                    </label>
+                                    </div>
                                     <svg class="sprites">
                                         <symbol id="select-arrow-down"
                                             viewbox="0 0 10 6">
@@ -252,8 +252,7 @@
                                     </div>
                                     <div class="group edit-post-title">
                                         <p class="edit-title">قیمت</p>
-                                        <input id="post-price-input" type="text"
-                                            value>
+                                        <input id="post-price-input" type="number">
                                     </div>
 
                                     <div class="group edit-post-title">
@@ -269,7 +268,7 @@
                                             شرایط فروش، جزئیات و ویژگی‌های قابل
                                             توجه، دسترسی‌های محلی و موقعیت
                                             قرارگیری ملک اشاره کنید.</span>
-                                        <textarea id="post-description-input" id
+                                        <textarea id="post-description-textarea" id
                                             cols="30" rows="8"
                                             placeholder="فروش مغازه">
                                         </textarea>

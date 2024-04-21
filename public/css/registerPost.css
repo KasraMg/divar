@@ -115,7 +115,7 @@ textarea{
     color: black;
 }
 
-.group input {
+.group input:not(.exchange-group input) {
     padding: 1rem;
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.319);
@@ -124,6 +124,9 @@ textarea{
 
 .group p:nth-child(3) {
     margin-top: 10px;
+}
+.exchange-group p{
+    margin-top: 1rem;
 }
 
 .title {
@@ -234,12 +237,12 @@ select {
     width: 100%;
 }
 
- label {
+ .field-box {
     position: relative;
     direction: rtl;
     min-width: 200px;
  }
- label svg {
+ .field-box svg {
     position: absolute;
     left: 12px;
     top: calc(50% - 3px);
@@ -310,3 +313,24 @@ z-index: 9999 !important;
     margin-bottom: 2rem;
     color: black;
 }
+.post-images {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.post-images img {
+    width: 100px;
+    border-radius: 5px;
+    height: 103px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.exchange-group{
+    display: flex !important;
+    gap: 11px;
+    align-items: center;
+    margin-top: 2rem;
+  }

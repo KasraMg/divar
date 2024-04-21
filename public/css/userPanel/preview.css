@@ -406,13 +406,13 @@ input:checked+.slider:before {
     padding: 1.5rem 0;
 }
 
-.group label:not(.switch) {
+.field-box {
     position: relative;
     direction: rtl;
     min-width: 200px;
 }
 
- .group label svg {
+  .field-box svg {
     position: absolute;
     left: 12px;
     top: calc(50% - 3px);
@@ -426,7 +426,7 @@ input:checked+.slider:before {
     pointer-events: none;
 }
 
- .group label select {
+  select {
     -webkit-appearance: none; 
     width: 100%;
     border: 1px solid #e8eaed;
@@ -439,15 +439,15 @@ input:checked+.slider:before {
     transition: all 150ms ease;
 }
 
-.group label select:required:invalid {
+ select:required:invalid {
     color: #5a667f;
 }
 
-.group label select option {
+ select option {
     color: #223254;
 }
 
-.group label select option[value=""][disabled] {
+ select option[value=""][disabled] {
     display: none;
 }
 
@@ -514,3 +514,6 @@ input:checked+.slider:before {
     align-items: center;
     margin-top: 2rem;
   }
+  .exchange-group p{
+    margin-top: 1rem;
+}
