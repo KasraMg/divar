@@ -39,7 +39,7 @@ window.addEventListener('load', async() => {
         const noteTextarea = document.querySelector('#note-textarea')
         const noteTrashIcon = document.querySelector('#note-trash-icon')
         const breadcrumb = document.querySelector('#breadcrumb')
-        const postLocation = document.querySelector('#post-location')
+        const postIntro = document.querySelector('#post-intro')
 
 
 
@@ -50,8 +50,9 @@ window.addEventListener('load', async() => {
         console.log(data); 
         postTitle.innerHTML = data.title
         document.title = data.title
+        console.log(data.neighborhood);
         const date = calculateTimeDifference(data.createdAt)
-        postLocation.innerHTML = `${date} در ${data.city.name}، ${data.neighborhood.name}`
+        postIntro.innerHTML = `${date} در ${data.city.name} ${data.neighborhood.id !== 0 ? '،' + data.neighborhood.name : ''}`
 
         postDiscription.innerHTML = data.description
 
@@ -138,7 +139,7 @@ window.addEventListener('load', async() => {
             postInfoes.insertAdjacentHTML('beforeend', `
                         <li class="post__info-item">
                                     <span class="post__info-key">${field.name}</span>
-                                    <span class="post__info-value">${field.data}</span>
+                                    ${field.type == 'checkbox' ? `<span class="post__info-value">${field.data ? 'بله' : 'خیر'}</span>` : `<span class="post__info-value">${field.data}</span>`}
                         </li>
     `)
         })

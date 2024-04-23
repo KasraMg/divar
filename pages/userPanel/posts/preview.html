@@ -146,7 +146,7 @@
                     <div class="col-9">
                         <div id="post-status" class="post-status"></div>
 
-                        <button class="delete-btn">حذف اگهی</button>
+                        <button id="delete-post-btn" class="delete-btn">حذف اگهی</button>
                         <ul class="nav nav-pills mb-3" id="pills-tab"
                             role="tablist">
                             <li class="nav-item" role="presentation">
@@ -175,7 +175,7 @@
 
                                 <div class="details">
                                     <p id="post-title" class="title"></p>
-                                    <p id="post-location" class="location"></p>
+                                    <p id="post-intro" class="post-intro"></p>
                                     <ul class="post__info-list"
                                         id="post-infoes-list"></ul>
                                     <div class="description">
@@ -219,14 +219,7 @@
                                         موقعیت مکانی به <span>نقشهٔ دیوار</span>
                                         اضافه ‌شده و بیشتر دیده می‌شوند.</span>
                                     <div id="edit-map"></div>
-                                    <div class="map-controll">
-                                        <p>موقعیت دقیق نمایش داده نشود</p>
-                                        <label class="switch">
-                                            <input class="icon-controll"
-                                                type="checkbox">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
+                                  
                                 </div> 
                                 <div class="uploader">
                                     <p class="edit-title">عکس آگهی</p>
@@ -239,6 +232,7 @@
                                             <i class="bi bi-plus-circle-fill"></i>
                                             <input id="uploader" type="file">
                                         </div>
+                                        <div class="images" id="images-container"></div>
                                     </div>
                                     <span>تعداد عکس‌های انتخاب شده نباید بیشتر
                                         از ۲۰ باشد.</span>
@@ -246,8 +240,8 @@
                                 <div class="groups" id="dynamic-fields"></div>
 
                                 <div class="groups"> 
-                                    <div class="group exchange-group">
-                                        <input class="exchange-checkbox" id="exchange-checkbox" type="checkbox">
+                                    <div class="group checkbox-group">
+                                        <input class="checkbox" id="exchange-checkbox" type="checkbox">
                                         <p> مایلم معاوضه کنم</p>
                                     </div>
                                     <div class="group edit-post-title">

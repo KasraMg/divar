@@ -85,7 +85,7 @@
     width: 50%;
 }
 
-.location {
+.post-intro {
     font-size: 1.7rem;
 }
 
@@ -282,14 +282,6 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-.map-controll {
-    align-items: center;
-    padding-bottom: 1rem;
-    margin-bottom: 3rem;
-    border-bottom: 2px solid rgba(128, 128, 128, 0.308);
-    display: flex;
-    justify-content: space-between;
-}
 
 #edit-map .leaflet-zoom-animated {
     height: 46px !important;
@@ -303,7 +295,7 @@ input:checked+.slider:before {
 }
 
 .uploader {
-    margin-top: 9rem;
+    margin-top:4rem;
     margin-bottom: 3rem;
 }
 
@@ -473,8 +465,7 @@ input:checked+.slider:before {
 
 .post-images{
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 20px; 
     align-items: end;
 }
 .post-images img{
@@ -485,14 +476,13 @@ input:checked+.slider:before {
     margin-bottom: 2rem;
 } 
 
-.exchange-checkbox {  
+.checkbox {  
     cursor: pointer; 
     height: 15px !important;
     width: 15px !important;
   }
  
-  .exchange-checkbox:checked::before{
-    background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjZmZmZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgdmVyc2lvbj0iMS4xIiB4PSIwcHgiIHk9IjBweCI+PHRpdGxlPmljb25fYnlfUG9zaGx5YWtvdjEwPC90aXRsZT48ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz48ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjZmZmZmZmIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNi4wMDAwMDAsIDI2LjAwMDAwMCkiPjxwYXRoIGQ9Ik0xNy45OTk5ODc4LDMyLjQgTDEwLjk5OTk4NzgsMjUuNCBDMTAuMjI2Nzg5MSwyNC42MjY4MDE0IDguOTczMTg2NDQsMjQuNjI2ODAxNCA4LjE5OTk4Nzc5LDI1LjQgTDguMTk5OTg3NzksMjUuNCBDNy40MjY3ODkxNCwyNi4xNzMxOTg2IDcuNDI2Nzg5MTQsMjcuNDI2ODAxNCA4LjE5OTk4Nzc5LDI4LjIgTDE2LjU4NTc3NDIsMzYuNTg1Nzg2NCBDMTcuMzY2ODIyOCwzNy4zNjY4MzUgMTguNjMzMTUyOCwzNy4zNjY4MzUgMTkuNDE0MjAxNCwzNi41ODU3ODY0IEw0MC41OTk5ODc4LDE1LjQgQzQxLjM3MzE4NjQsMTQuNjI2ODAxNCA0MS4zNzMxODY0LDEzLjM3MzE5ODYgNDAuNTk5OTg3OCwxMi42IEw0MC41OTk5ODc4LDEyLjYgQzM5LjgyNjc4OTEsMTEuODI2ODAxNCAzOC41NzMxODY0LDExLjgyNjgwMTQgMzcuNzk5OTg3OCwxMi42IEwxNy45OTk5ODc4LDMyLjQgWiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg==");
+  .checkbox:checked::before{ 
     background-image: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjZmZmZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgdmVyc2lvbj0iMS4xIiB4PSIwcHgiIHk9IjBweCI+PHRpdGxlPmljb25fYnlfUG9zaGx5YWtvdjEwPC90aXRsZT48ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz48ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjZmZmZmZmIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNi4wMDAwMDAsIDI2LjAwMDAwMCkiPjxwYXRoIGQ9Ik0xNy45OTk5ODc4LDMyLjQgTDEwLjk5OTk4NzgsMjUuNCBDMTAuMjI2Nzg5MSwyNC42MjY4MDE0IDguOTczMTg2NDQsMjQuNjI2ODAxNCA4LjE5OTk4Nzc5LDI1LjQgTDguMTk5OTg3NzksMjUuNCBDNy40MjY3ODkxNCwyNi4xNzMxOTg2IDcuNDI2Nzg5MTQsMjcuNDI2ODAxNCA4LjE5OTk4Nzc5LDI4LjIgTDE2LjU4NTc3NDIsMzYuNTg1Nzg2NCBDMTcuMzY2ODIyOCwzNy4zNjY4MzUgMTguNjMzMTUyOCwzNy4zNjY4MzUgMTkuNDE0MjAxNCwzNi41ODU3ODY0IEw0MC41OTk5ODc4LDE1LjQgQzQxLjM3MzE4NjQsMTQuNjI2ODAxNCA0MS4zNzMxODY0LDEzLjM3MzE5ODYgNDAuNTk5OTg3OCwxMi42IEw0MC41OTk5ODc4LDEyLjYgQzM5LjgyNjc4OTEsMTEuODI2ODAxNCAzOC41NzMxODY0LDExLjgyNjgwMTQgMzcuNzk5OTg3OCwxMi42IEwxNy45OTk5ODc4LDMyLjQgWiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg==);
     padding: 9px; 
     background-color: #a62626;
@@ -508,12 +498,43 @@ input:checked+.slider:before {
     border-radius: 3px;
   }
 
-  .exchange-group{
+  .checkbox-group{
     display: flex !important;
     gap: 11px;
     align-items: center;
     margin-top: 2rem;
   }
-  .exchange-group p{
+  .checkbox-group p{
     margin-top: 1rem;
 }
+
+.image-box div .bi{
+    color: white;
+  }
+  .image-box div{
+    background-color: rgba(0, 0, 0, .32);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    height: 2rem;
+    top: 35px;
+    transition: background-color .36s ease;
+    width: 2rem;
+    align-items: center;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    left: 4px;
+    outline: none;
+    position: absolute;
+  }
+  .image-box{
+    position: relative;
+  }
+
+  .images{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: end;
+  }

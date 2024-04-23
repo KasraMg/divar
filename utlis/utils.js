@@ -25,7 +25,7 @@ const getToken = () => {
 };
 
 const isLogin = async () => {
-  const token = getToken(); 
+  const token = getToken();
   if (!token) {
     return false;
   }
@@ -33,9 +33,9 @@ const isLogin = async () => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }); 
-return res.status === 200 ? true : false 
-}; 
+  });
+  return res.status === 200 ? true : false
+};
 
 const getUrlParam = (key) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -64,7 +64,7 @@ function calculateTimeDifference(createdDate) {
   const createDate = new Date(createdDate);
   const timeDiff = Math.abs(currentTime - createDate);
   const seconds = Math.floor(timeDiff / 1000);
-console.log(createdDate);
+  console.log(createdDate);
   console.log(seconds);
   if (seconds < 60) {
     return "همین الان";

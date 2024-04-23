@@ -7,9 +7,11 @@ window.addEventListener('load', async () => {
     const removeIcon = document.querySelector('#remove-icon')
     const showCategoies = document.querySelector('#show-categoies')
     const categoriesContainer = document.querySelector('#categories-container')
-    const guideContainer = document.querySelector('#guide-container') 
+    const guideContainer = document.querySelector('#guide-container')
     const categories = document.querySelector('#categories')
     const descriptionCheckbox = document.querySelector('#description-checkbox')
+    const loading = document.querySelector('#loading-container')
+
 
     const isUserLogin = await isLogin()
     if (!isUserLogin) {
@@ -27,10 +29,11 @@ window.addEventListener('load', async () => {
         generateItem(categoriesData.data.categories)
         guideContainer.style.display = 'flex'
     }
- 
+
+    // این تابع پایین یا همون جنریت ایتم همیشه دو تا پارامتر تایتل و ایدی نمیگیره و اگه بگیره برای زمانیه که ما میخوایم یه کتگوری به عقب برگردیم یا اطلاعات کتگوری سلکت شده رو نشون بدیم.
 
     const generateItem = (categoriesData, title, id) => {
-        categories.innerHTML = '' 
+        categories.innerHTML = ''
         if (title) {
             categories.insertAdjacentHTML('beforeend', `
                 <div class="back" onclick="${id ? `itemClickHandler('${id}')` : `backToAllCategories()`}">
@@ -61,7 +64,6 @@ window.addEventListener('load', async () => {
     }
 
     window.itemClickHandler = (categoryId) => {
-        categoryId = categoryId
         guideContainer.style.display = 'none'
         const category = categoriesData.data.categories.find(category => category._id == categoryId)
         if (category) {
@@ -81,7 +83,7 @@ window.addEventListener('load', async () => {
     const categoriesRes = await fetch(`${baseUrl}/v1/category/`)
     const categoriesData = await categoriesRes.json()
     generateItem(categoriesData.data.categories)
-
+    loading.style.display = 'none'
 
     descriptionCheckbox.addEventListener('click', () => {
         generateItem(categoriesData.data.categories)
@@ -94,13 +96,12 @@ window.addEventListener('load', async () => {
     console.log(subCategoriesData);
 
     searchInput.addEventListener('keyup', (event) => {
-        if (event.target.value.length) {
-           console.log(subCategoriesData.data.categories);
+        if (event.target.value.length) { 
             let filteredResult = subCategoriesData.data.categories.filter(subCategory => subCategory.title.includes(event.target.value))
             searchResultContainer.classList.add('active')
             removeIcon.classList.add('active')
             if (filteredResult.length) {
-                searchResultContainer.innerHTML = '' 
+                searchResultContainer.innerHTML = ''
                 filteredResult.map(result => {
                     searchResultContainer.insertAdjacentHTML("beforeend", ` 
                         <a href="/pages/new/registerPost.html?subCategoryId=${result._id}" class="search-result">
@@ -129,8 +130,6 @@ window.addEventListener('load', async () => {
         searchInput.value = ''
         searchResultContainer.classList.remove('active')
         removeIcon.classList.remove('active')
-
     })
-
 
 })
