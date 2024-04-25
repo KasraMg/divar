@@ -34,9 +34,17 @@ const showPannelLinksToUser = async () => {
                                <span>کاربر دیوار </span>
                                <p> تلفن ${data.phone}</p> 
                                </div>
-                            </a>
-                          
+                            </a> 
                         </li>
+                        ${data.role === 'ADMIN' ? (
+                        `
+                       <li class="header__left-dropdown-item header_dropdown-item_account">
+                         <a href="/pages/adminPanel/dashboard.html" class="header__left-dropdown-link">
+                            <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
+                            پنل ادمین  
+                          </a>
+                      </li>
+                       `): ""}
                         <li class="header__left-dropdown-item">
                         <a class="header__left-dropdown-link" href="/pages/userPanel/verify.html">
                             <i class="header__left-dropdown-icon bi bi-bookmark"></i>
@@ -112,7 +120,7 @@ const getAndShowArticleCategories = async () => {
     return categories
 }
 
-const getAndShowPosts = async (cityIds) => { 
+const getAndShowPosts = async (cityIds) => {
     const categoryId = getUrlParam('categoryId');
     const searchValue = getUrlParam('value')
 
@@ -124,20 +132,20 @@ const getAndShowPosts = async (cityIds) => {
         url += `&search=${searchValue};`
     }
     const res = await fetch(url);
-    const data = await res.json(); 
+    const data = await res.json();
     return data.data.posts;
 };
 
 const getAllCitiesHandler = async () => {
     const res = await fetch(`${baseUrl}/v1/location/`);
-    const data = await res.json(); 
+    const data = await res.json();
     return data.data
 }
 
 const getAndShowHeaderCityTitle = () => {
     const headerCityModalTitle = document.querySelector('#header-city-title')
     const cities = getFromLocalStorage('cities')
-    const newCities = cities.filter(city=>city.id !== 0)
+    const newCities = cities?.filter(city => city.id !== 0)
     if (headerCityModalTitle) {
         if (!newCities) {
             saveIntoLocalStorage('cities', [{ title: 'تهران', id: 301 }])
@@ -168,7 +176,7 @@ const getPostDetails = async () => {
     if (token) {
         headers.Authorization = `Bearer ${token}`;
     }
-    const res = await fetch(`${baseUrl}/v1/post/${postId}`, { 
+    const res = await fetch(`${baseUrl}/v1/post/${postId}`, {
         headers
     })
     const data = await res.json()

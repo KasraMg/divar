@@ -1,7 +1,11 @@
-ClassicEditor
-.create( document.querySelector( '#editor' ) )
-.catch( error => {
-    console.error( error );
-} );
+ 
+
+window.addEventListener('load',()=>{
+    ClassicEditor
+    .create(document.querySelector('#editor'))
+    .catch(error => {
+        console.error(error);
+    });
 
  
+})

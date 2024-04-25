@@ -38,7 +38,9 @@ window.addEventListener('load', async () => {
         for (const postId of recentSeen) {
             const res = await fetch(`${baseUrl}/v1/post/${postId}`);
             const data = await res.json();
-            posts.push(data.data.post);
+            if (data.post) {
+                posts.push(data.data.post);
+            } 
         }
         postGenerator();
     }

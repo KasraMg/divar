@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
 
     const postsContainer = document.querySelector('#posts-container')
     const emptyContainer = document.querySelector('.empty')
-  
+
     fetch(`${baseUrl}/v1/user/posts`, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -40,13 +40,13 @@ src="${baseUrl}/${post.pics[0].path}"
                         <p>وضعیت آگهی: </p>
                         ${post.status == 'published' ? (
                             `  <p class="publish">منتشر شده</p>`
-                        ): ''}
+                        ) : ''}
                         ${post.status == 'rejected' ? (
                             ` <p class="reject">رد شده</p>`
-                        ): ''}
+                        ) : ''}
                         ${post.status == 'pending' ? (
                             `<p class="pending">در صف انتشار</p>`
-                        ): ''}
+                        ) : ''}
                         
                     </div>
                     <button class="controll-btn">مدیریت اگهی</button>
@@ -64,6 +64,5 @@ src="${baseUrl}/${post.pics[0].path}"
         })
 })
 
- 
 
- 
+

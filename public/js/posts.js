@@ -6,7 +6,7 @@ window.addEventListener('load', async () => {
     const cityParam = getUrlParam('city');
     const searchValue = getUrlParam('value');
     const cities = getFromLocalStorage('cities')
-    let cityIds = cities.map(obj => obj.id).join('|');
+    let cityIds = cities?.map(obj => obj.id).join('|');
 
     let posts = null;
     let backupPosts = null;
