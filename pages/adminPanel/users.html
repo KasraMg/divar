@@ -62,56 +62,18 @@
                 </div>
               
                 <section>
-                    <table class="table">
-                        <tr>
-                            <th>کاربر</th>
-                            <th>تعداد آگهی</th>
-                            <th>نقش</th>
-                            <th>تغییر نقش</th>
-                            <th>بن</th>
-                        </tr>
-                        <tr>
-                          <td> 09046417084</td>
-                            <td>2</td>
-                            <td>ادمین</td>
-                            <td><button class="edit-btn">ویرایش</button></td>
-                            <td><button class="delete-btn">بن</button></td>
-                        </tr>
-                        <tr>
-                          <td> 09046417084</td>
-                            <td>2</td>
-                            <td>کاربر</td>
-                            <td><button class="edit-btn">ویرایش</button></td>
-                            <td><button class="delete-btn">بن</button></td>
-                        </tr>
-                        <tr>
-                          <td> 09046417084</td>
-                            <td>2</td>
-                            <td>کاربر</td>
-                            <td><button class="edit-btn">ویرایش</button></td>
-                            <td><button class="delete-btn">بن</button></td>
-                        </tr>
-                        <tr>
-                          <td> 09046417084</td>
-                            <td>2</td>
-                            <td>کاربر</td>
-                            <td><button class="edit-btn">ویرایش</button></td>
-                            <td><button class="delete-btn">بن</button></td>
-                        </tr>
-                        <tr>
-                          <td> 09046417084</td>
-                            <td>2</td>
-                            <td>ادمین</td>
-                            <td><button class="edit-btn">ویرایش</button></td>
-                            <td><button class="delete-btn">بن</button></td>
-                        </tr>
-                        
-                        
-                    </table>
+                    <table class="table" id="users-table"></table>
                 </section>
             </div>
         </div>
+
+        
+        <div id="loading-container">
+            <div id="loading"></div>
+        </div>
+
         <script src="/public/js/adminPanel/shared.js" type="module"></script>
+        <script src="/public/js/adminPanel/users.js" type="module"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </body>
 </html>

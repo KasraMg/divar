@@ -5,7 +5,11 @@ window.addEventListener('load', () => {
     const token = getToken()
     const genaratePosts = async () => {
         const postsTable = document.querySelector('#posts-table')
-        const res = await fetch(`${baseUrl}/v1/post/all`)
+        const res = await fetch(`${baseUrl}/v1/post/all`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
         const data = await res.json()
         postsTable.innerHTML = ''
         postsTable.insertAdjacentHTML("beforeend", `
