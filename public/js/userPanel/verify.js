@@ -8,10 +8,11 @@ window.addEventListener('load', () => {
     const verifyBtn = document.querySelector('#verify-btn')
     const verifyError = document.querySelector('#verify-error')
     const verifyContainer = document.querySelector('#verify-container')
-
+    const loading = document.querySelector('#loading-container')
     const token = getToken()
 
     getMe().then(data => { 
+        loading.style.display = 'none'
         if (data.verified) {
             verifyContainer.innerHTML = ''
             verifyContainer.insertAdjacentHTML('beforeend', `
@@ -30,6 +31,7 @@ window.addEventListener('load', () => {
         const NationalCodeRegexResult = NationalCodeRegex.test(verifyInput.value)
         console.log(NationalCodeRegexResult);
         if (NationalCodeRegexResult) {
+            loading.style.display = 'block'
             verifyError.style.display = 'none'
             fetch(`${baseUrl}/v1/user/identity`, {
                 method: 'POST',
@@ -38,8 +40,8 @@ window.addEventListener('load', () => {
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({ nationalCode: verifyInput.value })
-            }).then(res => {
-                console.log(res);
+            }).then(res => { 
+                loading.style.display = 'none'
                 if (res.status == 400) {
                     verifyError.style.display = 'flex'
                 } else if (res.status == 200) {

@@ -3,7 +3,7 @@ import { baseUrl, getToken, showSwal } from "../../../utlis/utils.js"
 window.addEventListener('load', () => {
 
     const token = getToken()
-    const genaratePosts = async () => {
+    const postsGenerator = async () => {
         const postsTable = document.querySelector('#posts-table')
         const res = await fetch(`${baseUrl}/v1/post/all`,{
             headers: {
@@ -43,7 +43,7 @@ window.addEventListener('load', () => {
         )).join('')}
 `)
     }
-    genaratePosts()
+    postsGenerator()
     window.deletePostHandler = (postId) => {
         showSwal('آیا از حذف آگهی اطمینان دارید؟', 'warning', ['خیر ', 'بله'], (res) => {
             if (res) {
@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
                 }).then(res => {
                     console.log(res);
                     if (res.status === 200) {
-                        genaratePosts()
+                        postsGenerator()
                     }
                 })
             }
@@ -76,7 +76,7 @@ window.addEventListener('load', () => {
                 }).then(res => {
                     console.log(res)
                     if (res.status === 200) {
-                        genaratePosts()
+                        postsGenerator()
                     }
                 })
 
@@ -99,7 +99,7 @@ window.addEventListener('load', () => {
                 }).then(res => {
                     console.log(res)
                     if (res.status === 200) {
-                        genaratePosts()
+                        postsGenerator()
                     }
                 })
 

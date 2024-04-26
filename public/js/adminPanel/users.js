@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
     const usersTable = document.querySelector('#users-table')
     const loading = document.querySelector('#loading-container')
 
-    const genarateUsers = async () => {
+    const usersGenerator = async () => {
         const res = await fetch(`${baseUrl}/v1/users`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -38,7 +38,7 @@ window.addEventListener('load', () => {
         `)
         ))
     }
-    genarateUsers()
+    usersGenerator()
 
     window.changeRoleHandler = (userId, userRole) => {
         showSwal('آیا از تغییر سطح کاربر اطمینان دارید؟', 'warning', ['خیر', 'بله'], (res) => {
@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
                     body: JSON.stringify(newRole)
                 }).then(res => {
                     console.log(res);
-                    genarateUsers()
+                    usersGenerator()
                 })
             }
         })
@@ -70,7 +70,7 @@ window.addEventListener('load', () => {
                     },
                 }).then(res => {
                     console.log(res);
-                    genarateUsers()
+                    usersGenerator()
                 })
             }
         })

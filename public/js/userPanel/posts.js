@@ -1,34 +1,37 @@
 import { baseUrl, calculateTimeDifference, getToken } from "../../../utlis/utils.js"
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     const token = getToken()
 
     const postsContainer = document.querySelector('#posts-container')
     const emptyContainer = document.querySelector('.empty')
+    const loading = document.querySelector('#loading-container')
 
-    fetch(`${baseUrl}/v1/user/posts`, {
+    const res = await fetch(`${baseUrl}/v1/user/posts`, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
-    }).then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if (data.data.posts.length) {
-                data.data.posts.map(post => {
-                    const date = calculateTimeDifference(post.createdAt)
-                    console.log(date);
-                    postsContainer.insertAdjacentHTML('beforeend', `
+    })
+
+    const data = await res.json()
+ 
+    loading.style.display = 'none'
+    if (data.data.posts.length) {
+        data.data.posts.map(post => {
+            const date = calculateTimeDifference(post.createdAt)
+            console.log(date);
+            postsContainer.insertAdjacentHTML('beforeend', `
                 <a href="/pages/userPanel/posts/preview.html?id=${post._id}" class="post">
 
  
                 <div class="post-info">
                 ${post.pics.length ? (
-                            ` <img
+                    ` <img
 src="${baseUrl}/${post.pics[0].path}"
     alt>`
-                        ) : (
-                            '<img src="/public/images/main/noPicture.PNG">'
-                        )} 
+                ) : (
+                    '<img src="/public/images/main/noPicture.PNG">'
+                )} 
                     <div>
                         <p class="title">${post.title}</p> 
                         <p class="price">${post.price.toLocaleString()} تومان</p> 
@@ -39,14 +42,14 @@ src="${baseUrl}/${post.pics[0].path}"
                     <div>
                         <p>وضعیت آگهی: </p>
                         ${post.status == 'published' ? (
-                            `  <p class="publish">منتشر شده</p>`
-                        ) : ''}
+                    `  <p class="publish">منتشر شده</p>`
+                ) : ''}
                         ${post.status == 'rejected' ? (
-                            ` <p class="reject">رد شده</p>`
-                        ) : ''}
+                    ` <p class="reject">رد شده</p>`
+                ) : ''}
                         ${post.status == 'pending' ? (
-                            `<p class="pending">در صف انتشار</p>`
-                        ) : ''}
+                    `<p class="pending">در صف انتشار</p>`
+                ) : ''}
                         
                     </div>
                     <button class="controll-btn">مدیریت اگهی</button>
@@ -56,12 +59,12 @@ src="${baseUrl}/${post.pics[0].path}"
  
             </a>
                 `)
-                })
-
-            } else {
-                emptyContainer.style.display = 'flex'
-            }
         })
+
+    } else {
+        emptyContainer.style.display = 'flex'
+    }
+
 })
 
 

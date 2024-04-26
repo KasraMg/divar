@@ -170,6 +170,7 @@ window.addEventListener('load', async() => {
         if (data.note) {
             noteTextarea.value = data.note.content
             noteId = data.note._id
+            noteTrashIcon.style.display = 'block'
         }
         if (userLogin) {
             noteTextarea.addEventListener('keyup', (event) => {
@@ -218,6 +219,16 @@ window.addEventListener('load', async() => {
             noteTrashIcon.addEventListener('click', () => {
                 noteTextarea.value = ''
                 noteTrashIcon.style.display = 'none'
+                fetch(`${baseUrl}/v1/note/${noteId}`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ content: "" })
+                }).then(res => {
+                    console.log(res);
+                })
             })
         } else {
             noteTextarea.addEventListener('keydown', (event) => {

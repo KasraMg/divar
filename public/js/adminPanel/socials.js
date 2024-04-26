@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
 
     let socialData = null;
 
-    const generateSocials = async () => {
+    const socialsGenerator = async () => {
         loading.style.display = 'none'
         const res = await fetch(`${baseUrl}/v1/social/`);
         const data = await res.json();
@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
         })
 
     }
-    generateSocials()
+    socialsGenerator()
 
 
     window.generateModal = (socialId) => {
@@ -69,7 +69,7 @@ window.addEventListener('load', () => {
                     body: formData
                 }).then(res => {
                     console.log(res);
-                    generateSocials()
+                    socialsGenerator()
                     editModal.classList.remove('active')
                 })
             } else {
@@ -100,7 +100,7 @@ window.addEventListener('load', () => {
                 }).then(res => {
                     console.log(res);
                     if (res.status === 200) {
-                        generateSocials()
+                        socialsGenerator()
                     }
                 })
             }
@@ -119,7 +119,7 @@ window.addEventListener('load', () => {
                 },
                 body: formData
             }).then(() => {
-                generateSocials()
+                socialsGenerator()
             })
         } else {
             swal({

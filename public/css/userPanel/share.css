@@ -128,3 +128,10 @@ white-space: nowrap;
     display: flex;
     gap: 5px;
 }
+
+#loading-container{
+    top: 0 !important;
+}
+#loading {
+    margin-top: 330px;
+}

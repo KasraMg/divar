@@ -4,6 +4,8 @@ window.addEventListener('load', async () => {
     let recentSeen = getFromLocalStorage('recent-seen')
     const postsContainer = document.querySelector('#posts-container')
     const emptyContainer = document.querySelector('.empty')
+    const loading = document.querySelector('#loading-container')
+
     let posts = []
 
     const postGenerator = () => {
@@ -42,13 +44,15 @@ window.addEventListener('load', async () => {
                 posts.push(data.data.post);
             } 
         }
+     
         postGenerator();
     }
     else {
         postsContainer.innerHTML = ''
         emptyContainer.style.display = 'flex'
     }
-
+    loading.style.display = 'none'
+    
     window.sharePostHandler = async function (postId, postTitle) {
         await navigator.share({ title: postTitle, url: `/post.html?id=${postId}` });
     }
