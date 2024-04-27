@@ -298,7 +298,7 @@ window.addEventListener('load', async () => {
                 fetch(`${baseUrl}/v1/post/${postId}`, {
                     method: 'DELETE',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token}/xbox`
                     }
                 }).then(res => {
                     if (res.status == 200) {
@@ -306,7 +306,7 @@ window.addEventListener('load', async () => {
                         showSwal('آگهی با موفقیت حذف شد', "success", 'حله', () => location.href = "/pages/posts.html")
                     }
                 })
-            }
+            } 
         })
 
     })

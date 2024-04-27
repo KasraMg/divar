@@ -12,25 +12,26 @@ window.addEventListener('load', () => {
     let socialData = null;
 
     const socialsGenerator = async () => {
-        loading.style.display = 'none'
         const res = await fetch(`${baseUrl}/v1/social/`);
         const data = await res.json();
+        console.log(data);
+        loading.style.display = 'none'
         socialData = data.data.socials
         const socialTable = document.querySelector('.social-table')
         socialTable.innerHTML = ""
         data.data.socials.map(social => {
             socialTable.insertAdjacentHTML('beforeend', `
         <tr>
-            <th>نام مدیا </th>
-            <th>لینک مدیا </th>
-            <th>آیکون مدیا</th>  
-            <th>ویرایش مدیا</th>  
-            <th>حذف مدیا  </th>
+            <th>نام شبکه </th>
+            <th>لینک شبکه </th>
+            <th>آیکون شبکه</th>  
+            <th>ویرایش شبکه</th>  
+            <th>حذف شبکه</th>
         </tr>
           <tr>
                <td>${social.name}</td> 
                <td>${social.link}</td> 
-                <td id="social-icon-container-${social._id}"><img height="30px" src="${social.icon}"></img></td> 
+                <td><img height="30px" src="${baseUrl}/${social.icon.path}" /></td>  
                 <td><button onclick="generateModal('${social._id}')" class="edit-btn">ویرایش</button></td>  
                 <td><button onclick="deleteSocialHandler('${social._id}')" class="edit-btn">حذف</button></td>  
             </tr>
@@ -43,24 +44,23 @@ window.addEventListener('load', () => {
 
 
     window.generateModal = (socialId) => {
-        const socialName = document.querySelector('#social-name')
-        const socialLink = document.querySelector('#social-link')
-        const socialIcon = document.querySelector('#social-icon')
+        const nameEditInput = document.querySelector('#name-edit-input')
+        const linkEditInput = document.querySelector('#link-edit-input')
+        const iconEditInput = document.querySelector('#icon-edit-input')
         const editBtn = document.querySelector('#edit-btn')
         const editModal = document.querySelector('#edit-modal')
-        const editModalIcon = document.querySelector('.close-modal-icon') 
-        editModal.classList.add('active') 
+        const editModalIcon = document.querySelector('.close-modal-icon')
+        editModal.classList.add('active')
         const social = socialData.find(social => social._id == socialId)
-        socialName.value = social.name
-        socialLink.value = social.link
+        nameEditInput.value = social.name
+        linkEditInput.value = social.link
 
-        editBtn.addEventListener('click', () => {
-            console.log(socialIcon.files[0]);
-            if (socialName.value && socialLink.value) {
+        editBtn.addEventListener('click', () => { 
+            if (nameEditInput.value && linkEditInput.value) {
                 const formData = new FormData()
-                formData.append('name', socialName.value)
-                formData.append('link', socialLink.value)
-                formData.append('icon', socialIcon.files[0])
+                formData.append('name', nameEditInput.value)
+                formData.append('link', linkEditInput.value)
+                formData.append('icon', iconEditInput.files[0])
                 fetch(`${baseUrl}/v1/social/${socialId}`, {
                     method: 'PUT',
                     headers: {
@@ -68,16 +68,14 @@ window.addEventListener('load', () => {
                     },
                     body: formData
                 }).then(res => {
-                    console.log(res);
-                    socialsGenerator()
-                    editModal.classList.remove('active')
+                    if (res.status === 200) {
+                        socialsGenerator()
+                        showSwal('شبکه اجتماعی با موفقیت ادیت شد', 'success', 'اوکی', () => null)
+                        editModal.classList.remove('active')
+                    }
                 })
-            } else {
-                swal({
-                    title: 'لطفا همه فیلدا رو وارد کنید',
-                    icon: 'error',
-                    button: 'اوکی'
-                })
+            } else { 
+                showSwal( 'لطفا همه فیلدا رو وارد کنید', 'error', 'اوکی', () => null)
             }
 
         })
@@ -86,47 +84,47 @@ window.addEventListener('load', () => {
     }
 
     window.deleteSocialHandler = (socialId) => {
-        swal({
-            title: 'آیا از حذف شبکه اجتماعی اطمینان دارید؟',
-            icon: 'warning',
-            buttons: ['خیر', 'آره']
-        }).then(res => {
+        showSwal( 'آیا از حذف شبکه اجتماعی اطمینان دارید؟', 'warning',['خیر', 'آره'], (res) => {
             if (res) {
-                fetch(`${baseUrl}/v1/social/${socialId}`, {
+                fetch(`${baseUrl}/v1/social/${socialId}/xbox`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }).then(res => {
-                    console.log(res);
                     if (res.status === 200) {
                         socialsGenerator()
+                        showSwal('شبکه اجتماعی با موفقیت حذف شد', 'success', 'اوکی', () => null)
                     }
                 })
-            }
-        })
+            }  
+        }) 
+         
     }
-    createSocialBtn.addEventListener('click', () => {
+    createSocialBtn.addEventListener('click', async () => {
         if (titleInput.value.length && linkInput.value.length && iconInput.value.length) {
             const formData = new FormData();
             formData.append("name", titleInput.value);
             formData.append("link", linkInput.value);
             formData.append("icon", iconInput.files[0]);
-            fetch(`${baseUrl}/v1/social/`, {
+            const res = await fetch(`${baseUrl}/v1/social/`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
                 body: formData
-            }).then(() => {
+            })
+            const data = await res.json()
+            if (data.status === 201) {
                 socialsGenerator()
-            })
+                showSwal('شبکه اجتماعی با موفقیت اضافه شد', 'success', 'اوکی', () => {
+                    titleInput.value = ''
+                    linkInput.value = ''
+                    iconInput.value = ''
+                })
+            }
         } else {
-            swal({
-                title: 'لطفا همه فیلد هارو پر کنید',
-                icon: 'error',
-                button: 'اوکی'
-            })
+            showSwal( 'لطفا همه فیلدا رو وارد کنید', 'error', 'اوکی', () => null)
         }
     })
 

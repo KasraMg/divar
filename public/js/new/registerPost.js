@@ -24,9 +24,9 @@ window.addEventListener('load', async () => {
     let dynamicFieldsData = {}
 
 
-    const subCategoryDetails = data.data.categories.find(category => category._id == subCategoryId) 
-    subCategoryTitle.innerHTML = subCategoryDetails.title 
- 
+    const subCategoryDetails = data.data.categories.find(category => category._id == subCategoryId)
+    subCategoryTitle.innerHTML = subCategoryDetails.title
+
     // map
     let markerIcon = null;
     let iconStatus = true;
@@ -50,7 +50,7 @@ window.addEventListener('load', async () => {
             iconStatus = false
         } else {
             markerIcon = firstIcon;
-            mapMarker.setIcon(markerIcon); 
+            mapMarker.setIcon(markerIcon);
             iconStatus = true
         }
     });
@@ -117,7 +117,7 @@ window.addEventListener('load', async () => {
     })
 
     window.fieldChangeHandler = function (slug, data) {
-        dynamicFieldsData[slug] = data; 
+        dynamicFieldsData[slug] = data;
     }
 
     subCategoryDetails.productFields.forEach(item => {
@@ -125,7 +125,7 @@ window.addEventListener('load', async () => {
             dynamicFieldsData[item.slug] = false;
         } else {
             dynamicFieldsData[item.slug] = item.data;
-        } 
+        }
     });
 
     uploader.addEventListener('change', (event) => {
@@ -219,8 +219,7 @@ window.addEventListener('load', async () => {
 
     })
 
-    registerBtn.addEventListener('click', async () => {  
-        console.log(neighborhoodSelectbox.value);
+    registerBtn.addEventListener('click', () => {
         let allFieldsFilled = null;
         for (const key in dynamicFieldsData) {
             if (dynamicFieldsData.hasOwnProperty(key) && (typeof dynamicFieldsData[key] === 'undefined' || dynamicFieldsData[key] === '')) {
@@ -248,22 +247,23 @@ window.addEventListener('load', async () => {
             pics?.map(pic => {
                 formData.append("pics", pic);
             })
-            const res = await fetch(`${baseUrl}/v1/post/${subCategoryId}`, {
+            fetch(`${baseUrl}/v1/post/${subCategoryId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
                 body: formData
+            }).then(res => res.json()).then(data => {
+                if (data.status === 201) {
+                    loading.style.display = 'none'
+                    showSwal('آگهی با موفقیت در صف انتشار قرار گرفت.', 'success', 'حله', (res) => {
+                        if (res) {
+                            location.href = `/pages/userPanel/posts/preview.html?id=${data.data.post._id}`
+                        }
+                    })
+                }
             })
-            const data = await res.json()
-            loading.style.display = 'none'
-            if (data.status === 201) {
-                showSwal('آگهی با موفقیت در صف انتشار قرار گرفت.', 'success', 'حله', (res) => {
-                    if (res) {
-                        location.href = `/pages/userPanel/posts/preview.html?id=${data.data.post._id}`
-                    }
-                })
-            }
+
         }
     })
 

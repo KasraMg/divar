@@ -8,10 +8,10 @@ const getAndShowSocialMedia = async () => {
     const SocialMediaContainer = document.querySelector('#footer__social-media')
     const res = await fetch(`${baseUrl}/v1/social/`);
     const social = await res.json();
-    social.data.socials.map(data => {
+    social.data.socials.map(data => { 
         SocialMediaContainer?.insertAdjacentHTML("beforeend", `
         <a class="sidebar__icon-link" href="${data.link}">
-        <img width="18px" height="18px" src="${data.icon}" class="sidebar__icon bi bi-twitter"></img>
+        <img width="18px" height="18px" src="${baseUrl}/${data.icon.path}" class="sidebar__icon bi bi-twitter"></img>
         </a>
         `)
     })

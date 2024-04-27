@@ -49,12 +49,11 @@ window.addEventListener('load', () => {
     }
     postsGenerator()
 
-
     window.removeNoteHandler = function (noteId) {
         showSwal('از حذف نشان آگهی مطمئنید؟', 'success', ["خیر", "بله"], (result) => {
             if (result) {
                 loading.style.display = 'block'
-                fetch(`${baseUrl}/v1/note/${noteId}`, {
+                fetch(`${baseUrl}/v1/note/${noteId}/xbox`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${token}`

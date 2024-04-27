@@ -14,12 +14,13 @@ window.addEventListener('load', () => {
         })
         const data = await res.json()
         loading.style.display = 'none'
-
+        console.log(data);
         usersTable.innerHTML = ''
         usersTable.insertAdjacentHTML('beforeend', `
         <tr>
               <th>کاربر</th>
               <th>تعداد آگهی</th>
+              <th>هویت</th>
               <th>نقش</th>
               <th>تغییر نقش</th>
               <th>بن</th>
@@ -30,7 +31,8 @@ window.addEventListener('load', () => {
             usersTable.insertAdjacentHTML('beforeend', `
       <tr>
         <td>${user.phone}</td>
-        <td>2</td>
+        <td>${user.postsCount}</td>
+        <td>${user.verified ? 'تایید شده ' : 'تایید نشده '}</td>
         <td>${user.role !== "USER" ? 'ادمین' : 'کاربر'}</td>
         <td><button onclick="changeRoleHandler('${user._id}','${user.role}')" class="edit-btn">تغییر</button></td>
         <td><button onclick="banUserHandler('${user._id}')" class="delete-btn">بن</button></td>
@@ -55,6 +57,9 @@ window.addEventListener('load', () => {
                     body: JSON.stringify(newRole)
                 }).then(res => {
                     console.log(res);
+                    if (res.status === 200) {
+                        showSwal('سطح کاربر با موفقیت عوض شد', 'success', 'بله', () => null)
+                    }
                     usersGenerator()
                 })
             }
@@ -63,13 +68,13 @@ window.addEventListener('load', () => {
     window.banUserHandler = (userId) => {
         showSwal('آیا از بن کاربر اطمینان دارید؟', 'warning', ['خیر', 'بله'], (res) => {
             if (res) {
-                fetch(`${baseUrl}/v1/users/ban/${userId}`, {
+                fetch(`${baseUrl}/v1/users/ban/${userId}/xbox`, {
                     method: 'POST',
                     headers: {
                         Authorization: `Bearer ${token}`
                     },
-                }).then(res => {
-                    console.log(res);
+                }).then(() => {
+                    showSwal(' کاربر با موفقیت بن شد', 'success', 'بله', () => null)
                     usersGenerator()
                 })
             }

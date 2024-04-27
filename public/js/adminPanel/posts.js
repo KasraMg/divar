@@ -1,16 +1,19 @@
 import { baseUrl, getToken, showSwal } from "../../../utlis/utils.js"
 
 window.addEventListener('load', () => {
-
+    const loading = document.querySelector('#loading-container')
     const token = getToken()
     const postsGenerator = async () => {
         const postsTable = document.querySelector('#posts-table')
-        const res = await fetch(`${baseUrl}/v1/post/all`,{
+
+        const res = await fetch(`${baseUrl}/v1/post/all`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
         })
         const data = await res.json()
+        console.log(data);
+        loading.style.display = 'none'
         postsTable.innerHTML = ''
         postsTable.insertAdjacentHTML("beforeend", `
         <tr>
@@ -28,13 +31,13 @@ window.addEventListener('load', () => {
                <td>
                ${post.status == 'published' ? (
                 `  <p class="publish">منتشر شده</p>`
-               ) : ''}
+            ) : ''}
                ${post.status == 'rejected' ? (
                 ` <p class="reject">رد شده</p>`
-               ) : ''}
+            ) : ''}
                ${post.status == 'pending' ? (
                 `<p class="pending">در صف انتشار</p>`
-               ) : ''}</td>
+            ) : ''}</td>
                <td> ${post.status === 'published' || post.status === 'rejected' ? '❌' : `<button  onclick="acceptPostHandler('${post._id}')" class="edit-btn">تایید</button>`}</td>
                <td> ${post.status === 'published' || post.status === 'rejected' ? '❌' : `<button  onclick="rejectPostHandler('${post._id}')" class="edit-btn">رد </button>`}</td>
                <td><button class="delete-btn" onclick="deletePostHandler('${post._id}')">حذف</button></td>
@@ -46,8 +49,8 @@ window.addEventListener('load', () => {
     postsGenerator()
     window.deletePostHandler = (postId) => {
         showSwal('آیا از حذف آگهی اطمینان دارید؟', 'warning', ['خیر ', 'بله'], (res) => {
-            if (res) {
-                fetch(`${baseUrl}/v1/post/${postId}`, {
+            if (res) { 
+                fetch(`${baseUrl}/v1/post/${postId}/xbox`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -56,6 +59,7 @@ window.addEventListener('load', () => {
                     console.log(res);
                     if (res.status === 200) {
                         postsGenerator()
+                        showSwal('آگهی با موفقیت حذف شد', 'success', 'اوکی', () => null)
                     }
                 })
             }
@@ -77,6 +81,7 @@ window.addEventListener('load', () => {
                     console.log(res)
                     if (res.status === 200) {
                         postsGenerator()
+                        showSwal('آگهی با موفقیت تایید شد', 'success', 'اوکی', () => null)
                     }
                 })
 
@@ -87,8 +92,7 @@ window.addEventListener('load', () => {
     }
     window.rejectPostHandler = (postId) => {
         showSwal('آیا از رد آگهی اطمینان دارید؟', 'warning', ['خیر ', 'بله'], (res) => {
-            if (res) {
-
+            if (res) { 
                 fetch(`${baseUrl}/v1/post/${postId}/status`, {
                     method: 'PUT',
                     headers: {
@@ -100,6 +104,7 @@ window.addEventListener('load', () => {
                     console.log(res)
                     if (res.status === 200) {
                         postsGenerator()
+                        showSwal('آگهی با موفقیت رد شد', 'success', 'اوکی', () => null)
                     }
                 })
 

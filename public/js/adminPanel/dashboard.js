@@ -25,7 +25,7 @@ window.addEventListener('load', async () => {
                  <tr>
                     <td>${user.phone}</td>
                     <td>${user.verified ? 'تایید شده ' : 'تایید نشده '}</td>
-                    <td>2</td>
+                    <td>${user.postsCount}</td>
                 </tr>
         `)
     ))

@@ -94,7 +94,7 @@ window.addEventListener('load', async() => {
             const id = getUrlParam('id')
             if (userLogin) {
                 if (bookmarkStatus) {
-                    fetch(`${baseUrl}/v1/bookmark/${id}`, {
+                    fetch(`${baseUrl}/v1/bookmark/${id}/xbox`, {
                         method: 'DELETE',
                         headers: {
                             "Content-Type": "application/json",

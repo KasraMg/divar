@@ -64,7 +64,7 @@ window.addEventListener('load', () => {
         showSwal('از حذف نشان آگهی مطمئنید؟', 'success', ["خیر", "بله"], (result) => {
             if (result) {
                 loading.style.display = 'block'
-                fetch(`${baseUrl}/v1/bookmark/${postId}`, {
+                fetch(`${baseUrl}/v1/bookmark/${postId}/xbox`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${token}`
