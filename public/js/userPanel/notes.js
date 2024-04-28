@@ -1,6 +1,6 @@
 
 
-import { baseUrl, calculateTimeDifference, getToken, showSwal } from "../../../utlis/utils.js"
+import { baseUrl, calculateTimeDifference, getToken, getUrlParam, paginateItems, showSwal } from "../../../utlis/utils.js"
 
 window.addEventListener('load', () => {
     const token = getToken()
@@ -8,10 +8,14 @@ window.addEventListener('load', () => {
     const postsContainer = document.querySelector('#posts-container')
     const emptyContainer = document.querySelector('.empty')
     const loading = document.querySelector('#loading-container')
+    const paginateParentElem = document.querySelector('.pagination-items')
+    let page = getUrlParam('page')
+    !page ? page = 1 : null
+
 
 
     const postsGenerator = async () => {
-        const res = await fetch(`${baseUrl}/v1/user/notes`, {
+        const res = await fetch(`${baseUrl}/v1/user/notes?page=${page}&limit=3`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -41,7 +45,8 @@ window.addEventListener('load', () => {
         <i  onclick="removeNoteHandler('${post.note._id}')" class="bi bi-trash"></i>
     </div>  
         `)
-            })
+            }) 
+            paginateItems('/pages/userPanel/notes.html', paginateParentElem, page, data.data.pagination.totalPosts, 3)
         } else {
             emptyContainer.style.display = 'flex'
         }

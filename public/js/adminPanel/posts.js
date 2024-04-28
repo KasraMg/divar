@@ -1,4 +1,4 @@
-import { baseUrl, getFromLocalStorage, getToken, getUrlParam, saveIntoLocalStorage, showSwal } from "../../../utlis/utils.js"
+import { baseUrl, getFromLocalStorage, getToken, getUrlParam, paginateItems, saveIntoLocalStorage, showSwal } from "../../../utlis/utils.js"
 
 window.addEventListener('load', () => {
     const loading = document.querySelector('#loading-container')
@@ -47,31 +47,8 @@ window.addEventListener('load', () => {
            </tr>
            `
         )).join('')}
-        `)
-
-
-        paginateParentElem.innerHTML = ''
-        let paginatedCount = Math.ceil(data.data.pagination.totalPosts / 5)
-
-        for (let i = 1; i < paginatedCount + 1; i++) {
-            paginateParentElem.insertAdjacentHTML('beforeend', `
-            ${i === Number(page) ? `
-            <li class="active">
-            <a href="/pages/adminPanel/posts.html?page=${i}">
-                     ${i}
-             </a>
-            </li>
-       `: `
-           <li>
-            <a href="/pages/adminPanel/posts.html?page=${i}">
-                    ${i}
-            </a>
-            </li>
-       ` }
-          
-            
-          `)
-        }
+        `) 
+        paginateItems('/pages/adminPanel/posts.html', paginateParentElem, page, data.data.pagination.totalPosts, 5)
     }
     postsGenerator()
     window.deletePostHandler = (postId) => {

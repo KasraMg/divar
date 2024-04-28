@@ -1,4 +1,4 @@
-import { baseUrl, getToken, getUrlParam, showSwal } from "../../../utlis/utils.js"
+import { baseUrl, getToken, getUrlParam, paginateItems, showSwal } from "../../../utlis/utils.js"
 
 
 window.addEventListener('load', () => {
@@ -44,27 +44,7 @@ window.addEventListener('load', () => {
         `)
         ))
 
-        paginateParentElem.innerHTML = ''
-        let paginatedCount = Math.ceil(data.data.pagination.totalUsers / 5)
-        for (let i = 1; i < paginatedCount + 1; i++) {
-            paginateParentElem.insertAdjacentHTML('beforeend', `
-            ${i === Number(page) ? `
-            <li class="active">
-            <a href="/pages/adminPanel/users.html?page=${i}">
-                     ${i}
-             </a>
-            </li>
-       `: `
-           <li>
-            <a href="/pages/adminPanel/users.html?page=${i}">
-                    ${i}
-            </a>
-            </li>
-       ` }
-          
-            
-          `)
-        }
+        paginateItems('/pages/adminPanel/users.html', paginateParentElem, page, data.data.pagination.totalUsers, 5)
     }
     usersGenerator()
 

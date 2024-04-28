@@ -1,20 +1,25 @@
-import { baseUrl, calculateTimeDifference, getToken } from "../../../utlis/utils.js"
+import { baseUrl, calculateTimeDifference, getToken, getUrlParam, paginateItems } from "../../../utlis/utils.js"
 
 window.addEventListener('load', async () => {
     const token = getToken()
+    let page = getUrlParam('page')
+    !page ? page = 1 : null
 
     const postsContainer = document.querySelector('#posts-container')
     const emptyContainer = document.querySelector('.empty')
     const loading = document.querySelector('#loading-container')
+    const paginateParentElem = document.querySelector('.pagination-items')
 
-    const res = await fetch(`${baseUrl}/v1/user/posts`, {
+    const res = await fetch(`${baseUrl}/v1/user/posts?page=${page}&limit=3`, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
     })
 
     const data = await res.json()
- 
+
+
+
     loading.style.display = 'none'
     if (data.data.posts.length) {
         data.data.posts.map(post => {
@@ -27,8 +32,8 @@ window.addEventListener('load', async () => {
                 <div class="post-info">
                 ${post.pics.length ? (
                     ` <img
-src="${baseUrl}/${post.pics[0].path}"
-    alt>`
+                        src="${baseUrl}/${post.pics[0].path}"
+                         alt="pic">`
                 ) : (
                     '<img src="/public/images/main/noPicture.PNG">'
                 )} 
@@ -59,7 +64,8 @@ src="${baseUrl}/${post.pics[0].path}"
  
             </a>
                 `)
-        })
+        }) 
+        paginateItems('/pages/userPanel/posts.html', paginateParentElem, page, data.data.pagination.totalPosts, 3)
 
     } else {
         emptyContainer.style.display = 'flex'

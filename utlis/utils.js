@@ -92,32 +92,26 @@ const hideModal = (id, className) => {
   element?.classList.remove(`${className}`)
 };
 
-const paginateItems = (array, itemsPerPage, paginateParentElem, currentPage) => {
+const paginateItems = (href, paginateParentElem, currentPag, totalItems, itemsPerPage) => {
   paginateParentElem.innerHTML = ''
-  let endIndex = itemsPerPage * currentPage
-  let startIndex = endIndex - itemsPerPage
-  let paginatedItems = array.slice(startIndex, endIndex)
-  let paginatedCount = Math.ceil(array.length / itemsPerPage)
-
-  for(let i = 1 ; i < paginatedCount + 1 ; i++) {
+  let paginatedCount = Math.ceil(totalItems / itemsPerPage)
+  for (let i = 1; i < paginatedCount + 1; i++) {
     paginateParentElem.insertAdjacentHTML('beforeend', `
-        <li class="courses__pagination-item">
-        ${
-          i === Number(currentPage) ? `
-            <a onclick="addParamToUrl('page', ${i})" class="courses__pagination-link courses__pagination-link--active">
-              ${i}
+            ${i === Number(currentPag) ? `
+            <li class="active">
+            <a href="${href}?page=${i}">
+                     ${i}
+             </a>
+            </li>
+       `: `
+           <li>
+            <a href="${href}?page=${i}">
+                    ${i}
             </a>
-          ` : `
-            <a onclick="addParamToUrl('page', ${i})" class="courses__pagination-link">
-              ${i}
-            </a>
-          `
-        }
-         
-        </li>
-    `)
+            </li>
+       ` } 
+          `)
   }
-  return paginatedItems
 }
 export {
   baseUrl,

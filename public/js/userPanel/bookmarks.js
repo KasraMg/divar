@@ -1,4 +1,4 @@
-import { baseUrl, calculateTimeDifference, getToken, showSwal } from "../../../utlis/utils.js"
+import { baseUrl, calculateTimeDifference, getToken, getUrlParam, paginateItems, showSwal } from "../../../utlis/utils.js"
 
 window.addEventListener('load', () => {
     const token = getToken()
@@ -6,21 +6,23 @@ window.addEventListener('load', () => {
     const postsContainer = document.querySelector('#posts-container')
     const emptyContainer = document.querySelector('.empty')
     const loading = document.querySelector('#loading-container')
-    
+    const paginateParentElem = document.querySelector('.pagination-items')
+    let page = getUrlParam('page')
+    !page ? page = 1 : null
 
     const postsGenerator = async () => {
-        const res = await fetch(`${baseUrl}/v1/user/bookmarks`, {
+        const res = await fetch(`${baseUrl}/v1/user/bookmarks?page=${page}&limit=4`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         })
         const data = await res.json()
         loading.style.display = 'none'
-        postsContainer.innerHTML=''
+        postsContainer.innerHTML = ''
         if (data.data.posts.length) {
             data.data.posts.map(post => {
                 const date = calculateTimeDifference(post.createdAt)
-              
+
                 postsContainer.insertAdjacentHTML('beforeend', `
                 <div class="post">
                              <div>
@@ -52,14 +54,15 @@ window.addEventListener('load', () => {
                          </div>
                 `)
             })
+            paginateItems('/pages/userPanel/bookmarks.html', paginateParentElem, page, data.data.pagination.totalPosts, 4)
         } else {
             emptyContainer.style.display = 'flex'
-        } 
+        }
 
     }
 
     postsGenerator()
-  
+
     window.removeBookmarkHandler = function (postId) {
         showSwal('از حذف نشان آگهی مطمئنید؟', 'success', ["خیر", "بله"], (result) => {
             if (result) {
@@ -71,7 +74,7 @@ window.addEventListener('load', () => {
                     }
                 }).then(res => {
                     if (res.status === 200) {
-                        postsGenerator() 
+                        postsGenerator()
                     }
                 }
                 )
@@ -87,4 +90,3 @@ window.addEventListener('load', () => {
 
 })
 
- 
