@@ -10,6 +10,7 @@ window.addEventListener('load', async() => {
     const userLogin = await isLogin()
     const loading = document.querySelector('#loading-container')
     getPostDetails().then(data => {
+        
         loading.style.display='none'
         const resentSeen = getFromLocalStorage('recent-seen')
         const producResentStatus = resentSeen?.some(resent => resent === data._id)
@@ -46,13 +47,12 @@ window.addEventListener('load', async() => {
 
         let bookmarkStatus = null;
         let noteId = null;
-
-        console.log(data); 
+ 
         postTitle.innerHTML = data.title
         document.title = data.title
         console.log(data.neighborhood);
         const date = calculateTimeDifference(data.createdAt)
-        postIntro.innerHTML = `${date} در ${data.city.name} ${data.neighborhood.id !== 0 ? '،' + data.neighborhood.name : ''}`
+        postIntro.innerHTML = `${date} در ${data.city.name} ${data.neighborhood.id !== 0 ? '، ' + data.neighborhood.name : ''}`
 
         postDiscription.innerHTML = data.description
 
@@ -94,7 +94,7 @@ window.addEventListener('load', async() => {
             const id = getUrlParam('id')
             if (userLogin) {
                 if (bookmarkStatus) {
-                    fetch(`${baseUrl}/v1/bookmark/${id}/xbox`, {
+                    fetch(`${baseUrl}/v1/bookmark/${id}`, {
                         method: 'DELETE',
                         headers: {
                             "Content-Type": "application/json",

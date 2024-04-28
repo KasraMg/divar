@@ -281,8 +281,8 @@ window.addEventListener('load', async () => {
     generateDatas(data.data.post)
 
     deletePostBtn.addEventListener('click', () => {
-        let recentSeen = getFromLocalStorage('recent-seen')
-
+        let recentSeen = getFromLocalStorage('recent-seen') 
+      
         showSwal('آیا  از حذف آگهی اطمینان دارید؟', "warning", ['خیر', 'بله'], (res) => {
             if (res) {
                 loading.style.display = 'block'
@@ -295,18 +295,26 @@ window.addEventListener('load', async () => {
                     }
                 }
 
-                fetch(`${baseUrl}/v1/post/${postId}`, {
+                fetch(`${baseUrl}/v1/post/${postId}/xbox`, {
                     method: 'DELETE',
                     headers: {
-                        Authorization: `Bearer ${token}/xbox`
+                        Authorization: `Bearer ${token}`
                     }
                 }).then(res => {
                     if (res.status == 200) {
-                        loading.style.display = 'none'
+                        loading.style.display = 'none' 
+                        if (recentSeen) {
+                            const newRecentId = recentSeen.find(recent => recent !== postId) 
+                            if (newRecentId) {
+                                saveIntoLocalStorage('recent-seen', [newRecentId])
+                            } else {
+                                localStorage.removeItem('recent-seen')
+                            }
+                        } 
                         showSwal('آگهی با موفقیت حذف شد', "success", 'حله', () => location.href = "/pages/posts.html")
                     }
                 })
-            } 
+            }
         })
 
     })

@@ -24,12 +24,12 @@ window.addEventListener('load', async () => {
                     '<img src="/public/images/main/noPicture.PNG">'
                 )}
                      <div>
-                    <a class="title" href>${post.title}</a>
-                    <p> ${date} در شهرک طالقانی</p> 
+                    <a class="title" href="/pages/post.html?id=${post._id}">${post.title}</a>
+                    <p>${date} در ${post.city.name} ${post.neighborhood.id !== 0 ? '، ' + post.neighborhood.name : ''}</p> 
                 </div>
             </div>
             <i onclick="sharePostHandler('${post._id}','${post.title}')" class="bi bi-share"></i>
-            <i  onclick="removeRecentHandler('${post._id}')" class="bi bi-trash"></i>
+            <i onclick="removeRecentHandler('${post._id}')" class="bi bi-trash"></i>
         </div>
         `)
         })
@@ -37,10 +37,10 @@ window.addEventListener('load', async () => {
     }
 
     if (recentSeen) {
-        for (const postId of recentSeen) {
+        for (const postId of recentSeen) { 
             const res = await fetch(`${baseUrl}/v1/post/${postId}`);
-            const data = await res.json();
-            if (data.post) {
+            const data = await res.json(); 
+            if (data.status !== 404) {
                 posts.push(data.data.post);
             } 
         }
@@ -54,7 +54,7 @@ window.addEventListener('load', async () => {
     loading.style.display = 'none'
     
     window.sharePostHandler = async function (postId, postTitle) {
-        await navigator.share({ title: postTitle, url: `/post.html?id=${postId}` });
+        await navigator.share({ title: postTitle, url: `/pages/post.html?id=${postId}` });
     }
     window.removeRecentHandler = function (postId) {
         const newRecentId = recentSeen.filter(recent => recent !== postId)

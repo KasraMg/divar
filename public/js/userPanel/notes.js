@@ -33,8 +33,8 @@ window.addEventListener('load', () => {
                         '<img src="/public/images/main/noPicture.PNG">'
                     )}
             <div>
-                <a class="title" href>${post.title}</a>
-                <p> ${date} در شهرک طالقانی</p>
+                <a class="title" href='/pages/post.html?id=${post._id}'>${post.title}</a>
+                <p>${date} در ${post.city.name} ${post.neighborhood.id !== 0 ? '، ' + post.neighborhood.name : ''}</p>
                 <p>${post.note.content}</p>
             </div>
         </div>

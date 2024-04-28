@@ -8,7 +8,7 @@ const getAndShowSocialMedia = async () => {
     const SocialMediaContainer = document.querySelector('#footer__social-media')
     const res = await fetch(`${baseUrl}/v1/social/`);
     const social = await res.json();
-    social.data.socials.map(data => { 
+    social.data.socials.map(data => {
         SocialMediaContainer?.insertAdjacentHTML("beforeend", `
         <a class="sidebar__icon-link" href="${data.link}">
         <img width="18px" height="18px" src="${baseUrl}/${data.icon.path}" class="sidebar__icon bi bi-twitter"></img>
@@ -24,7 +24,7 @@ const showPannelLinksToUser = async () => {
     const userLogin = await isLogin();
     if (dropDown) {
         if (userLogin) {
-            getMe().then((data) => { 
+            getMe().then((data) => {
                 dropDown.innerHTML = ''
                 dropDown.insertAdjacentHTML('beforeend', ` 
                         <li class="header__left-dropdown-item header_dropdown-item_account">
@@ -44,7 +44,7 @@ const showPannelLinksToUser = async () => {
                             پنل ادمین  
                           </a>
                       </li>
-                       `): ""}
+                       `) : ""}
                         <li class="header__left-dropdown-item">
                         <a class="header__left-dropdown-link" href="/pages/userPanel/verify.html">
                             <i class="header__left-dropdown-icon bi bi-bookmark"></i>
@@ -180,8 +180,11 @@ const getPostDetails = async () => {
         headers
     })
     const data = await res.json()
-    return data.data.post
-
+    if (data.status === 404) {
+        location.href = '/pages/posts.html'
+    } else {
+        return data.data.post
+    }
 }
 
 const getUserBookmarks = async (token) => {

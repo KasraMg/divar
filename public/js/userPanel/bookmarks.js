@@ -25,10 +25,10 @@ window.addEventListener('load', () => {
                 <div class="post">
                              <div>
                                  <div>
-                                     <a class="title" href='/post.html?id=${post._id}'>${post.title}</a>
+                                     <a class="title" href='/pages/post.html?id=${post._id}'>${post.title}</a>
                                      <div>
-                                         <p>${post.price.toLocaleString()} تومان</p>
-                                         <p> ${date} در جنت‌آباد جنوبی</p>
+                                         <p>${post.price.toLocaleString()} تومان</p> 
+                                         <p>${date} در ${post.city.name} ${post.neighborhood.id !== 0 ? '، ' + post.neighborhood.name : ''}</p>
                                      </div>
                                  </div>
                                  ${post.pics.length ? (
@@ -64,7 +64,7 @@ window.addEventListener('load', () => {
         showSwal('از حذف نشان آگهی مطمئنید؟', 'success', ["خیر", "بله"], (result) => {
             if (result) {
                 loading.style.display = 'block'
-                fetch(`${baseUrl}/v1/bookmark/${postId}/xbox`, {
+                fetch(`${baseUrl}/v1/bookmark/${postId}`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -82,7 +82,7 @@ window.addEventListener('load', () => {
 
 
     window.sharePostHandler = async function (postId, postTitle) {
-        await navigator.share({ title: postTitle, url: `/post.html?id=${postId}` });
+        await navigator.share({ title: postTitle, url: `/pages/post.html?id=${postId}` });
     }
 
 })

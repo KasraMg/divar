@@ -1,20 +1,24 @@
-import { baseUrl, getToken, showSwal } from "../../../utlis/utils.js"
+import { baseUrl, getToken, getUrlParam, showSwal } from "../../../utlis/utils.js"
 
 
 window.addEventListener('load', () => {
     const token = getToken()
     const usersTable = document.querySelector('#users-table')
     const loading = document.querySelector('#loading-container')
+    let page = getUrlParam('page')
+
+    !page ? page = 1 : null
 
     const usersGenerator = async () => {
-        const res = await fetch(`${baseUrl}/v1/users`, {
+        const paginateParentElem = document.querySelector('.pagination-items')
+        const res = await fetch(`${baseUrl}/v1/users?page=${page}&limit=5`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
         })
         const data = await res.json()
-        loading.style.display = 'none'
         console.log(data);
+        loading.style.display = 'none'
         usersTable.innerHTML = ''
         usersTable.insertAdjacentHTML('beforeend', `
         <tr>
@@ -27,7 +31,7 @@ window.addEventListener('load', () => {
           </tr>       
         `
         )
-        data.data.users.reverse().map(user => (
+        data.data.users.map(user => (
             usersTable.insertAdjacentHTML('beforeend', `
       <tr>
         <td>${user.phone}</td>
@@ -39,6 +43,28 @@ window.addEventListener('load', () => {
       </tr>
         `)
         ))
+
+        paginateParentElem.innerHTML = ''
+        let paginatedCount = Math.ceil(data.data.pagination.totalUsers / 5)
+        for (let i = 1; i < paginatedCount + 1; i++) {
+            paginateParentElem.insertAdjacentHTML('beforeend', `
+            ${i === Number(page) ? `
+            <li class="active">
+            <a href="/pages/adminPanel/users.html?page=${i}">
+                     ${i}
+             </a>
+            </li>
+       `: `
+           <li>
+            <a href="/pages/adminPanel/users.html?page=${i}">
+                    ${i}
+            </a>
+            </li>
+       ` }
+          
+            
+          `)
+        }
     }
     usersGenerator()
 
