@@ -301,3 +301,25 @@ td {
     flex-direction: row-reverse;
     gap: 10px;
 }
+
+.empty p {
+    font-size: 1.5rem;
+}
+
+.empty {
+    flex-direction: column; 
+    align-items: center;
+    display: none;
+    justify-content: center;
+}
+
+.empty img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 5px;
+}
+
+.empty p {
+    display: flex;
+    gap: 5px;
+}

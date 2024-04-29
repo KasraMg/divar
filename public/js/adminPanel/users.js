@@ -1,3 +1,4 @@
+import { getMe, logout } from "../../../utlis/auth.js"
 import { baseUrl, getToken, getUrlParam, paginateItems, showSwal } from "../../../utlis/utils.js"
 
 
@@ -63,27 +64,51 @@ window.addEventListener('load', () => {
                     body: JSON.stringify(newRole)
                 }).then(res => {
                     console.log(res);
-                    if (res.status === 200) {
+                    if (res.status === 403) {
+                        showSwal('شما مجاز به تغییر سطح ادمین نیستید', 'error', 'اوکی', () => null)
+                    } else {
                         showSwal('سطح کاربر با موفقیت عوض شد', 'success', 'بله', () => null)
+                        usersGenerator()
                     }
-                    usersGenerator()
+
+
                 })
             }
         })
     }
     window.banUserHandler = (userId) => {
-        showSwal('آیا از بن کاربر اطمینان دارید؟', 'warning', ['خیر', 'بله'], (res) => {
-            if (res) {
-                fetch(`${baseUrl}/v1/users/ban/${userId}/xbox`, {
-                    method: 'POST',
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                }).then(() => {
-                    showSwal(' کاربر با موفقیت بن شد', 'success', 'بله', () => null)
-                    usersGenerator()
-                })
+        let isAdmin = false;
+        getMe().then(user => {
+            if (user._id === userId) {
+                isAdmin = true
             }
+            showSwal('آیا از بن کاربر اطمینان دارید؟', 'warning', ['خیر', 'بله'], (res) => {
+                if (res) {
+                    fetch(`${baseUrl}/v1/users/ban/${userId}/xbox`, {
+                        method: 'POST',
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                    }).then((res) => {
+                        if (res.status === 403) {
+                            showSwal('شما مجاز به حذف ادمین نیستید', 'error', 'اوکی', () => null)
+                        } else {
+                            if (isAdmin) {
+                                showSwal("با موفقیت خارج شدید", "success", "اوکی", () => {
+                                    localStorage.clear()
+                                    location.href = "/index.html";
+                                });
+
+                            } else {
+                                showSwal(' کاربر با موفقیت بن شد', 'success', 'اوکی', () => null)
+                                usersGenerator()
+                            }
+                        }
+                    })
+                }
+            })
+
         })
+
     }
 })

@@ -29,13 +29,18 @@ window.addEventListener('load', async () => {
                 </tr>
         `)
     ))
-    data.data.posts.filter(post => (
-        postsTable.insertAdjacentHTML('beforeend', `
-                 <tr> 
-                    <td>${post.title}</td>
-                    <td>09046417084</td>
-                    <td>موبایل و تبلت</td> 
-                </tr>
-        `)
-    ))
+    if (data.data.posts.length) {
+        data.data.posts.filter(post => (
+            postsTable.insertAdjacentHTML('beforeend', `
+                     <tr> 
+                        <td>${post.title}</td>
+                        <td>09046417084</td>
+                        <td>موبایل و تبلت</td> 
+                    </tr>
+            `)
+        ))
+    }else{
+        postsTable.innerHTML='<p class="empty-title">آگهی موجود نیست</p>'
+    }
+   
 })

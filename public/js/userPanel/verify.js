@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
     const token = getToken()
 
     getMe().then(data => { 
+        console.log(data);
         loading.style.display = 'none'
         if (data.verified) {
             verifyContainer.innerHTML = ''
@@ -29,7 +30,7 @@ window.addEventListener('load', () => {
 
     verifyBtn.addEventListener('click', () => {
         const NationalCodeRegexResult = NationalCodeRegex.test(verifyInput.value)
-        console.log(NationalCodeRegexResult);
+    
         if (NationalCodeRegexResult) {
             loading.style.display = 'block'
             verifyError.style.display = 'none'
@@ -41,6 +42,7 @@ window.addEventListener('load', () => {
                 },
                 body: JSON.stringify({ nationalCode: verifyInput.value })
             }).then(res => { 
+                console.log(res);
                 loading.style.display = 'none'
                 if (res.status == 400) {
                     verifyError.style.display = 'flex'

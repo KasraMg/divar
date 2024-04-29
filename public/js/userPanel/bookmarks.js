@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
         })
         const data = await res.json()
         loading.style.display = 'none'
-        postsContainer.innerHTML = ''
+        postsContainer.innerHTML = '' 
         if (data.data.posts.length) {
             data.data.posts.map(post => {
                 const date = calculateTimeDifference(post.createdAt)

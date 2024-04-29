@@ -17,7 +17,7 @@ let timer = null;
 const submitNumber = () => {
   loading.classList.add('active-login-loader')
   const phoneRegex = RegExp(/^(09)[0-9]{9}$/)
-  const phoneRegexResult = phoneRegex.test(userPhoneNumberInput.value) 
+  const phoneRegexResult = phoneRegex.test(userPhoneNumberInput.value)
   if (phoneRegexResult) {
     step1LoginFormError.innerHTML = ""
     fetch(`${baseUrl}/v1/auth/send`, {
@@ -27,10 +27,13 @@ const submitNumber = () => {
       },
       body: JSON.stringify({ phone: userPhoneNumberInput.value.trim() }),
     }).then(res => {
-       loading.classList.remove('active-login-loader')
-      if (res.status == 200) {
+      loading.classList.remove('active-login-loader')
+      if (res.status === 403) {
+        hideModal('login-modal', 'login-modal--active')
+        showSwal('این شماره مجاز به ثبت نام در سایت نیست', "error", "اوکی", () => null)
+      } else {
         loginModalContainer.classList.add('active_step_2')
-        userNumberNotice.innerHTML = userPhoneNumberInput.value 
+        userNumberNotice.innerHTML = userPhoneNumberInput.value
         requestCodeBtn.style.display = 'none'
         let count = 30
         requestBtnTimerContainer.style.display = 'flex'
@@ -53,7 +56,7 @@ const submitNumber = () => {
   }
 
 
-}; 
+};
 const verifyNumber = () => {
   loading.classList.add('active-login-loader')
   const codeRegex = RegExp(/^\d+/)
@@ -61,7 +64,7 @@ const verifyNumber = () => {
 
   if (codeRegexResult) {
     step2LoginFormError.innerHTML = ""
-    const datas = {
+    const userData = {
       phone: userPhoneNumberInput.value,
       otp: userCodeInput.value
     }
@@ -70,10 +73,10 @@ const verifyNumber = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(datas),
+      body: JSON.stringify(userData),
     }).then(res => res.json())
-      .then(data => { 
-         loading.classList.remove('active-login-loader')
+      .then(data => {
+        loading.classList.remove('active-login-loader')
         if (data.status == 400) {
           step2LoginFormError.innerHTML = "کد منقضی یا نامعتبر است"
         } else if (data.status == 201 || data.status == 200) {
@@ -86,7 +89,7 @@ const verifyNumber = () => {
     loading.classList.remove('active-login-loader')
     step2LoginFormError.innerHTML = "کد نامعتبر است"
   }
-} 
+}
 const requestNewCode = () => {
   loading.classList.add('active-login-loader')
   fetch(`${baseUrl}/v1/auth/send`, {
@@ -95,9 +98,9 @@ const requestNewCode = () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ phone: userPhoneNumberInput.value.trim() }),
-  }).then(res => { 
-     loading.classList.remove('active-login-loader')
-    if (res.status == 200) { 
+  }).then(res => {
+    loading.classList.remove('active-login-loader')
+    if (res.status == 200) {
       requestBtnTimer.textContent = '30';
       requestCodeBtn.style.display = 'none';
       requestBtnTimerContainer.style.display = 'flex';
@@ -106,7 +109,7 @@ const requestNewCode = () => {
 
       timer = setInterval(function () {
         count--;
-        requestBtnTimer.textContent = count; 
+        requestBtnTimer.textContent = count;
         if (count === 0) {
           clearInterval(timer);
           requestCodeBtn.style.display = 'block';
@@ -124,7 +127,7 @@ const logout = () => {
     (result) => {
       if (result) {
         showSwal("با موفقیت خارج شدید", "success", "اوکی", () => {
-          localStorage.removeItem("divar");
+          localStorage.clear()
           location.href = "/index.html";
           return true;
         });
@@ -145,8 +148,10 @@ const getMe = async () => {
     },
   });
   const data = await res.json();
+  if (data.status !== 404) {
+    return data.data.user;
+  }
 
-  return data.data.user;
 };
 changeNumberSpan?.addEventListener('click', () => {
   loginModalContainer.classList.remove('active_step_2')

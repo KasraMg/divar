@@ -583,9 +583,7 @@
     height: 300px;
     margin: 20px 0;
   }
-  #map .leaflet-zoom-animated {
-    height: 46px !important;
-}
+  
  .post-preview__location {
      font-size: 1.5rem;
      color:#000;

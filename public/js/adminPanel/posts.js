@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
     const postsGenerator = async () => {
         const postsTable = document.querySelector('#posts-table')
         const paginateParentElem = document.querySelector('.pagination-items')
+        const emptyContainer = document.querySelector('.empty')
         const res = await fetch(`${baseUrl}/v1/post/all?page=${page}&limit=5`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -18,36 +19,41 @@ window.addEventListener('load', () => {
         console.log(data);
         loading.style.display = 'none'
         postsTable.innerHTML = ''
-        postsTable.insertAdjacentHTML("beforeend", `
-        <tr>
-               <th>تیتر</th>
-               <th>کاربر</th>
-               <th>وضعیت</th>
-               <th>تایید</th>
-               <th>رد</th>
-               <th>خذف</th>
-           </tr>
-          ${data.data.posts.map(post => (
-            `  <tr>
-               <td>${post.title}</td>
-               <td>${post.creator.phone}</td>
-               <td>
-               ${post.status == 'published' ? (
-                `  <p class="publish">منتشر شده</p>`
-            ) : ''}
-               ${post.status == 'rejected' ? (
-                ` <p class="reject">رد شده</p>`
-            ) : ''}
-               ${post.status == 'pending' ? (
-                `<p class="pending">در صف انتشار</p>`
-            ) : ''}</td>
-               <td> ${post.status === 'published' || post.status === 'rejected' ? '❌' : `<button  onclick="acceptPostHandler('${post._id}')" class="edit-btn">تایید</button>`}</td>
-               <td> ${post.status === 'published' || post.status === 'rejected' ? '❌' : `<button  onclick="rejectPostHandler('${post._id}')" class="edit-btn">رد </button>`}</td>
-               <td><button class="delete-btn" onclick="deletePostHandler('${post._id}')">حذف</button></td>
-           </tr>
-           `
-        )).join('')}
-        `) 
+        if (data.data.posts.length) {
+            postsTable.insertAdjacentHTML("beforeend", `
+            <tr>
+                   <th>تیتر</th>
+                   <th>کاربر</th>
+                   <th>وضعیت</th>
+                   <th>تایید</th>
+                   <th>رد</th>
+                   <th>خذف</th>
+               </tr>
+              ${data.data.posts.map(post => (
+                `  <tr>
+                   <td>${post.title}</td>
+                   <td>${post.creator.phone}</td>
+                   <td>
+                   ${post.status == 'published' ? (
+                    `  <p class="publish">منتشر شده</p>`
+                ) : ''}
+                   ${post.status == 'rejected' ? (
+                    ` <p class="reject">رد شده</p>`
+                ) : ''}
+                   ${post.status == 'pending' ? (
+                    `<p class="pending">در صف انتشار</p>`
+                ) : ''}</td>
+                   <td> ${post.status === 'published' || post.status === 'rejected' ? '❌' : `<button  onclick="acceptPostHandler('${post._id}')" class="edit-btn">تایید</button>`}</td>
+                   <td> ${post.status === 'published' || post.status === 'rejected' ? '❌' : `<button  onclick="rejectPostHandler('${post._id}')" class="edit-btn">رد </button>`}</td>
+                   <td><button class="delete-btn" onclick="deletePostHandler('${post._id}')">حذف</button></td>
+               </tr>
+               `
+            )).join('')}
+            `) 
+        }else{
+            emptyContainer.style.display = 'flex'
+        }
+       
         paginateItems('/pages/adminPanel/posts.html', paginateParentElem, page, data.data.pagination.totalPosts, 5)
     }
     postsGenerator()

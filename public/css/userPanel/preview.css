@@ -281,11 +281,7 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
-
-#edit-map .leaflet-zoom-animated {
-    height: 46px !important;
-}
+ 
 
 .uploader span {
     font-size: 12px;

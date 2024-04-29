@@ -165,8 +165,7 @@ window.addEventListener('load', async () => {
             const categoryInfoes = categories.filter(category => category._id == categoryId);
             if (!categoryInfoes.length) {
                 const subCategory = findSubCategoryById(categories, categoryId);
-                if (subCategory) {
-                    console.log(subCategory.filters);
+                if (subCategory) { 
                     subCategory.filters.map(filter => {
                         filtersGenerator(filter)
                     })
@@ -190,8 +189,7 @@ window.addEventListener('load', async () => {
                 else {
                     let filteredObjects = null;
                     function findObjects(categoryObj, categoryId) {
-                        if (categoryObj._id === categoryId) {
-                            console.log(categoryObj);
+                        if (categoryObj._id === categoryId) { 
                             filteredObjects = categoryObj
                         }
                         if (categoryObj.subCategories) {
@@ -199,11 +197,8 @@ window.addEventListener('load', async () => {
                         }
                     }
 
-                    categories.forEach(categoryObj => findObjects(categoryObj, categoryId));
-                     console.log(categories);
-                    const subCategory = findSubCategoryById(categories, filteredObjects.parent);
-                    console.log(filteredObjects);
-                    console.log(subCategory);
+                    categories.forEach(categoryObj => findObjects(categoryObj, categoryId)); 
+                    const subCategory = findSubCategoryById(categories, filteredObjects.parent); 
                     filteredObjects.filters.map(filter => {
                         filtersGenerator(filter)
                     })
@@ -224,8 +219,7 @@ window.addEventListener('load', async () => {
                     </div>
                 `);
                 }
-            } else {
-                console.log(categoryInfoes[0]);
+            } else { 
                 categoryInfoes[0].filters?.map(filter => {
                     filtersGenerator(filter)
                 })
@@ -264,8 +258,7 @@ window.addEventListener('load', async () => {
     });
 
     // Fetch and show posts
-    getAndShowPosts(cityIds).then(data => {
-        console.log(data);
+    getAndShowPosts(cityIds).then(data => { 
         posts = data;
         backupPosts = data;
         generatePosts(posts);

@@ -111,7 +111,10 @@ button {
     display: flex;
     align-items: center;
 }
-
+.header_dropdown-item_account div p,.header_dropdown-item_account div span{
+  font-size: 1.2rem !important;
+  color: #000000d9;
+}
 .header__logo-img {
     width: 4.8rem;
     height: 4.8rem;
@@ -417,7 +420,11 @@ padding: 0 !important;
 .header_dropdown-item_account  .header__left-dropdown-link{
   padding-bottom: 1rem;
   padding-top: 1rem;
-  align-items: flex-start;
+  align-items:baseline;
+}
+.header_dropdown-item_account i{
+  position: relative;
+  top: 3px;
 }
 .header__left-dropdown-item p:last-child{
   border: 0; 
@@ -1057,7 +1064,9 @@ display: block !important;
 .swal-footer{
   text-align: center;
 }
-
+.swal-button{
+  font-family: "iransans-medium" !important;
+}
   /* !=======================================Loading!======================================= */
   #loading {
     margin: 0 auto;
