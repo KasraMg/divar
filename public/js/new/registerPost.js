@@ -121,10 +121,12 @@ window.addEventListener('load', async () => {
     }
 
     subCategoryDetails.productFields.forEach(item => {
+       console.log(item);
+       console.log(dynamicFieldsData);
         if (item.type == 'checkbox') {
             dynamicFieldsData[item.slug] = false;
         } else {
-            dynamicFieldsData[item.slug] = item.data;
+            dynamicFieldsData[item.slug] = null;
         }
     });
 

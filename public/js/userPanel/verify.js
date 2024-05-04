@@ -11,15 +11,22 @@ window.addEventListener('load', () => {
     const loading = document.querySelector('#loading-container')
     const token = getToken()
 
-    getMe().then(data => { 
+    getMe().then(data => {
         console.log(data);
         loading.style.display = 'none'
         if (data.verified) {
-            verifyContainer.innerHTML = ''
+            verifyContainer.innerHTML = '' 
+            const gregorianDate = new Date(data.verificationTime);
+            const persianMonths = [
+                'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+                'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+            ];
+            const year= gregorianDate.getFullYear() - 621;
+            const month = persianMonths[gregorianDate.getMonth() - 2] 
             verifyContainer.insertAdjacentHTML('beforeend', `
             <div class="verified">
             <p>تأیید هویت شده</p>
-            <span>تأیید هویت شما در فروردین ۱۴۰۳ از طریق کد ملی انجام شد.</span>  
+            <span>تأیید هویت شما در ${month} ${year} از طریق کد ملی انجام شد.</span>  
             <img width="100" height="100" src="https://img.icons8.com/ios/100/approval--v1.png" alt="approval--v1"/>
             </div>
                 `)
@@ -30,7 +37,7 @@ window.addEventListener('load', () => {
 
     verifyBtn.addEventListener('click', () => {
         const NationalCodeRegexResult = NationalCodeRegex.test(verifyInput.value)
-    
+
         if (NationalCodeRegexResult) {
             loading.style.display = 'block'
             verifyError.style.display = 'none'
@@ -41,7 +48,7 @@ window.addEventListener('load', () => {
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({ nationalCode: verifyInput.value })
-            }).then(res => { 
+            }).then(res => {
                 console.log(res);
                 loading.style.display = 'none'
                 if (res.status == 400) {

@@ -115,13 +115,13 @@ window.addEventListener('load', () => {
                 body: formData
             })
             const data = await res.json()
-            if (data.status === 201) {
-                socialsGenerator()
+            if (data.status === 201) { 
                 showSwal('شبکه اجتماعی با موفقیت اضافه شد', 'success', 'اوکی', () => {
                     titleInput.value = ''
                     linkInput.value = ''
                     iconInput.value = ''
                 })
+                socialsGenerator()
             }
         } else {
             showSwal( 'لطفا همه فیلدا رو وارد کنید', 'error', 'اوکی', () => null)
