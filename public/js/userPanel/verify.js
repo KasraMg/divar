@@ -15,18 +15,19 @@ window.addEventListener('load', () => {
         console.log(data);
         loading.style.display = 'none'
         if (data.verified) {
-            verifyContainer.innerHTML = '' 
+            verifyContainer.innerHTML = ''
             const gregorianDate = new Date(data.verificationTime);
             const persianMonths = [
                 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
                 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
             ];
-            const year= gregorianDate.getFullYear() - 621;
-            const month = persianMonths[gregorianDate.getMonth() - 2] 
+            const year = gregorianDate.getFullYear();
+            console.log(data.verificationTime);
+            const month = persianMonths[gregorianDate.getMonth() - 3]
             verifyContainer.insertAdjacentHTML('beforeend', `
             <div class="verified">
             <p>تأیید هویت شده</p>
-            <span>تأیید هویت شما در ${month} ${year} از طریق کد ملی انجام شد.</span>  
+            <span>تأیید هویت شما در ${month} ۱۴۰۳ از طریق کد ملی انجام شد.</span>  
             <img width="100" height="100" src="https://img.icons8.com/ios/100/approval--v1.png" alt="approval--v1"/>
             </div>
                 `)
@@ -54,12 +55,20 @@ window.addEventListener('load', () => {
                 if (res.status == 400) {
                     verifyError.style.display = 'flex'
                 } else if (res.status == 200) {
+                    const gregorianDate = new Date(data.verificationTime);
+                    const persianMonths = [
+                        'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+                        'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+                    ];
+                    const year = gregorianDate.getFullYear();
+                    console.log(data.verificationTime);
+                    const month = persianMonths[gregorianDate.getMonth() - 3]
                     verifyError.style.display = 'none'
                     verifyContainer.innerHTML = ""
                     verifyContainer.insertAdjacentHTML('beforeend', `
                 <div class="verified">
                 <p>تأیید هویت شده</p>
-                <span>تأیید هویت شما در فروردین ۱۴۰۳ از طریق کد ملی انجام شد.</span>  
+                <span>تأیید هویت شما در ${month} ۱۴۰۳ از طریق کد ملی انجام شد.</span>  
                 <img width="100" height="100" src="https://img.icons8.com/ios/100/approval--v1.png" alt="approval--v1"/>
                 </div>
                     `)

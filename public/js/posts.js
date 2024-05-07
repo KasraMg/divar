@@ -109,6 +109,7 @@ window.addEventListener('load', async () => {
     };
 
     const filtersGenerator = (filter) => {
+        console.log(filter);
         const sidebarFilters = document.querySelector('#sidebar-filters')
         sidebarFilters.insertAdjacentHTML("beforebegin", `
         ${filter.type == 'checkbox' ? (

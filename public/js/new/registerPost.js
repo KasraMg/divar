@@ -195,6 +195,7 @@ window.addEventListener('load', async () => {
         citySelectbox.addEventListener(
             'addItem',
             function (event) {
+                console.log(event)
                 neighborhoodChoices.clearStore(); // پاک کردن مقادیر قبلی
                 const neighborhoods = data.neighborhoods.filter(
                     neighborhood => neighborhood.city_id == event.detail.customProperties.id
@@ -222,16 +223,15 @@ window.addEventListener('load', async () => {
     })
 
     registerBtn.addEventListener('click', () => {
-        let allFieldsFilled = null;
+        let allFieldsFilled = true;
+
         for (const key in dynamicFieldsData) {
-            if (dynamicFieldsData.hasOwnProperty(key) && (typeof dynamicFieldsData[key] === 'undefined' || dynamicFieldsData[key] === '')) {
+            if (dynamicFieldsData.hasOwnProperty(key) && (typeof dynamicFieldsData[key] === 'undefined' || dynamicFieldsData[key] === '' || dynamicFieldsData[key] === null)) {
                 allFieldsFilled = false;
                 break;
-            } else {
-                allFieldsFilled = true;
-                break;
-            }
-        }
+            } 
+        } 
+        
         if (neighborhoodSelectbox.value === 'default' || !allFieldsFilled || !postTitleInput.value.length || !postDescriptionInput.value.length || !postPriceInput.value.length) {
             showSwal('لطفا همه فیلد هارو پر کنید', 'error', 'حله', () => null)
         } else {
