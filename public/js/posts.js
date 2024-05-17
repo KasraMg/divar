@@ -103,7 +103,7 @@ window.addEventListener('load', async () => {
     };
 
     // Function to handle selectbox filter
-    window.selectboxFilterHandler = function (value, slug) {
+    window.selectboxFilterHandler = function (value, slug) { 
         appliedFilters[slug] = value;
         applyFilters();
     };
@@ -115,7 +115,7 @@ window.addEventListener('load', async () => {
         ${filter.type == 'checkbox' ? (
                 `  <div class="sidebar__filter">
            <label class="switch">  
-           <input id="exchange_controll" class="icon-controll" type="checkbox">
+           <input  onchange="selectboxFilterHandler(event.target.checked,'${filter.slug}')" id="exchange_controll" class="icon-controll" type="checkbox">
                <span class="slider round"></span>
              </label>
              <p>${filter.name}</p>
