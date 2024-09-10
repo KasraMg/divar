@@ -1,7 +1,8 @@
 import { getAndShowPostCategories, getAndShowPosts } from "../../utlis/shared.js";
-import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, baseUrl, calculateTimeDifference } from "../../utlis/utils.js";
+import { addParamToUrl, getFromLocalStorage, getUrlParam, removeParameterFromURL, baseUrl, calculateTimeDifference, paginateItems } from "../../utlis/utils.js";
 
 window.addEventListener('load', async () => {
+    const paginateParentElem = document.querySelector('.pagination-items')
     const categoryId = getUrlParam('categoryId');
     const cityParam = getUrlParam('city');
     const searchValue = getUrlParam('value');
@@ -11,7 +12,8 @@ window.addEventListener('load', async () => {
     let posts = null;
     let backupPosts = null;
     let appliedFilters = {};
-
+    let page = getUrlParam('page')
+    !page ? page = 1 : null
 
     const removeSearchValueIcon = document.querySelector('#remove-search-value-icon')
 
@@ -46,8 +48,7 @@ window.addEventListener('load', async () => {
         if (posts) {
             filteredPosts = posts;
         }
-
-        // اعمال فیلترهای استاتیک
+ 
         for (const slug in appliedFilters) {
             filteredPosts = filteredPosts.filter(post => post.dynamicFields.some(fields => fields.slug === slug && fields.data === appliedFilters[slug]));
         }
@@ -61,7 +62,7 @@ window.addEventListener('load', async () => {
             } else {
                 filteredPosts = filteredPosts.filter(post => post.price <= maxPrice);
             }
-        } else {
+        } else { 
             if (minPrice !== 'default') {
                 filteredPosts = filteredPosts.filter(post => post.price >= minPrice);
             }
@@ -80,8 +81,7 @@ window.addEventListener('load', async () => {
         const allSubCategories = categories.flatMap(category => category.subCategories);
         return allSubCategories.find(subCategory => subCategory._id === categoryId);
     }
-
-    // Function to create HTML for subcategories
+ 
     function createSubCategoryHTML(subCategory) {
         return `
             <li class="${categoryId == subCategory._id ? 'active-subCategory' : ''}" 
@@ -90,19 +90,16 @@ window.addEventListener('load', async () => {
             </li>
         `;
     }
-
-    // Function to handle click on category item
+ 
     window.categoryItemClickHandler = (categoryId) => {
         addParamToUrl('categoryId', categoryId);
     };
-
-    // Function to handle back to all categories
+ 
     window.backToAllCategories = () => {
         removeParameterFromURL('categoryId');
         location.reload();
     };
-
-    // Function to handle selectbox filter
+ 
     window.selectboxFilterHandler = function (value, slug) { 
         appliedFilters[slug] = value;
         applyFilters();
@@ -146,18 +143,15 @@ window.addEventListener('load', async () => {
             ) : ''}
            `)
     }
-
-    // Fetch and show post categories
+  
     getAndShowPostCategories().then(categories => {
         const categoriesContainer = document.querySelector('#categories-container');
-        loading.style.display = 'none'
-        // تابعی برای بازگشت به تمام دسته‌بندی‌ها
+        loading.style.display = 'none'       
         window.backToAllCategories = () => {
             removeParameterFromURL('categoryId');
             location.reload();
         };
-
-        // تابعی برای ست کردن ایدی کتگوری یا ساب کتگوری در url
+ 
         window.categoryItemClickHandler = (categoryId) => {
             addParamToUrl('categoryId', categoryId);
         };
@@ -257,16 +251,15 @@ window.addEventListener('load', async () => {
             });
         }
     });
-
-    // Fetch and show posts
-    getAndShowPosts(cityIds).then(data => { 
-        posts = data;
-        backupPosts = data;
+ 
+    getAndShowPosts(cityIds,page).then(data => {  
+        paginateItems('/pages/posts.html', paginateParentElem, page, data.data.pagination.totalPosts, 9)
+        posts = data.data.posts;
+        backupPosts = data.data.posts;
         generatePosts(posts);
     });
 
-
-    // Function to generate HTML for posts
+ 
     const generatePosts = (posts) => {
         const postsContainer = document.querySelector('#posts-container');
         postsContainer.innerHTML = '';
@@ -307,25 +300,20 @@ window.addEventListener('load', async () => {
             `);
         }
     };
-
-
-    // Event listener for min price selectbox
+ 
     minPriceSelectbox.addEventListener('change', event => {
         applyFilters(posts)
     });
-
-    // Event listener for max price selectbox
+ 
     maxPriceSelectbox.addEventListener('change', event => {
         applyFilters(posts)
     });
 
-
-    // Event listener for just photo control
+ 
     justPhotoControllBtn.addEventListener('click', () => {
         applyFilters(posts)
     });
-
-    // Event listener for exchange control
+ 
     exchangeControllBtn.addEventListener('click', () => {
         applyFilters(posts)
     });

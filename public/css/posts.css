@@ -487,6 +487,7 @@ display: block !important;
 .product-card__img {
     border-radius: 0.3rem;
     width: 136px;
+    min-width: 136px;
     height: 136px;
 }
 .product-card__icon {
@@ -508,4 +509,34 @@ display: block !important;
 /* ==========End Main Products========== */
 
 /* !=======================================End Main Style!======================================= */
+.pagination-items .active a{
+    color: white;
+}
+.pagination-items .active {
+    color: #ffffff;
+    background-color: #a62626;
+}
+
  
+.pagination-items li a{
+    color: #a62626; 
+    padding: 0 1rem ;
+    margin-top: .4rem;
+    display: block;
+}
+.pagination-items li {
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+    color: #a62626;
+    height: 30px; 
+    font-size: 1.5rem;
+}
+
+.pagination-items {
+    display: flex;
+    margin-top: 4rem;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: 10px;
+}

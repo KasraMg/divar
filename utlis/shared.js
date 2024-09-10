@@ -135,11 +135,11 @@ const getAndShowArticleCategories = async () => {
   return categories;
 };
 
-const getAndShowPosts = async (cityIds) => {
+const getAndShowPosts = async (cityIds,page) => {
   const categoryId = getUrlParam("categoryId");
   const searchValue = getUrlParam("value");
 
-  let url = `${baseUrl}/v1/post/?city=${cityIds}`;
+  let url = `${baseUrl}/v1/post/?city=${cityIds}&page=${page}&limit=9`;
   if (categoryId) {
     url += `&categoryId=${categoryId};`;
   }
@@ -148,7 +148,7 @@ const getAndShowPosts = async (cityIds) => {
   }
   const res = await fetch(url);
   const data = await res.json();
-  return data.data.posts;
+  return data;
 };
 
 const getAllCitiesHandler = async () => {

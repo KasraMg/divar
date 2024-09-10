@@ -121,8 +121,8 @@ window.addEventListener('load', async () => {
     }
 
     subCategoryDetails.productFields.forEach(item => {
-       console.log(item);
-       console.log(dynamicFieldsData);
+        console.log(item);
+        console.log(dynamicFieldsData);
         if (item.type == 'checkbox') {
             dynamicFieldsData[item.slug] = false;
         } else {
@@ -167,7 +167,6 @@ window.addEventListener('load', async () => {
         ganerateImages(pics)
     }
 
-    // city selector handler
     getAllCitiesHandler().then(data => {
         loading.style.display = 'none'
         const cityChoices = new Choices(citySelectbox);
@@ -229,9 +228,9 @@ window.addEventListener('load', async () => {
             if (dynamicFieldsData.hasOwnProperty(key) && (typeof dynamicFieldsData[key] === 'undefined' || dynamicFieldsData[key] === '' || dynamicFieldsData[key] === null)) {
                 allFieldsFilled = false;
                 break;
-            } 
-        } 
-        
+            }
+        }
+
         if (neighborhoodSelectbox.value === 'default' || !allFieldsFilled || !postTitleInput.value.length || !postDescriptionInput.value.length || !postPriceInput.value.length) {
             showSwal('لطفا همه فیلد هارو پر کنید', 'error', 'حله', () => null)
         } else {
